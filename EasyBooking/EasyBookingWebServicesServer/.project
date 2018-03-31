@@ -40,5 +40,10 @@
 			<type>1</type>
 			<location>C:/Users/Cristian/Desktop/sqlite-jdbc-3.7.2.jar</location>
 		</link>
+		<link>
+			<name>src/main/webapp/WEB-INF/lib/testdb.db</name>
+			<type>1</type>
+			<location>C:/Users/Cristian/git/EasyBooking/EasyBooking/EasyBookingWebServicesServer/src/main/java/org/EasyBookingWebServicesServer/testdb.db</location>
+		</link>
 	</linkedResources>
 </projectDescription>

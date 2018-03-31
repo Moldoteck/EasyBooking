@@ -1,5 +1,8 @@
 package project.webservices.db;
 
+import java.io.File;
+import java.io.IOException;
+import java.net.URL;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -9,6 +12,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
+
+import org.EasyBookingWebServicesServer.MyResource;
 
 import project.core.User;
 import project.core.UserDAO;
@@ -49,11 +54,19 @@ public class ListUserDAO implements UserDAO {
 			e.printStackTrace();
 		}
 		try {
-			conn = DriverManager.getConnection("jdbc:sqlite:C:\\sqlite\\testdb.db");
+			
+			System.out.println( new File(".").getCanonicalPath().toString());
+			URL path = MyResource.class.getResource("testdb.db");
+			File f = new File(path.getFile());
+			conn = DriverManager.getConnection("jdbc:sqlite:"+f.getAbsolutePath());
+			System.out.println(path);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 
 			System.out.println("BIG Problem!!!");
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		System.out.println("Baza Conectata!");
