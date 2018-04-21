@@ -56,7 +56,7 @@ table, th, td {
 	%>
 		<br>
 	<% 
-		out.println("username: "+userId);
+		out.println("username: "+(String) session.getAttribute("userId"));
 	%>
 		<br>
 		<form action="index.html" method="post">
@@ -67,7 +67,7 @@ table, th, td {
 	%>
 	<div style="text-align:center;  border: 2px solid #0f4159; width:35%; margin:auto;">
 		<h1 style="text-align:center;"> Log In </h1>
-		<form action="index.html" method="get" style="text-align:center;">
+		<form action="TestServlet" method="post" style="text-align:center;">
 			<input type="text" id="user" name="username" placeholder="username"/>
 			<br><br>
 			<input type="password" id="pass" name="pass" placeholder="password"/>
