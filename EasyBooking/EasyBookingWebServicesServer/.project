@@ -38,7 +38,7 @@
 		<link>
 			<name>src/main/webapp/WEB-INF/lib/sqlite-jdbc-3.7.2.jar</name>
 			<type>1</type>
-			<location>C:/Users/Cristian/Desktop/sqlite-jdbc-3.7.2.jar</location>
+			<location>C:/sqlite/sqlite-jdbc-3.7.2.jar</location>
 		</link>
 	</linkedResources>
 </projectDescription>
