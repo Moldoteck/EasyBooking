@@ -36,9 +36,18 @@
 	</natures>
 	<linkedResources>
 		<link>
+			<name>sqlite-jdbc-3.7.2.jar</name>
+			<type>1</type>
+			<location>C:/Users/carme_000/Documents/AN III/Semestrul II/TI P/Proiect/sqlite-jdbc-3.7.2.jar</location>
+		</link>
+		<link>
 			<name>src/main/webapp/WEB-INF/lib/sqlite-jdbc-3.7.2.jar</name>
 			<type>1</type>
+<<<<<<< HEAD
 			<location>C:/sqlite/sqlite-jdbc-3.7.2.jar</location>
+=======
+			<location>C:/Users/carme_000/Documents/AN III/Semestrul II/TI P/Proiect/sqlite-jdbc-3.7.2.jar</location>
+>>>>>>> Login_JSP
 		</link>
 	</linkedResources>
 </projectDescription>

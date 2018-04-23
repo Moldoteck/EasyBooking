@@ -160,9 +160,11 @@ public class ListUserDAO implements UserDAO {
 		}
 		try {
 			statmt.execute("INSERT INTO 'users' ('username', 'password') VALUES ('"+user.getUsername()+"', '"+user.getPassword()+"'); ");
+			return true;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			return false;
 		}
 		//if (user.getUsername() != User.MISSING_ID) {
 		// if the book is already in the db
@@ -176,7 +178,7 @@ public class ListUserDAO implements UserDAO {
             book.setId(nextId++);
         }*/
 		//books.add(book);
-		return true;
+		//return true;
 	}
 
 	/*
