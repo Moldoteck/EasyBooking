@@ -179,7 +179,7 @@ public class TestServlet extends HttpServlet {
 		String temp=responser.readEntity(String.class);
 		if(temp.equals("true"))
 		{
-			session.setAttribute("userId", "Numeprenume"+request.getParameter("username")+temp);
+			session.setAttribute("userId", request.getParameter("username"));
 			//redirectare
 			request.getRequestDispatcher("index.jsp").forward(request, response);
 		}
