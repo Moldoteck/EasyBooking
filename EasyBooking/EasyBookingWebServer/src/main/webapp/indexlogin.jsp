@@ -45,7 +45,7 @@
 	<%
 	}else{
 	%>
-	<form action="http://localhost:8080/EasyBookingWebServer/TestServlet"
+	<form action="TestServlet"
 		method="post" enctype="multipart/form-data">
 		<div class="svgContainer">
 			<div>
@@ -195,8 +195,8 @@
 		</div>
 
 		<div class="inputGroup inputGroup1">
-			<label for="email1">Email</label> <input type="text" id="email" name="email"
-				class="email" maxlength="256" />
+			<label for="username1">Email</label> <input type="text" id="username" name="username"
+				class="username" maxlength="256" />
 			<span class="indicator"></span>
 		</div>
 		<div class="inputGroup inputGroup2">
@@ -204,7 +204,7 @@
 				id="password" class="password" />
 		</div>
 		<div class="inputGroup inputGroup3">
-			<button id="login">Logd in</button>
+			<button id="login">Log in</button>
 		</div>
 	</form>
 	
