@@ -208,6 +208,15 @@
 			<label for="password">Password</label> <input type="password"
 				id="password" class="password" />
 		</div>
+		<%
+			if(session.getAttribute("login_error")!=null){
+		%>
+		<p style="color:red;"><em>
+		<% out.print(session.getAttribute("login_error"));%>
+		</em></p>
+		<%
+			}
+		%>
 		<div class="inputGroup inputGroup3">
 			<button id="login">Log in</button>
 		</div>
