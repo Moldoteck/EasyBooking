@@ -111,7 +111,7 @@ public class ListUserDAO implements UserDAO {
 	@Override
 	public boolean findUser(String username, String password) throws SQLException{
 		List<User> users  = Collections.synchronizedList(new ArrayList<>());
-		boolean value= false;
+		//boolean value= false;
 		statmt=conn.createStatement();
 		try{
 			resSet = statmt.executeQuery("SELECT * FROM users");
@@ -160,10 +160,13 @@ public class ListUserDAO implements UserDAO {
 		}
 		try {
 			statmt.execute("INSERT INTO 'users' ('username', 'password') VALUES ('"+user.getUsername()+"', '"+user.getPassword()+"'); ");
+			return true;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			return false;
 		}
+		//delete
 		//if (user.getUsername() != User.MISSING_ID) {
 		// if the book is already in the db
 		/* if (findUserById(book.getId()) != null) {
@@ -176,7 +179,6 @@ public class ListUserDAO implements UserDAO {
             book.setId(nextId++);
         }*/
 		//books.add(book);
-		return true;
 	}
 
 	/*
