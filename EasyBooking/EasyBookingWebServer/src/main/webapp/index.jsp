@@ -1,83 +1,48 @@
-<%@page import="java.util.Date"%>
-<%@page import="java.text.DecimalFormat"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta charset="utf-8">
-<title>Log In</title>
-<style>
-table, th, td {
-    border: 1px solid #333;
-    border-collapse: collapse;
-    text-align: right;
-    padding: 3px;
-}
-.section1{
-	text-align:center;
-	float:center;
-	width:80%;
-	margin:10px;
-	padding:5px 5px;
-	position:relative;
-	left:100px;
-}
-</style>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<link rel="stylesheet" type="text/css" href="css/style.css" rel="stylesheet">
+<title>Easy Booking</title>
 </head>
 <body>
-
 <%
-		String userId = null;
-		
-		// Verifică dacă este o sesiune nouă
-		// Dacă este prima dată de la deschiderea browser-ului când se accesează pagina
-		if (session.isNew()){
-		   session.setAttribute("userId", userId);
-		}
+	String userId = null;
 
-		// Verifică dacă a fost făcută o cerere prin GET sau POST de schimbare a numelui utilizatorului
-		String username = request.getParameter("username");
-		if (username != null) {
-		    session.setAttribute("userId", username);
-		}
-		userId = (String) session.getAttribute("userId");
-	%> 
-<section class="section1">
-	<%--
-	după ce introduci datele de logare când dai click pe login să se ducă la servlet. 
-	Acolo verifici dacă username-ul și parola sunt corecte și dacă sunt redirectezi 
-	spre pagina de detalii user, dacă nu, redirectezi spre pagina de login
-	 --%>
-	 <%--Mă gândesc să facem și pagina de Sign Up, așa am avea și al treilea task --%>
-	<br>
-	<%
+	// Verifică dacă este o sesiune nouă
+	// Dacă este prima dată de la deschiderea browser-ului când se accesează pagina
+	if (session.isNew()) {
+		session.setAttribute("userId", userId);
+	}
+
+	// Verifică dacă a fost făcută o cerere prin GET sau POST de schimbare a numelui utilizatorului
+	String username = request.getParameter("uname");
+	if (username != null) {
+		session.setAttribute("userId", username);
+	}
+	userId = (String) session.getAttribute("userId");
+	
 	if(userId!=null){
-		out.println("You are Already Logged In");
-	%>
+%>
 		<br>
-	<% 
-		out.println("username: "+userId);
-	%>
-		<br>
-		<form action="index.html" method="post">
-		<input type="Submit" value="Log Out" onclick="<%session.invalidate();%>"/>
+		<form action="index.jsp" method="post">
+			<label for="logout">Hi, <%out.println(userId);%></label>
+		<div class="inputGroup inputGroup3">
+			<button id="logout" onclick="<%session.invalidate();%>">Log out</button>
+		</div>
 		</form>
-	<%
-	}else{
-	%>
-	<div style="text-align:center;  border: 2px solid #0f4159; width:35%; margin:auto;">
-		<h1 style="text-align:center;"> Log In </h1>
-		<form action="index.html" method="get" style="text-align:center;">
-			<input type="text" id="user" name="username" placeholder="username"/>
-			<br><br>
-			<input type="password" id="pass" name="pass" placeholder="password"/>
-			<br><br>
-			<input type="Submit" value="Log In"/>
-			<br><br>
-		</form>
-	</div>
-	<%} 
-	%>
-</section>
+<%
+	}
+	else{
+%>
+	<form action="login.jsp" method="get">
+		<div class="inputGroup inputGroup3">
+			<button id="login">Log in</button>
+		</div>
+	</form>
+<%	} 
+%>
 </body>
 </html>
