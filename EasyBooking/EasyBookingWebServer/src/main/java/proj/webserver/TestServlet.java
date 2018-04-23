@@ -188,11 +188,7 @@ public class TestServlet extends HttpServlet {
 			session.setAttribute("userId", null);
 			//redirectare
 			session.setAttribute("login_error","authentication error");
-<<<<<<< HEAD
-			request.getRequestDispatcher("indexlogin.jsp").forward(request, response);
-=======
 			request.getRequestDispatcher("login.jsp").forward(request, response);
->>>>>>> Login_JSP
 		}
 
 		//doGet(request, response);

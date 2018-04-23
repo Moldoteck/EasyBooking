@@ -136,7 +136,7 @@ form .inputGroup1 .helper1 {
   transition: transform .2s ease-out, opacity .2s linear;
 }
 form .inputGroup1.focusWithText .helper {
-  /*input[type='email']:focus + .helper {*/
+  /*input[type='username']:focus + .helper {*/
   transform: translate(1.4em, 2em) scale(0.65);
   opacity: 1;
 }
