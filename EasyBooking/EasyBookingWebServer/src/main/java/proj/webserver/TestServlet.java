@@ -187,7 +187,7 @@ public class TestServlet extends HttpServlet {
 		{
 			session.setAttribute("userId", null);
 			//redirectare
-			session.setAttribute("login_error","authentification error");
+			session.setAttribute("login_error","authentication error");
 			request.getRequestDispatcher("login.jsp").forward(request, response);
 		}
 
