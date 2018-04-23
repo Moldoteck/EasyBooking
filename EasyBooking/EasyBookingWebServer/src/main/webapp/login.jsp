@@ -5,48 +5,16 @@
 <!DOCTYPE html>
 <html>
 <head>
-<link rel="stylesheet" type="text/css" href="style.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="css/style.css" rel="stylesheet">
 
-<link rel="stylesheet" type="text/css"
-	href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700"
-	rel="stylesheet">
-<script type="text/javascript"
-	src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.20.3/TweenMax.min.js"></script>
-<script type="text/javascript" src="externalscript.js"></script>
+<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700" rel="stylesheet">
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.20.3/TweenMax.min.js"></script>
+<script type="text/javascript" src="js/externalscript.js"></script>
 
 <meta charset="UTF-8">
 </head>
 <body>
-	<%
-		String userId = null;
-
-		// Verifică dacă este o sesiune nouă
-		// Dacă este prima dată de la deschiderea browser-ului când se accesează pagina
-		if (session.isNew()) {
-			session.setAttribute("userId", userId);
-		}
-
-		// Verifică dacă a fost făcută o cerere prin GET sau POST de schimbare a numelui utilizatorului
-		//String username = request.getParameter("username");
-		
-		userId = (String) session.getAttribute("userId");
-	
-	if(userId!=null){
-		out.println("You are Already Logged In");
-	%>
-		<br>
-	<% 
-		out.println("username: "+userId);
-	%>
-		<br>
-		<form action="index.html" method="post">
-		<input type="Submit" value="Log Out" onclick="<%session.invalidate();%>"/>
-		</form>
-	<%
-	}else{
-	%>
-	<form action="http://localhost:8080/EasyBookingWebServer/TestServlet"
-		method="post" enctype="multipart/form-data">
+	<form action="TestServlet" method="post" enctype="multipart/form-data">
 		<div class="svgContainer">
 			<div>
 				<svg class="mySVG" xmlns="http://www.w3.org/2000/svg"
@@ -195,21 +163,33 @@
 		</div>
 
 		<div class="inputGroup inputGroup1">
-			<label for="email1">Email</label> <input type="text" id="email" name="email"
-				class="email" maxlength="256" />
+			<label for="username1">Username</label> <input type="text" id="username"
+				class="username" maxlength="256" name="username"/>
 			<span class="indicator"></span>
 		</div>
 		<div class="inputGroup inputGroup2">
-			<label for="password">Password</label> <input type="password" name="password"
-				id="password" class="password" />
+			<label for="password">Password</label> <input type="password"
+				id="password" class="password" name="password"/>
 		</div>
+		<%
+			if(session.getAttribute("login_error")!=null){
+		%>
+		<p style="color:red;"><em>
+		<% out.print(session.getAttribute("login_error"));%>
+		</em></p>
+		<%
+			}
+		%>
 		<div class="inputGroup inputGroup3">
-			<button id="login">Logd in</button>
+			<button id="login">Log in</button>
+		</div>
+		<br>
+		<p><em>You don't have an account?</em></p>
+		<div class="inputGroup inputGroup4">
+			<button id="signin">Sign in</button>
 		</div>
 	</form>
 	
-	<%} 
-	%>
-	<script type="text/javascript" src="script.js"></script>
+	<script type="text/javascript" src="js/script.js"></script>
 </body>
 </html>

@@ -1,4 +1,4 @@
-var email = document.querySelector('#email'), 
+var username = document.querySelector('#username'), 
 password = document.querySelector('#password'), 
 mySVG = document.querySelector('.svgContainer'), 
 armL = document.querySelector('.armL'), 
@@ -23,32 +23,32 @@ outerEarR = document.querySelector('.earR .outerEar'),
 earHairL = document.querySelector('.earL .earHair'), 
 earHairR = document.querySelector('.earR .earHair'), 
 hair = document.querySelector('.hair');
-var caretPos, curEmailIndex, screenCenter, svgCoords, eyeMaxHorizD = 20, eyeMaxVertD = 10, noseMaxHorizD = 23, noseMaxVertD = 10, dFromC, eyeDistH, 
+var caretPos, curusernameIndex, screenCenter, svgCoords, eyeMaxHorizD = 20, eyeMaxVertD = 10, noseMaxHorizD = 23, noseMaxVertD = 10, dFromC, eyeDistH, 
 eyeLDistV, eyeRDistV, eyeDistR, mouthStatus = "small";
 
 function getCoord(e) {
 	console.log("getCoord");
-	var 	carPos = email.selectionEnd,
+	var 	carPos = username.selectionEnd,
 		div = document.createElement('div'),
 		span = document.createElement('span'),
-		copyStyle = getComputedStyle(email),
-		emailCoords = {}, caretCoords = {}, centerCoords = {}
+		copyStyle = getComputedStyle(username),
+		usernameCoords = {}, caretCoords = {}, centerCoords = {}
 	;
 	[].forEach.call(copyStyle, function(prop){
 		div.style[prop] = copyStyle[prop];
 	});
 	div.style.position = 'absolute';
 	document.body.appendChild(div);
-	div.textContent = email.value.substr(0, carPos);
-	span.textContent = email.value.substr(carPos) || '.';
+	div.textContent = username.value.substr(0, carPos);
+	span.textContent = username.value.substr(carPos) || '.';
 	div.appendChild(span);
 	
-	emailCoords = getPosition(email);							//console.log("emailCoords.x: " + emailCoords.x + ", emailCoords.y: " + emailCoords.y);
+	usernameCoords = getPosition(username);							//console.log("usernameCoords.x: " + usernameCoords.x + ", usernameCoords.y: " + usernameCoords.y);
 	caretCoords = getPosition(span);							//console.log("caretCoords.x " + caretCoords.x + ", caretCoords.y: " + caretCoords.y);
 	centerCoords = getPosition(mySVG);							//console.log("centerCoords.x: " + centerCoords.x);
 	svgCoords = getPosition(mySVG);
 	screenCenter = centerCoords.x + (mySVG.offsetWidth / 2);		//console.log("screenCenter: " + screenCenter);
-	caretPos = caretCoords.x + emailCoords.x;					//console.log("caretPos: " + caretPos);
+	caretPos = caretCoords.x + usernameCoords.x;					//console.log("caretPos: " + caretPos);
 	
 	dFromC = screenCenter - caretPos; 							//console.log("dFromC: " + dFromC);
 	var pFromC = Math.round((caretPos / screenCenter) * 100) / 100;
@@ -70,16 +70,16 @@ function getCoord(e) {
 	var eyeRCoords = {x: svgCoords.x + 113, y: svgCoords.y + 76};
 	var noseCoords = {x: svgCoords.x + 97, y: svgCoords.y + 81};
 	var mouthCoords = {x: svgCoords.x + 100, y: svgCoords.y + 100};
-	var eyeLAngle = getAngle(eyeLCoords.x, eyeLCoords.y, emailCoords.x + caretCoords.x, emailCoords.y + 25);
+	var eyeLAngle = getAngle(eyeLCoords.x, eyeLCoords.y, usernameCoords.x + caretCoords.x, usernameCoords.y + 25);
 	var eyeLX = Math.cos(eyeLAngle) * eyeMaxHorizD;
 	var eyeLY = Math.sin(eyeLAngle) * eyeMaxVertD;
-	var eyeRAngle = getAngle(eyeRCoords.x, eyeRCoords.y, emailCoords.x + caretCoords.x, emailCoords.y + 25);
+	var eyeRAngle = getAngle(eyeRCoords.x, eyeRCoords.y, usernameCoords.x + caretCoords.x, usernameCoords.y + 25);
 	var eyeRX = Math.cos(eyeRAngle) * eyeMaxHorizD;
 	var eyeRY = Math.sin(eyeRAngle) * eyeMaxVertD;
-	var noseAngle = getAngle(noseCoords.x, noseCoords.y, emailCoords.x + caretCoords.x, emailCoords.y + 25);
+	var noseAngle = getAngle(noseCoords.x, noseCoords.y, usernameCoords.x + caretCoords.x, usernameCoords.y + 25);
 	var noseX = Math.cos(noseAngle) * noseMaxHorizD;
 	var noseY = Math.sin(noseAngle) * noseMaxVertD;
-	var mouthAngle = getAngle(mouthCoords.x, mouthCoords.y, emailCoords.x + caretCoords.x, emailCoords.y + 25);
+	var mouthAngle = getAngle(mouthCoords.x, mouthCoords.y, usernameCoords.x + caretCoords.x, usernameCoords.y + 25);
 	var mouthX = Math.cos(mouthAngle) * noseMaxHorizD;
 	var mouthY = Math.sin(mouthAngle) * noseMaxVertD;
 	var mouthR = Math.cos(mouthAngle) * 6;
@@ -112,15 +112,15 @@ function getCoord(e) {
 	document.body.removeChild(div);
 };
 
-function onEmailInput(e) {
+function onusernameInput(e) {
 	
-	console.log("onEmailInput");
+	console.log("onusernameInput");
 	getCoord(e);
 	var value = e.target.value;
-	curEmailIndex = value.length;
+	curusernameIndex = value.length;
 	
-	// very crude email validation for now to trigger effects
-	if(curEmailIndex > 0) {
+	// very crude username validation for now to trigger effects
+	if(curusernameIndex > 0) {
 		if(mouthStatus == "small") {
 			mouthStatus = "medium";
 			TweenMax.to([mouthBG, mouthOutline, mouthMaskPath], 1, {morphSVG: mouthMediumBG, shapeIndex: 8, ease: Expo.easeOut});
@@ -150,16 +150,16 @@ function onEmailInput(e) {
 	}
 }
 
-function onEmailFocus(e) {
+function onusernameFocus(e) {
 	
-	console.log("onEmailFocus");
+	console.log("onusernameFocus");
 	e.target.parentElement.classList.add("focusWithText");
 	getCoord();
 }
 
-function onEmailBlur(e) {
+function onusernameBlur(e) {
 	
-	console.log("onEmailBlur");
+	console.log("onusernameBlur");
 	if(e.target.value == "") {
 		e.target.parentElement.classList.remove("focusWithText");
 	}
@@ -242,9 +242,9 @@ function getPosition(el) {
 window.onload = mySQR;
 function mySQR(){
 	console.log("mySQR");
-	email.addEventListener('focus', onEmailFocus);
-	email.addEventListener('blur', onEmailBlur);
-	email.addEventListener('input', onEmailInput);
+	username.addEventListener('focus', onusernameFocus);
+	username.addEventListener('blur', onusernameBlur);
+	username.addEventListener('input', onusernameInput);
 	password.addEventListener('focus', onPasswordFocus);
 	password.addEventListener('blur', onPasswordBlur);
 	TweenMax.set(armL, {x: -93, y: 220, rotation: 105, transformOrigin: "top left"});
