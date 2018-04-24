@@ -30,9 +30,9 @@ import project.webservices.db.ListUserDAO;
 // e.g., @ApplicationPath("api") + @Path("/books") =>
 // http://localhost:8080/BookManagerWebServices/api/books
 @Path("/users")
-public class BooksResource {
+public class UsersResource {
 
-    private static Logger log = LoggerFactory.getLogger(BooksResource.class);
+    private static Logger log = LoggerFactory.getLogger(UsersResource.class);
 
     // based on: http://www.vogella.com/tutorials/REST/article.html#jerseyprojectsetup
 
@@ -60,6 +60,12 @@ public class BooksResource {
         return ListUserDAO.instance().getUser(username);
     }
 
+    @GET
+    @Path("{username}/{password}")
+    @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+    public boolean findUser(@PathParam("username") String username, @PathParam("password") String password) throws SQLException {
+        return ListUserDAO.instance().findUser(username,password);
+    }
     /**
      * Creates a new resource that has yet to be identified by the origin server (i.e., adds a book
      * or replaces and existing one).
@@ -84,7 +90,7 @@ public class BooksResource {
     /**
      * Appends data to a resource's existing representation(s).
      * <br>
-     * Treat the addressed member as a collection in its own right and create a new entry within it.
+     * Treat the addressed member as a collection in its own right and create a new entry within it.
      * <br>
      * <b>Not generally used! Use PATCH instead</b>
      */

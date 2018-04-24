@@ -17,41 +17,8 @@
 <meta charset="UTF-8">
 </head>
 <body>
-	<%
-		String userId = null;
-
-		// Verifică dacă este o sesiune nouă
-		// Dacă este prima dată de la deschiderea browser-ului când se accesează pagina
-		if (session.isNew()) {
-			session.setAttribute("userId", userId);
-		}
-
-		// Verifică dacă a fost făcută o cerere prin GET sau POST de schimbare a numelui utilizatorului
-		String username = request.getParameter("username");
-		if (username != null) {
-			session.setAttribute("userId", username);
-		}
-		userId = (String) session.getAttribute("userId");
-	%>
-	<%
-	if(userId!=null){
-		out.println("You are Already Logged In");
-	%>
-		<br>
-	<% 
-		out.println("username: "+(String) session.getAttribute("userId"));
-	%>
-		<br>
-		<form action="index.jsp" method="post">
-		<div class="inputGroup inputGroup3">
-			<button id="logout" onclick="<%session.invalidate();%>">Log out</button>
-		</div>
-		</form>
-	<%
-	}else{
-	%>
-	<form action="TestServlet"
-		method="post" enctype="multipart/form-data">
+	
+	<form action="TestServlet" method="post" enctype="multipart/form-data">
 		<div class="svgContainer">
 			<div>
 				<svg class="mySVG" xmlns="http://www.w3.org/2000/svg"
@@ -201,12 +168,12 @@
 
 		<div class="inputGroup inputGroup1">
 			<label for="username1">Username</label> <input type="text" id="username"
-				class="username" maxlength="256" name="uname"/>
+				class="username" maxlength="256" name="username"/>
 			<span class="indicator"></span>
 		</div>
 		<div class="inputGroup inputGroup2">
 			<label for="password">Password</label> <input type="password"
-				id="password" class="password" />
+				id="password" class="password" name="password"/>
 		</div>
 		<%
 			if(session.getAttribute("login_error")!=null){
@@ -227,8 +194,6 @@
 		</div>
 	</form>
 	
-	<%} 
-	%>
 	<script type="text/javascript" src="js/script.js"></script>
 </body>
 </html>

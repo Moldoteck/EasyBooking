@@ -89,17 +89,54 @@ public class ListUserDAO implements UserDAO {
 	@Override
 	public User getUser(String username) throws SQLException{
 		List<User> users  = Collections.synchronizedList(new ArrayList<>());
-		resSet = statmt.executeQuery("SELECT * FROM users");
-
-		while(resSet.next())
+		statmt=conn.createStatement();
+		try{
+			resSet = statmt.executeQuery("SELECT * FROM users");
+			while(resSet.next())
+			{
+				String  uname = resSet.getString("username");
+				String  upassword = resSet.getString("password");
+				users.add(new User(uname,upassword));
+			}	
+			return users.stream().filter(o -> Objects.equals(o.getUsername(), username)).findFirst().orElse(null);
+		}
+		catch(SQLException exc)
 		{
-			String  uname = resSet.getString("username");
-			String  upassword = resSet.getString("password");
-			users.add(new User(uname,upassword));
-		}	
-		return users.stream().filter(o -> Objects.equals(o.getUsername(), username)).findFirst().orElse(null);
-	}
+			return null;
+		}
 
+		
+	}
+	
+	@Override
+	public boolean findUser(String username, String password) throws SQLException{
+		List<User> users  = Collections.synchronizedList(new ArrayList<>());
+		boolean value= false;
+		statmt=conn.createStatement();
+		try{
+			resSet = statmt.executeQuery("SELECT * FROM users");
+			while(resSet.next())
+			{
+				String  uname = resSet.getString("username");
+				String  upassword = resSet.getString("password");
+				users.add(new User(uname,upassword));
+			}	
+			for(User usr : users)
+			{
+				if(usr.getUsername().equals(username)&&usr.getPassword().equals(password))
+					return true;
+			}
+			return false;
+			//return users.contains(new User(username,password));
+			}
+		catch(SQLException exc)
+		{
+			System.out.println("Exception"+exc);
+			return false;
+		}
+
+		
+	}
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -117,6 +154,7 @@ public class ListUserDAO implements UserDAO {
 	 */
 	@Override
 	public boolean addUser(User user) throws SQLException {
+		statmt=conn.createStatement();
 		if (getUser(user.getUsername()) != null) {
 			return false;
 		}
@@ -151,7 +189,7 @@ public class ListUserDAO implements UserDAO {
 	@Override
 	public boolean updateUser(String username, User user) throws SQLException {
 		boolean found = false;
-
+		statmt=conn.createStatement();
 		resSet = statmt.executeQuery("SELECT * FROM USERS");
 
 		while(resSet.next())
@@ -179,6 +217,7 @@ public class ListUserDAO implements UserDAO {
 	@Override
 	public boolean deleteUser(String username) throws SQLException {
 		boolean found = false;
+		statmt=conn.createStatement();
 		resSet = statmt.executeQuery("SELECT * FROM users");
 
 		while(resSet.next())

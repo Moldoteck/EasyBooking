@@ -169,7 +169,6 @@ public class TestServlet extends HttpServlet {
 		Client client = ClientBuilder.newClient(config);
 		client.property(HttpUrlConnectorProvider.SET_METHOD_WORKAROUND, true);
 		WebTarget service = client.target(getBaseURI());
-
 		//Response responser = responser = service.path("api").path("users").request().accept(MediaType.APPLICATION_JSON).get(Response.class);
 		Response responser=service.path("api").path("users").path(request.getParameter("username")).path(request.getParameter("password")).request().accept(MediaType.APPLICATION_JSON)
 				.get(Response.class);
@@ -177,9 +176,11 @@ public class TestServlet extends HttpServlet {
 
 		request.setAttribute("result", "This is the result of the servlet call");
 		String temp=responser.readEntity(String.class);
+
+System.out.println(request.getParameter("username")+request.getParameter("password")+temp);
 		if(temp.equals("true"))
 		{
-			session.setAttribute("userId", "Numeprenume"+request.getParameter("username")+temp);
+			session.setAttribute("userId", request.getParameter("username"));
 			//redirectare
 			request.getRequestDispatcher("index.jsp").forward(request, response);
 		}
