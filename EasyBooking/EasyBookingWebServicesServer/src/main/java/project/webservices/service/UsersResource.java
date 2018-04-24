@@ -79,7 +79,7 @@ public class UsersResource {
         log.info("postUsers: {}", user);
         Response response;
         if (ListUserDAO.instance().addUser(user)) {
-            response = Response.created(uriInfo.getRequestUriBuilder().build()).entity(user).build();
+            response =  Response.created(uriInfo.getRequestUriBuilder().build()).entity(user).build();
         } else {
             response = Response.seeOther(uriInfo.getRequestUriBuilder().build()).build();
         }
