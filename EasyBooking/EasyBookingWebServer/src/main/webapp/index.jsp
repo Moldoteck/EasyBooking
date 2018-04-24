@@ -17,6 +17,7 @@
 		session.setAttribute("userId", userId);
 	}
 
+	
 	// Verifică dacă a fost făcută o cerere prin GET sau POST de schimbare a numelui utilizatorului
 	String username = request.getParameter("uname");
 	if (username != null) {
