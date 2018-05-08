@@ -54,6 +54,13 @@ public class UsersResource {
      * @throws SQLException 
      */
     @GET
+    @Path("/id/{name_id}")
+    @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+    public int getUserId(@PathParam("name_id") String name_id) throws SQLException {
+        return ListUserDAO.instance().getUserId(name_id);
+    }
+    
+    @GET
     @Path("{username}")
     @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
     public User getUser(@PathParam("username") String username) throws SQLException {

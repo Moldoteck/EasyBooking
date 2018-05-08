@@ -47,3 +47,12 @@ nav{
 	width:100%;
 	text-align:center;
  }
+
+ form label {
+  margin: 0 0 12px;
+  display: block;
+  font-size: 1.25em;
+  color: #217093;
+  font-weight: 700;
+  font-family: inherit;
+}

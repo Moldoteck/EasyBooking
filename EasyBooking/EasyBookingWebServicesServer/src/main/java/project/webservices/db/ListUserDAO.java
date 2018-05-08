@@ -25,21 +25,21 @@ public class ListUserDAO implements UserDAO {
 	public static Statement statmt;
 	public static ResultSet resSet;
 
-	public void disconnectDB() throws SQLException {
-		conn.close();
-		statmt.close();
-		resSet.close();
+	public void disconnectDB() {
+		try {
+			conn.close();
+			statmt.close();
+			resSet.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		System.out.println("Totul e inchis");
 	}
 	
-	/*Pentru creare tabel, trebuie ceva de genul:
-	 * statmt = conn.createStatement();
-	 * statmt.execute("CREATE TABLE if not exists 'users' ('id' INTEGER PRIMARY KEY AUTOINCREMENT, 'name' text, 'phone' INT);");
-	 */
-	 
-	private ListUserDAO() {
-		conn = null;
+	public void connectDB()
+	{
 		try {
 			Class.forName("org.sqlite.JDBC");
 		} catch (ClassNotFoundException e) {
@@ -58,15 +58,15 @@ public class ListUserDAO implements UserDAO {
 		}
 		System.out.println("Baza Conectata!");
 	}
+	 
+	private ListUserDAO() {
+		conn = null;
+	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see ro.h23.bookmanager.core.UserDAO#getUsers()
-	 */
 	@Override
 	public List<User> getUsers() throws SQLException {
 
+		connectDB();
 		List<User> users  = Collections.synchronizedList(new ArrayList<>());
 
 		statmt=conn.createStatement();
@@ -78,16 +78,14 @@ public class ListUserDAO implements UserDAO {
 			String  upassword = resSet.getString("password");
 			users.add(new User(uname,upassword));
 		}	
+
+		disconnectDB();
 		return users;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see ro.h23.bookmanager.core.UserDAO#findUserById(java.lang.String)
-	 */
 	@Override
 	public User getUser(String username) throws SQLException{
+		connectDB();
 		List<User> users  = Collections.synchronizedList(new ArrayList<>());
 		statmt=conn.createStatement();
 		try{
@@ -98,18 +96,19 @@ public class ListUserDAO implements UserDAO {
 				String  upassword = resSet.getString("password");
 				users.add(new User(uname,upassword));
 			}	
+			disconnectDB();
 			return users.stream().filter(o -> Objects.equals(o.getUsername(), username)).findFirst().orElse(null);
 		}
 		catch(SQLException exc)
 		{
+			disconnectDB();
 			return null;
 		}
-
-		
 	}
 	
 	@Override
 	public boolean findUser(String username, String password) throws SQLException{
+		connectDB();
 		List<User> users  = Collections.synchronizedList(new ArrayList<>());
 		boolean value= false;
 		statmt=conn.createStatement();
@@ -124,70 +123,44 @@ public class ListUserDAO implements UserDAO {
 			for(User usr : users)
 			{
 				if(usr.getUsername().equals(username)&&usr.getPassword().equals(password))
+				{
+					disconnectDB();
 					return true;
+				}
 			}
+			disconnectDB();
 			return false;
-			//return users.contains(new User(username,password));
-			}
+		}
 		catch(SQLException exc)
 		{
 			System.out.println("Exception"+exc);
+			disconnectDB();
 			return false;
-		}
-
-		
+		}	
 	}
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see ro.h23.bookmanager.core.UserDAO#findUserByISBN(java.lang.String)
-	 *//*
-    @Override
-    public User findUserByISBN(String isbn) {
-        return books.stream().filter(o -> o.getISBN().equals(isbn)).findFirst().orElse(null);
-    }*/
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see ro.h23.bookmanager.core.UserDAO#addUser(ro.h23.bookmanager.core.User)
-	 */
 	@Override
 	public boolean addUser(User user) throws SQLException {
+		connectDB();
 		statmt=conn.createStatement();
 		if (getUser(user.getUsername()) != null) {
 			return false;
 		}
 		try {
 			statmt.execute("INSERT INTO 'users' ('username', 'password') VALUES ('"+user.getUsername()+"', '"+user.getPassword()+"'); ");
+			disconnectDB();
 			return true;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			disconnectDB();
 			return false;
 		}
-		//if (user.getUsername() != User.MISSING_ID) {
-		// if the book is already in the db
-		/* if (findUserById(book.getId()) != null) {
-                return false;
-            } else {
-                // next line avoids having books with the same id in the db
-                nextId = Math.max(book.getId() + 1, nextId);
-            }*/
-		/* } else {
-            book.setId(nextId++);
-        }*/
-		//books.add(book);
-		//return true;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see ro.h23.bookmanager.core.UserDAO#updateUser(ro.h23.bookmanager.core.User)
-	 */
 	@Override
 	public boolean updateUser(String username, User user) throws SQLException {
+		connectDB();
 		boolean found = false;
 		statmt=conn.createStatement();
 		resSet = statmt.executeQuery("SELECT * FROM USERS");
@@ -206,16 +179,13 @@ public class ListUserDAO implements UserDAO {
 				break;
 			}
 		}	
+		disconnectDB();
 		return found;
 	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see ro.h23.bookmanager.core.UserDAO#deleteUser(ro.h23.bookmanager.core.User)
-	 */
+	
 	@Override
 	public boolean deleteUser(String username) throws SQLException {
+		connectDB();
 		boolean found = false;
 		statmt=conn.createStatement();
 		resSet = statmt.executeQuery("SELECT * FROM users");
@@ -230,10 +200,29 @@ public class ListUserDAO implements UserDAO {
 				break;
 			}
 		}	
+		disconnectDB();
 		return found;
 	}
 
-	
+	@Override
+	public int getUserId(String username){
+		connectDB();
+		int user_id=-1;
+		System.out.println("*******************"+username);		
+		try {
+			statmt=conn.createStatement();
+			resSet = statmt.executeQuery("SELECT id FROM users where username='"+username+"'");
+			if(resSet.next())
+			{
+				user_id=resSet.getInt("id");
+			}	
+		}
+		catch(Exception exc)
+		{
+			exc.printStackTrace();
+		}
 
-
+		disconnectDB();
+		return user_id;	
+	}
 }
