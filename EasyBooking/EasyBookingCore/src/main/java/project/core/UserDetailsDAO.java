@@ -6,10 +6,6 @@ import java.util.List;
 
 
 public interface UserDetailsDAO {
-
-
     UserDetails getUserDetails(String user_id) throws SQLException;
-   
- 
     boolean addUserDetails(UserDetails user_details) throws SQLException;
 }

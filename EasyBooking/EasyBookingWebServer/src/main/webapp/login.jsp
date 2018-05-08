@@ -18,7 +18,7 @@
 </head>
 <body>
 	
-	<form action="TestServlet" method="post" enctype="multipart/form-data">
+	<form method="post" enctype="multipart/form-data">
 		<div class="svgContainer">
 			<div>
 				<svg class="mySVG" xmlns="http://www.w3.org/2000/svg"
@@ -185,17 +185,15 @@
 			}
 		%>
 		<div class="inputGroup inputGroup3">
-			<button id="login">Log in</button>
+			<button id="login" formaction="TestServlet">Log in</button>
+		</div>
+		<p>
+			<em>You don't have an account?</em>
+		</p>
+		<div class="inputGroup inputGroup4">
+			<button id="signin" formaction="register.jsp">Sign in</button>
 		</div>
 	</form>
-	<div>
-		<form style="margin-top:27%;"action="register.jsp" >
-		<p><em>You don't have an account?</em></p>
-			<div class="inputGroup inputGroup4">
-				<button id="signin">Sign in</button>
-			</div>
-		</form>
-	</div>
 	
 	<script type="text/javascript" src="js/script.js"></script>
 </body>

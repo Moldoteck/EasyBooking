@@ -6,23 +6,15 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class UserDetails {
 
 	private String user_id;
-    private String  first_name;
-    private String  last_name;
-    private String 	email;
-    private String 	phone_number;
-    private String 	path_img;
+    private String first_name;
+    private String last_name;
+    private String email;
+    private String phone_number;
+    private String path_img;
 
-    /**
-     * !!! WARNING: A no argument constructor is required by the XML (de)serializer
-     */
     public UserDetails() {
     }
 
-    /**
-     * 
-     * @param username
-     * @param password
-     */
     public UserDetails(String user_id, String first_name, String last_name, String email, String phone_number, String path_img) {
         super();
         this.user_id=user_id;
@@ -33,20 +25,6 @@ public class UserDetails {
         this.path_img=path_img;
     }
 
-    
-    /**
-     * @param id
-     * @param title
-     * @param author
-     * @param publisher
-     * @param addedDate
-     */
-
-    
-
-    /* (non-Javadoc)
-     * @see java.lang.Object#toString()
-     */
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();
@@ -101,7 +79,4 @@ public class UserDetails {
 	public void setPath_img(String path_img) {
 		this.path_img = path_img;
 	}
-    
-    
-
 }

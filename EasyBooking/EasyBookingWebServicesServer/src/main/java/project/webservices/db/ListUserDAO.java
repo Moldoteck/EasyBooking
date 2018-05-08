@@ -22,14 +22,12 @@ public class ListUserDAO implements UserDAO {
 	}
 
 	public static Connection conn;
-	public static Statement statmt;
 	public static ResultSet resSet;
+	public static Statement statmt;
 
 	public void disconnectDB() {
 		try {
 			conn.close();
-			statmt.close();
-			resSet.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -43,16 +41,12 @@ public class ListUserDAO implements UserDAO {
 		try {
 			Class.forName("org.sqlite.JDBC");
 		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-
 			System.out.println("FUCK!!!");
 			e.printStackTrace();
 		}
 		try {
 			conn = DriverManager.getConnection("jdbc:sqlite:C:\\sqlite\\testdb.db");
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-
 			System.out.println("BIG Problem!!!");
 			e.printStackTrace();
 		}
@@ -65,8 +59,11 @@ public class ListUserDAO implements UserDAO {
 
 	@Override
 	public List<User> getUsers() throws SQLException {
-
-		connectDB();
+		boolean dissconect_flag=false;
+		if(conn==null||conn.isClosed()) {
+			connectDB();
+			dissconect_flag=true;
+		}
 		List<User> users  = Collections.synchronizedList(new ArrayList<>());
 
 		statmt=conn.createStatement();
@@ -79,13 +76,19 @@ public class ListUserDAO implements UserDAO {
 			users.add(new User(uname,upassword));
 		}	
 
-		disconnectDB();
+		if(dissconect_flag==true)
+			disconnectDB();
 		return users;
 	}
 
 	@Override
 	public User getUser(String username) throws SQLException{
-		connectDB();
+		boolean dissconect_flag=false;
+		if(conn==null||conn.isClosed()) {
+			System.out.println("connecting");
+			connectDB();
+			dissconect_flag=true;
+		}
 		List<User> users  = Collections.synchronizedList(new ArrayList<>());
 		statmt=conn.createStatement();
 		try{
@@ -96,19 +99,25 @@ public class ListUserDAO implements UserDAO {
 				String  upassword = resSet.getString("password");
 				users.add(new User(uname,upassword));
 			}	
-			disconnectDB();
+			if(dissconect_flag==true)
+				disconnectDB();
 			return users.stream().filter(o -> Objects.equals(o.getUsername(), username)).findFirst().orElse(null);
 		}
 		catch(SQLException exc)
 		{
-			disconnectDB();
+			if(dissconect_flag==true)
+				disconnectDB();
 			return null;
 		}
 	}
 	
 	@Override
 	public boolean findUser(String username, String password) throws SQLException{
-		connectDB();
+		boolean dissconect_flag=false;
+		if(conn==null||conn.isClosed()) {
+			connectDB();
+			dissconect_flag=true;
+		}
 		List<User> users  = Collections.synchronizedList(new ArrayList<>());
 		boolean value= false;
 		statmt=conn.createStatement();
@@ -124,43 +133,57 @@ public class ListUserDAO implements UserDAO {
 			{
 				if(usr.getUsername().equals(username)&&usr.getPassword().equals(password))
 				{
-					disconnectDB();
+					if(dissconect_flag==true)
+						disconnectDB();
 					return true;
 				}
 			}
-			disconnectDB();
+			if(dissconect_flag==true)
+				disconnectDB();
 			return false;
 		}
 		catch(SQLException exc)
 		{
 			System.out.println("Exception"+exc);
-			disconnectDB();
+			if(dissconect_flag==true)
+				disconnectDB();
 			return false;
 		}	
 	}
 
 	@Override
 	public boolean addUser(User user) throws SQLException {
-		connectDB();
+		boolean dissconect_flag=false;
+		if(conn==null||conn.isClosed()) {
+			connectDB();
+			dissconect_flag=true;
+		}
 		statmt=conn.createStatement();
 		if (getUser(user.getUsername()) != null) {
 			return false;
 		}
 		try {
 			statmt.execute("INSERT INTO 'users' ('username', 'password') VALUES ('"+user.getUsername()+"', '"+user.getPassword()+"'); ");
-			disconnectDB();
+			System.out.println(dissconect_flag);
+			if(dissconect_flag==true)
+				disconnectDB();
 			return true;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			disconnectDB();
+			if(dissconect_flag==true)
+				disconnectDB();
 			return false;
 		}
 	}
 
 	@Override
 	public boolean updateUser(String username, User user) throws SQLException {
-		connectDB();
+		boolean dissconect_flag=false;
+		if(conn==null||conn.isClosed()) {
+			connectDB();
+			dissconect_flag=true;
+		}
 		boolean found = false;
 		statmt=conn.createStatement();
 		resSet = statmt.executeQuery("SELECT * FROM USERS");
@@ -179,13 +202,18 @@ public class ListUserDAO implements UserDAO {
 				break;
 			}
 		}	
-		disconnectDB();
+		if(dissconect_flag==true)
+			disconnectDB();
 		return found;
 	}
 	
 	@Override
 	public boolean deleteUser(String username) throws SQLException {
-		connectDB();
+		boolean dissconect_flag=false;
+		if(conn==null||conn.isClosed()) {
+			connectDB();
+			dissconect_flag=true;
+		}
 		boolean found = false;
 		statmt=conn.createStatement();
 		resSet = statmt.executeQuery("SELECT * FROM users");
@@ -200,15 +228,24 @@ public class ListUserDAO implements UserDAO {
 				break;
 			}
 		}	
-		disconnectDB();
+		if(dissconect_flag==true)
+			disconnectDB();
 		return found;
 	}
 
 	@Override
 	public int getUserId(String username){
-		connectDB();
+		boolean dissconect_flag=false;
+		try {
+			if(conn==null||conn.isClosed()) {
+				connectDB();
+				dissconect_flag=true;
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		int user_id=-1;
-		System.out.println("*******************"+username);		
 		try {
 			statmt=conn.createStatement();
 			resSet = statmt.executeQuery("SELECT id FROM users where username='"+username+"'");
@@ -221,8 +258,8 @@ public class ListUserDAO implements UserDAO {
 		{
 			exc.printStackTrace();
 		}
-
-		disconnectDB();
+		if(dissconect_flag==true)
+			disconnectDB();
 		return user_id;	
 	}
 }

@@ -89,6 +89,7 @@ public class UsersResource {
             response =  Response.created(uriInfo.getRequestUriBuilder().build()).entity(user).build();
         } else {
             response = Response.seeOther(uriInfo.getRequestUriBuilder().build()).build();
+            response =Response.notModified().build();
         }
         log.info("[UserResource] postUsers: response status: {} {}", response.getStatus(), response.getStatusInfo());
         return response;
