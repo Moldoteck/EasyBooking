@@ -8,17 +8,9 @@ public class User {
     private String    username;
     private String    password;
 
-    /**
-     * !!! WARNING: A no argument constructor is required by the XML (de)serializer
-     */
     public User() {
     }
 
-    /**
-     * 
-     * @param username
-     * @param password
-     */
     public User(String username, String password) {
         super();
         this.username = username;
@@ -42,19 +34,7 @@ public class User {
     {
     	this.password=password;
     }
-    /**
-     * @param id
-     * @param title
-     * @param author
-     * @param publisher
-     * @param addedDate
-     */
 
-    
-
-    /* (non-Javadoc)
-     * @see java.lang.Object#toString()
-     */
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();

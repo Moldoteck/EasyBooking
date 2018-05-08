@@ -30,8 +30,6 @@ public class ListUserDetailsDAO implements UserDetailsDAO {
 	public void disconnectDB() {
 		try {
 			conn.close();
-			statmt.close();
-			resSet.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -66,11 +64,20 @@ public class ListUserDetailsDAO implements UserDetailsDAO {
 	}
 
 	@Override
-	public UserDetails getUserDetails(String user_id) throws SQLException{
-		connectDB();
+	public UserDetails getUserDetails(String user_id){
+		boolean dissconect_flag=false;
+		try {
+			if(conn==null||conn.isClosed()) {
+				connectDB();
+				dissconect_flag=true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
 		List<UserDetails> users_details = Collections.synchronizedList(new ArrayList<>());
-		statmt=conn.createStatement();
 		try{
+			statmt=conn.createStatement();
 			resSet = statmt.executeQuery("SELECT * FROM user_details");
 			while(resSet.next())
 			{
@@ -82,28 +89,41 @@ public class ListUserDetailsDAO implements UserDetailsDAO {
 				String  upath_img = resSet.getString("path_img");
 				users_details.add(new UserDetails(uuser_id,ufirst_name,ulast_name,uemail,uphone_number,upath_img));
 			}	
-			disconnectDB();
+			if(dissconect_flag==true)
+				disconnectDB();
 			return users_details.stream().filter(o -> Objects.equals(o.getUser_id(), user_id)).findFirst().orElse(null);
 		}
 		catch(SQLException exc)
 		{
-			disconnectDB();
+			if(dissconect_flag==true)
+				disconnectDB();
 			return null;
 		}
 	}
 	
 	
 	@Override
-	public boolean addUserDetails(UserDetails user_details) throws SQLException {
-		connectDB();
-		statmt=conn.createStatement();
+	public boolean addUserDetails(UserDetails user_details) {
+		boolean dissconect_flag=false;
 		try {
+			if(conn==null||conn.isClosed()) {
+				connectDB();
+				dissconect_flag=true;
+			}
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+			return false;
+		}
+		try {
+			statmt=conn.createStatement();
 			statmt.execute("INSERT INTO 'user_details' ('user_id','first_name', 'last_name', 'email', 'phone_number', 'path_img') VALUES ('"+user_details.getUser_id()+"','"+user_details.getFirst_name()+"','"+user_details.getLast_name()+"','"+user_details.getEmail()+"','"+user_details.getPhone_number()+"','"+user_details.getPath_img()+"'); ");
-			disconnectDB();
+			if(dissconect_flag==true)
+				disconnectDB();
 			return true;
 		} catch (SQLException e) {
 			e.printStackTrace();
-			disconnectDB();
+			if(dissconect_flag==true)
+				disconnectDB();
 			return false;
 		}
 	}

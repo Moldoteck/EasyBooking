@@ -58,23 +58,34 @@ public class ListUserDAO implements UserDAO {
 	}
 
 	@Override
-	public List<User> getUsers() throws SQLException {
+	public List<User> getUsers(){
 		boolean dissconect_flag=false;
-		if(conn==null||conn.isClosed()) {
-			connectDB();
-			dissconect_flag=true;
+		try {
+			if(conn==null||conn.isClosed()) {
+				connectDB();
+				dissconect_flag=true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
 		}
 		List<User> users  = Collections.synchronizedList(new ArrayList<>());
 
-		statmt=conn.createStatement();
-		resSet = statmt.executeQuery("SELECT * FROM USERS");
+		try {
+			statmt=conn.createStatement();
+			resSet = statmt.executeQuery("SELECT * FROM USERS");
 
-		while(resSet.next())
-		{
-			String  uname = resSet.getString("username");
-			String  upassword = resSet.getString("password");
-			users.add(new User(uname,upassword));
-		}	
+			while(resSet.next())
+			{
+				String  uname = resSet.getString("username");
+				String  upassword = resSet.getString("password");
+				users.add(new User(uname,upassword));
+			}	
+		} catch (SQLException e) {
+			e.printStackTrace();
+			if(dissconect_flag==true)
+				disconnectDB();
+		}
 
 		if(dissconect_flag==true)
 			disconnectDB();
@@ -82,16 +93,21 @@ public class ListUserDAO implements UserDAO {
 	}
 
 	@Override
-	public User getUser(String username) throws SQLException{
+	public User getUser(String username){
 		boolean dissconect_flag=false;
-		if(conn==null||conn.isClosed()) {
-			System.out.println("connecting");
-			connectDB();
-			dissconect_flag=true;
+		try {
+			if(conn==null||conn.isClosed()) {
+				System.out.println("connecting");
+				connectDB();
+				dissconect_flag=true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
 		}
 		List<User> users  = Collections.synchronizedList(new ArrayList<>());
-		statmt=conn.createStatement();
 		try{
+			statmt=conn.createStatement();
 			resSet = statmt.executeQuery("SELECT * FROM users");
 			while(resSet.next())
 			{
@@ -112,16 +128,20 @@ public class ListUserDAO implements UserDAO {
 	}
 	
 	@Override
-	public boolean findUser(String username, String password) throws SQLException{
+	public boolean findUser(String username, String password){
 		boolean dissconect_flag=false;
-		if(conn==null||conn.isClosed()) {
-			connectDB();
-			dissconect_flag=true;
+		try {
+			if(conn==null||conn.isClosed()) {
+				connectDB();
+				dissconect_flag=true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
 		}
 		List<User> users  = Collections.synchronizedList(new ArrayList<>());
-		boolean value= false;
-		statmt=conn.createStatement();
 		try{
+			statmt=conn.createStatement();
 			resSet = statmt.executeQuery("SELECT * FROM users");
 			while(resSet.next())
 			{
@@ -152,17 +172,22 @@ public class ListUserDAO implements UserDAO {
 	}
 
 	@Override
-	public boolean addUser(User user) throws SQLException {
+	public boolean addUser(User user){
 		boolean dissconect_flag=false;
-		if(conn==null||conn.isClosed()) {
-			connectDB();
-			dissconect_flag=true;
+		try {
+			if(conn==null||conn.isClosed()) {
+				connectDB();
+				dissconect_flag=true;
+			}
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+			return false;
 		}
-		statmt=conn.createStatement();
 		if (getUser(user.getUsername()) != null) {
 			return false;
 		}
 		try {
+			statmt=conn.createStatement();
 			statmt.execute("INSERT INTO 'users' ('username', 'password') VALUES ('"+user.getUsername()+"', '"+user.getPassword()+"'); ");
 			System.out.println(dissconect_flag);
 			if(dissconect_flag==true)
@@ -178,56 +203,80 @@ public class ListUserDAO implements UserDAO {
 	}
 
 	@Override
-	public boolean updateUser(String username, User user) throws SQLException {
+	public boolean updateUser(String username, User user){
 		boolean dissconect_flag=false;
-		if(conn==null||conn.isClosed()) {
-			connectDB();
-			dissconect_flag=true;
+		try {
+			if(conn==null||conn.isClosed()) {
+				connectDB();
+				dissconect_flag=true;
+			}
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+			return false;
 		}
 		boolean found = false;
-		statmt=conn.createStatement();
-		resSet = statmt.executeQuery("SELECT * FROM USERS");
+		try {
+			statmt=conn.createStatement();
+			resSet = statmt.executeQuery("SELECT * FROM USERS");
 
-		while(resSet.next())
-		{
-			String  uname = resSet.getString("username");
-			String  upass = resSet.getString("password");
-			if(Objects.equals(uname,username))
+			while(resSet.next())
 			{
-				statmt.executeUpdate("UPDATE users SET username=\'"+user.getUsername()+"\' WHERE username=\'"+username+"\'");
-				if(!Objects.equals(upass, user.getPassword()))
-						statmt.executeUpdate("UPDATE users SET password=\'"+user.getPassword()+"\' WHERE username=\'"+user.getUsername()+"\'");
-				
-				found=true;
-				break;
-			}
-		}	
+				String  uname = resSet.getString("username");
+				String  upass = resSet.getString("password");
+				if(Objects.equals(uname,username))
+				{
+					statmt.executeUpdate("UPDATE users SET username=\'"+user.getUsername()+"\' WHERE username=\'"+username+"\'");
+					if(!Objects.equals(upass, user.getPassword()))
+							statmt.executeUpdate("UPDATE users SET password=\'"+user.getPassword()+"\' WHERE username=\'"+user.getUsername()+"\'");
+					
+					found=true;
+					break;
+				}
+			}	
+		} catch (SQLException e) {
+			if(dissconect_flag==true)
+				disconnectDB();
+			e.printStackTrace();
+		}
+		
 		if(dissconect_flag==true)
 			disconnectDB();
 		return found;
 	}
 	
 	@Override
-	public boolean deleteUser(String username) throws SQLException {
+	public boolean deleteUser(String username){
 		boolean dissconect_flag=false;
-		if(conn==null||conn.isClosed()) {
-			connectDB();
-			dissconect_flag=true;
+		try {
+			if(conn==null||conn.isClosed()) {
+				connectDB();
+				dissconect_flag=true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
 		}
 		boolean found = false;
-		statmt=conn.createStatement();
-		resSet = statmt.executeQuery("SELECT * FROM users");
+		try {
+			statmt=conn.createStatement();
+			resSet = statmt.executeQuery("SELECT * FROM users");
 
-		while(resSet.next())
-		{
-			String  uname = resSet.getString("username");
-			if(Objects.equals(uname,username))
+			while(resSet.next())
 			{
-				statmt.executeQuery("DELETE FROM users WHERE username="+username);
-				found=true;
-				break;
-			}
-		}	
+				String  uname = resSet.getString("username");
+				if(Objects.equals(uname,username))
+				{
+					statmt.executeQuery("DELETE FROM users WHERE username="+username);
+					found=true;
+					break;
+				}
+			}	
+		} catch (SQLException e) {
+			if(dissconect_flag==true)
+				disconnectDB();
+			e.printStackTrace();
+		}
+		
 		if(dissconect_flag==true)
 			disconnectDB();
 		return found;
@@ -236,16 +285,16 @@ public class ListUserDAO implements UserDAO {
 	@Override
 	public int getUserId(String username){
 		boolean dissconect_flag=false;
+		int user_id=-1;
 		try {
 			if(conn==null||conn.isClosed()) {
 				connectDB();
 				dissconect_flag=true;
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+			return user_id;
 		}
-		int user_id=-1;
 		try {
 			statmt=conn.createStatement();
 			resSet = statmt.executeQuery("SELECT id FROM users where username='"+username+"'");
