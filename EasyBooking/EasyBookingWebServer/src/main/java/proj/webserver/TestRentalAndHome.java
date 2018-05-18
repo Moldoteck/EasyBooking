@@ -25,7 +25,6 @@ import org.glassfish.jersey.client.ClientConfig;
 import org.glassfish.jersey.client.HttpUrlConnectorProvider;
 
 import project.core.Home;
-import project.core.User;
 
 @WebServlet("/TestRentalAndHome")
 @MultipartConfig
@@ -71,7 +70,7 @@ public class TestRentalAndHome extends HttpServlet {
 		WebTarget service = client.target(getBaseURI());
 		Response responser1;
 		responser1 = service.path("api").path("users").path("id").path("admin").request().accept(MediaType.APPLICATION_JSON).get(Response.class);
-		System.out.println("blablabla");
+		System.out.println("blabla");
 		String my_id=responser1.readEntity(String.class);
 		//----ADAUGARE IN USER_DETAIL---//functie in userDAO care sa mi returneze id-ul pe care il dau mai jos
 		Home home=new Home(request.getParameter("name"),request.getParameter("description"),request.getParameter("price"),request.getParameter("stars"),request.getParameter("nr_review"),request.getParameter("path_img"),my_id);
@@ -99,3 +98,4 @@ public class TestRentalAndHome extends HttpServlet {
 	}
 
 }
+//isn't ok

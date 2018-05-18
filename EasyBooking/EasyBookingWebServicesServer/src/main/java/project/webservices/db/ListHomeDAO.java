@@ -50,7 +50,7 @@ public class ListHomeDAO implements HomeDAO{
 			System.out.println("BIG Problem!!!");
 			e.printStackTrace();
 		}
-		System.out.println("Baza Conectata!");
+		System.out.println("Baza Conectataa!");
 	}
 	
 	private ListHomeDAO() {

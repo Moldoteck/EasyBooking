@@ -43,7 +43,7 @@ public class ListRentalDAO implements RentalDAO{
 		try {
 			Class.forName("org.sqlite.JDBC");
 		} catch (ClassNotFoundException e) {
-			System.out.println("FUCK!!!");
+			System.out.println("FUCK!!!!");
 			e.printStackTrace();
 		}
 		try {

@@ -68,7 +68,7 @@ public class HomeResource {
 	 @PUT
 	    @Path("{name}")
 	    public Response putHome(@PathParam("name") String name, Home newHome) throws SQLException {
-	        //Only the replace functionality is implemented
+	        //Only the replace functionality is implemented!!!
 	        Response response;
 	        if (ListHomeDAO.instance().updateHome(name, newHome)) {
 	            response = Response.noContent().build();

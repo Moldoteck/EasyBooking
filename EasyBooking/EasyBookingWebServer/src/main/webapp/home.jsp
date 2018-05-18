@@ -42,7 +42,7 @@
 			<span class="indicator"></span>
 		</div>
 		<div>
-			<button id="signin">Check it</button>
+			<button id="signin">See it</button>
 		</div>
 	</form>
 </div>

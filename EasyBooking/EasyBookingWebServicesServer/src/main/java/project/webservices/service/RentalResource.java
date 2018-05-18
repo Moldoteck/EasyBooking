@@ -101,42 +101,4 @@ public class RentalResource {
        }
        return response;
    }
-
-   /*@PATCH
-   public Response patchUsers() {
-       return Response.status(Status.METHOD_NOT_ALLOWED).allow("GET", "POST").build();
-   }
-   
-   @PATCH
-   @Path("{username}")
-   @Consumes("application/x-www-form-urlencoded")
-   public Response patchUsername(@PathParam("username") String username, MultivaluedMap<String, String> map) throws SQLException {
-       log.info("patchUsername: {}", username);
-       //Only the replace functionality is implemented
-       Response response;
-       User user = ListUserDAO.instance().getUser(username);
-       if (user == null) {
-           return Response.status(Status.NOT_FOUND).build();
-       }
-       for (Entry<String, List<String>> entry : map.entrySet()) {
-           String value = entry.getValue().get(0);
-           switch (entry.getKey()) {
-               case "username":
-                   user.setUsername(value);
-                   break;
-               case "password":
-                   user.setPassword(value);
-                   break;
-               default:
-                   return Response.status(Status.BAD_REQUEST).build();
-           }
-       }
-       if (ListUserDAO.instance().updateUser(username, user)) {
-           response = Response.noContent().build();
-       } else {
-           response = Response.status(Status.NOT_FOUND).build();
-       }
-       return response;
-   }*/
-
 }

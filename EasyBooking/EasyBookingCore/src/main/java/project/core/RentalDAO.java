@@ -19,6 +19,5 @@ public interface RentalDAO {
     
     boolean deleteRental(Date check_in, Date check_out);
     
-   // int getRentalId(Date check_in);
     
 }

@@ -27,7 +27,7 @@ public class Home {
 	{
 		this.name = name;
 	}
-	
+	//it's ok?
 	 @Override
 	    public String toString() {
 	        StringBuilder builder = new StringBuilder();
