@@ -8,7 +8,7 @@ public interface HomeDAO {
 
     Home getHome(String name);
     
-    boolean findHome(String name, String description, Double price, Integer stars, Integer nr_review, String path_img, Integer id_user);
+    boolean findHome(String name);
 
     boolean addHome(Home home);
 
@@ -16,6 +16,5 @@ public interface HomeDAO {
     
     boolean deleteHome(String name);
     
-    int getHomeId(String name);
     
 }

@@ -9,7 +9,9 @@ public interface RentalDAO {
 
     Rental getRental(Date check_in);
     
-    boolean findRental(Date check_in, Date check_out, Integer discount, Double price, Integer id_home, Integer id_user);
+    boolean findIdUser(Integer id_user);
+    
+    boolean findIdHome(Integer id_home);
 
     boolean addRental(Rental rental);
 

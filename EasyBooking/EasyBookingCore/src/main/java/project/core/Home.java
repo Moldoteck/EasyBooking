@@ -6,13 +6,13 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class Home {
 	private String name;
 	private String description;
-	private Double price;
-	private Integer stars;
-	private Integer nr_review;
+	private String price;
+	private String stars;
+	private String nr_review;
 	private String path_img;
-	private Integer id_user;
+	private String id_user;
 	
-	public Home(String name, String description, Double price, Integer stars, Integer nr_review, String path_img, Integer id_user)
+	public Home(String name, String description, String price, String stars, String nr_review, String path_img, String id_user)
 	{
 		super();
 		this.name = name;
@@ -22,6 +22,10 @@ public class Home {
 		this.nr_review = nr_review;
 		this.path_img = path_img;
 		this.id_user = id_user;
+	}
+	public Home(String name)
+	{
+		this.name = name;
 	}
 	
 	 @Override
@@ -43,22 +47,22 @@ public class Home {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	public Double getPrice() {
+	public String getPrice() {
 		return price;
 	}
-	public void setPrice(Double price) {
+	public void setPrice(String price) {
 		this.price = price;
 	}
-	public Integer getStars() {
+	public String getStars() {
 		return stars;
 	}
-	public void setStars(Integer stars) {
+	public void setStars(String stars) {
 		this.stars = stars;
 	}
-	public Integer getNr_review() {
+	public String getNr_review() {
 		return nr_review;
 	}
-	public void setNr_review(Integer nr_review) {
+	public void setNr_review(String nr_review) {
 		this.nr_review = nr_review;
 	}
 	public String getPath_img() {
@@ -67,10 +71,10 @@ public class Home {
 	public void setPath_img(String path_img) {
 		this.path_img = path_img;
 	}
-	public Integer getId_user() {
+	public String getId_user() {
 		return id_user;
 	}
-	public void setId_user(Integer id_user) {
+	public void setId_user(String id_user) {
 		this.id_user = id_user;
 	}
 	

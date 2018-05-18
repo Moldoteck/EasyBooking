@@ -31,25 +31,31 @@ public class RentalResource {
  	@GET
     @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
     public List<Rental> getRentals() throws SQLException {
-        log.info("getUsers");
+        log.info("getRentals");
         return ListRentalDAO.instance().getRentals();
     }
  
 	 @GET
-	 @Path("{check_in}")
+	 @Path("get_rental_checkin/{check_in}")
 	 @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	 public Rental getRental(@PathParam("check_in") Date check_in) throws SQLException {
 	     return ListRentalDAO.instance().getRental(check_in);
 	 }
  	 
  	 @GET
-     @Path("{check_in}/{check_out}/{discount}/{price}/{id_home}/{id_user}")
+     @Path("get_rental_user/{id_user}")
      @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-     public boolean findRental(@PathParam("username") Date check_in, @PathParam("check_out") Date check_out,@PathParam("discount") Integer discount,
-    		 @PathParam("price") Double price, @PathParam("id_home") Integer id_home, @PathParam("id_user") Integer id_user) throws SQLException {
-         return ListRentalDAO.instance().findRental(check_in, check_out, discount, price, id_home, id_user);
+     public boolean findIdUser( @PathParam("id_user") Integer id_user) throws SQLException {
+         return ListRentalDAO.instance().findIdUser(id_user);
      }
  	 
+ 	@GET
+    @Path("get_rental_home/{id_home}")
+    @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+    public boolean findIdHome( @PathParam("id_home") Integer id_home) throws SQLException {
+        return ListRentalDAO.instance().findIdHome(id_home);
+    }
+ 	
    @POST
     @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
     public Response postRentals(@Context UriInfo uriInfo, Rental rental) throws IllegalArgumentException, UriBuilderException, SQLException {
@@ -65,21 +71,8 @@ public class RentalResource {
         return response;
     }
  	   
- 	@POST
-    @Path("{check_in}")
-    @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-    public Response postRental(@PathParam("check_in") Date check_in) {
-        return Response.status(Status.METHOD_NOT_ALLOWED).allow("GET", "PUT", "DELETE", "PATCH").build();
-    }
- 	  
- 	 @PUT
-     public Response putRentals(List<Rental> rentals) {
-         //In this context having this method makes no sense, because usually one does not replace the entire book collection
-         return Response.status(Status.METHOD_NOT_ALLOWED).allow("GET", "POST").build();
-     }
-
    @PUT
-    @Path("{check_in}")
+    @Path("check_in/{check_in}")
     public Response putUser(@PathParam("check_in") Date check_in, Rental newRental) throws SQLException {
         //Only the replace functionality is implemented
         Response response;
@@ -97,7 +90,7 @@ public class RentalResource {
    }
    
    @DELETE
-   @Path("{check_in}/{check_out}")
+   @Path("check_in_out/{check_in}/{check_out}")
    public Response deleteRental(@PathParam("check_in") Date check_in, @PathParam("check_out") Date check_out) throws SQLException {
        //Only the replace functionality is implemented
        Response response;

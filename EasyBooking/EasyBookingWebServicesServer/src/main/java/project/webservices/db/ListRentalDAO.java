@@ -139,8 +139,7 @@ public class ListRentalDAO implements RentalDAO{
 	}
 
 	@Override
-	public boolean findRental(Date check_in, Date check_out, Integer discount, Double price, Integer id_home,
-			Integer id_user) {
+	public boolean findIdUser(Integer id_user) {
 		// TODO Auto-generated method stub
 		boolean dissconect_flag=false;
 		try {
@@ -158,18 +157,55 @@ public class ListRentalDAO implements RentalDAO{
 			resSet = statmt.executeQuery("SELECT * FROM rental");
 			while(resSet.next())
 			{
-				Date check_inr = resSet.getDate("check_in");
-				Date check_outr = resSet.getDate("check_out");
-				Integer discounterr = resSet.getInt("discounter");
-				Double pricer = resSet.getDouble("price");
-				Integer id_homer = resSet.getInt("id_home");
 				Integer id_userr = resSet.getInt("id_user");
-				rentals.add(new Rental(check_inr, check_outr, discounterr, pricer, id_homer, id_userr));
+				rentals.add(new Rental( id_userr));
 			}	
 			for(Rental rental : rentals)
 			{
-				if(rental.getCheck_in().equals(check_in) && rental.getCheck_out().equals(check_out) && rental.getDiscount().equals(discount) && rental.getPrice().equals(price) &&
-						rental.getId_home().equals(id_home) && rental.getId_user().equals(id_user))
+				if(rental.getId_user().equals(id_user))
+				{
+					if(dissconect_flag==true)
+						disconnectDB();
+					return true;
+				}
+			}
+			if(dissconect_flag == true)
+				disconnectDB();
+			return false;
+		}
+		catch(SQLException exc)
+		{
+			System.out.println("Exception"+exc);
+			if(dissconect_flag == true)
+				disconnectDB();
+			return false;
+		}	
+	}
+	
+	public boolean findIdHome(Integer id_home) {
+		// TODO Auto-generated method stub
+		boolean dissconect_flag=false;
+		try {
+			if(conn == null || conn.isClosed()) {
+				connectDB();
+				dissconect_flag = true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+		List<Rental> rentals  = Collections.synchronizedList(new ArrayList<>());
+		try{
+			statmt = conn.createStatement();
+			resSet = statmt.executeQuery("SELECT * FROM rental");
+			while(resSet.next())
+			{
+				Integer id_homer = resSet.getInt("id_home");
+				rentals.add(new Rental(id_homer));
+			}	
+			for(Rental rental : rentals)
+			{
+				if(rental.getId_home().equals(id_home))
 				{
 					if(dissconect_flag==true)
 						disconnectDB();

@@ -22,6 +22,11 @@ public class Rental {
 		this.id_user = id_user;
 	}
 	
+	public Rental(Integer id_user)
+	{
+		this.id_user=id_user;
+	}	
+	
 	 @Override
 	    public String toString() {
 	        StringBuilder builder = new StringBuilder();

@@ -80,11 +80,11 @@ public class ListHomeDAO implements HomeDAO{
 			{
 				String  nameh = resSet.getString("name");
 				String  descriptionh = resSet.getString("description");
-				Double priceh = resSet.getDouble("price");
-				Integer starsh = resSet.getInt("stars");
-				Integer nr_reviewh = resSet.getInt("nr_review");
+				String priceh = resSet.getString("price");
+				String starsh = resSet.getString("stars");
+				String nr_reviewh = resSet.getString("nr_review");
 				String path_imgh = resSet.getString("path_img");
-				Integer id_userh = resSet.getInt("id_user");
+				String id_userh = resSet.getString("id_user");
 				homes.add(new Home(nameh,descriptionh,priceh,starsh,nr_reviewh,path_imgh,id_userh));
 			}	
 		} catch (SQLException e) {
@@ -120,11 +120,11 @@ public class ListHomeDAO implements HomeDAO{
 			{
 				String  nameh = resSet.getString("name");
 				String  descriptionh = resSet.getString("description");
-				Double priceh = resSet.getDouble("price");
-				Integer starsh = resSet.getInt("stars");
-				Integer nr_reviewh = resSet.getInt("nr_review");
+				String priceh = resSet.getString("price");
+				String starsh = resSet.getString("stars");
+				String nr_reviewh = resSet.getString("nr_review");
 				String path_imgh = resSet.getString("path_img");
-				Integer id_userh = resSet.getInt("id_user");
+				String id_userh = resSet.getString("id_user");
 				homes.add(new Home(nameh,descriptionh,priceh,starsh,nr_reviewh,path_imgh,id_userh));
 			}	
 			if(dissconect_flag == true)
@@ -140,7 +140,7 @@ public class ListHomeDAO implements HomeDAO{
 	}
 
 	@Override
-	public boolean findHome(String name, String description, Double price, Integer stars, Integer nr_review, String path_img, Integer id_user) {
+	public boolean findHome(String name) {
 		// TODO Auto-generated method stub
 		boolean dissconect_flag=false;
 		try {
@@ -159,18 +159,11 @@ public class ListHomeDAO implements HomeDAO{
 			while(resSet.next())
 			{
 				String  nameh = resSet.getString("name");
-				String  descriptionh = resSet.getString("description");
-				Double priceh = resSet.getDouble("price");
-				Integer starsh = resSet.getInt("stars");
-				Integer nr_reviewh = resSet.getInt("nr_review");
-				String path_imgh = resSet.getString("path_img");
-				Integer id_userh = resSet.getInt("id_user");
-				homes.add(new Home(nameh,descriptionh,priceh,starsh,nr_reviewh,path_imgh,id_userh));
+				homes.add(new Home(nameh));
 			}	
 			for(Home home : homes)
 			{
-				if(home.getName().equals(name) && home.getDescription().equals(description) && home.getPrice().equals(price) && home.getStars().equals(stars) &&
-						home.getNr_review().equals(nr_review) && home.getPath_img().equals(path_img) && home.getId_user().equals(id_user))
+				if(home.getName().equals(name))
 				{
 					if(dissconect_flag==true)
 						disconnectDB();
@@ -245,11 +238,11 @@ public class ListHomeDAO implements HomeDAO{
 			{
 				String  nameh = resSet.getString("name");
 				String  descriptionh = resSet.getString("description");
-				Double priceh = resSet.getDouble("price");
-				Integer starsh = resSet.getInt("stars");
-				Integer nr_reviewh = resSet.getInt("nr_review");
+				String priceh = resSet.getString("price");
+				String starsh = resSet.getString("stars");
+				String nr_reviewh = resSet.getString("nr_review");
 				String path_imgh = resSet.getString("path_img");
-				Integer id_userh = resSet.getInt("id_user");
+				String id_userh = resSet.getString("id_user");
 				if(Objects.equals(nameh,name))
 				{
 					statmt.executeUpdate("UPDATE home SET name=\'"+home.getName()+"\' WHERE name=\'"+name+"\'");
@@ -333,34 +326,4 @@ public class ListHomeDAO implements HomeDAO{
 		return found;
 	}
 
-	@Override
-	public int getHomeId(String name) {
-		// TODO Auto-generated method stub
-		boolean dissconect_flag = false;
-		int id_user = -1;
-		try {
-			if(conn == null || conn.isClosed()) {
-				connectDB();
-				dissconect_flag=true;
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-			return id_user;
-		}
-		try {
-			statmt = conn.createStatement();
-			resSet = statmt.executeQuery("SELECT id FROM home where name='"+name+"'");
-			if(resSet.next())
-			{
-				id_user = resSet.getInt("id");
-			}	
-		}
-		catch(Exception exc)
-		{
-			exc.printStackTrace();
-		}
-		if(dissconect_flag == true)
-			disconnectDB();
-		return id_user;	
-	}		
 }
