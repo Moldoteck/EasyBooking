@@ -1,4 +1,4 @@
-body {
+/*body {
   background-color: #eff3f4;
   position: relative;
   width: 100%;
@@ -8,13 +8,13 @@ body {
   font-weight: 400;
   -webkit-font-smoothing: antialiased;
   margin:0;
-}
-nav{
+}*/
+/*nav{
 	background: white;
 	color: gainsboro;
 	font-weight: bold;
 	font-size: 35px;
-}
+}*/
 
 .log{
 	 float:right;
@@ -31,6 +31,12 @@ nav{
 	background:white;
 	color:#0f4159;
  }
+ button{
+ 	background: #F97300;
+ 	border: none;
+ 	font-family: "Raleway";
+ 	
+ }
  header{
 	position:fixed;
 	top:0;
@@ -38,12 +44,6 @@ nav{
 	right:0;
 	width:100%;
 }
+html { min-height: 100%; }
 
- #main{
-	background:url("https://goo.gl/ZUsNrS");
-	background-size: 1500px 600px;
-	background-repeat: repeat;
-	/*background:steelBlue;*/
-	width:100%;
-	text-align:center;
- }
+
