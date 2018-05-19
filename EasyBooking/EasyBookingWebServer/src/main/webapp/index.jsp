@@ -45,12 +45,12 @@
 			<button id="logIn" class="log">Log In</button>
 		</form>
 	</div>
-	<!-- 
+	
 	<div class="navbar" style="display:inline;">
-		<form action="index.jsp" method="get">
+		<form action="register.jsp" method="get">
 			<button id="signIn" class="log">Sign In</button>
 		</form>
-	</div> -->
+	</div>
 <%	} 
 %>
 </nav>

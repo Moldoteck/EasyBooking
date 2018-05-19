@@ -167,13 +167,13 @@
 		</div>
 
 		<div class="inputGroup inputGroup1">
-			<label for="username1">Username</label> <input type="text" id="username"
+			<label for="username1">Username</label> <input type="username" id="username"
 				class="username" maxlength="256" name="username"/>
 			<span class="indicator"></span>
 		</div>
 		<div class="inputGroup inputGroup2">
 			<label for="password">Password</label> <input type="password"
-				id="password" class="password" name="password"/>
+				id="password" name="password"/>
 		</div>
 		<%
 			if(session.getAttribute("login_error")!=null){
@@ -185,13 +185,15 @@
 			}
 		%>
 		<div class="inputGroup inputGroup3">
-			<button id="login">Log in</button>
+			<button id="login" formaction="TestServlet">Log in</button>
 		</div>
-		<br>
-		<p><em>You don't have an account?</em></p>
+		<p>
+			<em>You don't have an account?</em>
+		</p>
 		<div class="inputGroup inputGroup4">
-			<button id="signin">Sign in</button>
+			<button id="signin" formaction="register.jsp">Sign in</button>
 		</div>
+
 	</form>
 	
 	<script type="text/javascript" src="js/script.js"></script>
