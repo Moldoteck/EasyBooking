@@ -41,7 +41,7 @@
 	    <ul class="navbar-nav mr-4">
 	      
 	      <li class="nav-item">
-	        <a class="nav-link" data-value="become_a_host" href="home.jsp">Become a host</a>
+	        <a class="nav-link" data-value="become_a_host" href="addHome.jsp">Become a host</a>
 	      </li>
 	      
 	      <%	
@@ -72,14 +72,12 @@
 </nav>
 
 <header class="header ">
-<br><br><br><br>            <br><br><br><br>
-
+<br><br><br><br>
  <div class="overlay"></div>
    <div class="container"  style="text-align: center;">
 	<div class="row">
         <div class="col-md-6">
             <div id="custom-search-input"  style="text-align: center;">
-
                 <div class="input-group col-md-12">
                     <input type="text" class="form-control input-lg" placeholder="Search" />
                     <div class="input-group-btn">
@@ -102,6 +100,32 @@
 			<div class="col-lg-4 col-md-4 col-sm-12">
 				<img src="images/portfolio/port13.png" class="img-fluid">
 			</div>
+			<div class="col-lg-4 col-md-4 col-sm-12">
+				<img src="images/portfolio/port1.png" class="img-fluid">
+			</div>
+			<div class="col-lg-4 col-md-4 col-sm-12">
+				<img src="images/portfolio/port6.png" class="img-fluid">
+			</div>
+
+			<div class="col-lg-4 col-md-4 col-sm-12">
+				<img src="images/portfolio/port3.png" class="img-fluid">
+			</div>
+			<div class="col-lg-4 col-md-4 col-sm-12">
+				<img src="images/portfolio/port11.png" class="img-fluid">
+			</div>
+			<div class="col-lg-4 col-md-4 col-sm-12">
+				<img src="images/portfolio/electric.png" class="img-fluid">
+			</div>
+
+			<div class="col-lg-4 col-md-4 col-sm-12">
+				<img src="images/portfolio/Classic.jpg" class="img-fluid">
+			</div>
+			<div class="col-lg-4 col-md-4 col-sm-12">
+				<img src="images/portfolio/port1.png" class="img-fluid">
+			</div>
+			<div class="col-lg-4 col-md-4 col-sm-12">
+				<img src="images/portfolio/port8.png" class="img-fluid">
+			</div>
 		</div>
 	</div>
 </div>
@@ -113,41 +137,40 @@
 	<div class="container">
 	   <h1 class="text-center">Our Team</h1>
 		<div class="row">
-			<div class="col-lg-3 col-md-3 col-sm-12 item" >
-				<img src="images/gina.jpg" class="img-fluid" alt="team">
-				 <div class="des">
-				 	Ungureanu Elena-Georgiana
+			<div class="col-lg-3 col-md-3 col-sm-12 item">
+				<img src="images/team-2.jpg" class="img-fluid" alt="team">
+				<div class="des">
+				 	Bodron Ramona-Elena
 				 </div>
-				<span class="text-muted">Team Member</span>
+				<span class="text-muted">Team Leader</span>
 			</div>
 			<div class="col-lg-3 col-md-3 col-sm-12 item">
-				<img src="images/magda.jpg" class="img-fluid" alt="team">
+				<img src="images/team-3.jpg" class="img-fluid" alt="team">
 				<div class="des">
 				 	 B&#259;rbieru Magda
 				 </div>
 				<span class="text-muted">Team Member</span>
 			</div>
 			<div class="col-lg-3 col-md-3 col-sm-12 item">
-				<img src="images/carmencita.jpg" class="img-fluid" alt="team">
+				<img src="images/team-2.jpg" class="img-fluid" alt="team">
 				<div class="des">
 				 	Bogli&#537; Carmen 
 				 </div>
 				<span class="text-muted">Team Member</span>
 			</div>
 			<div class="col-lg-3 col-md-3 col-sm-12 item">
-				<img src="images/cristi.jpg" class="img-fluid" alt="team">
+				<img src="images/team-3.jpg" class="img-fluid" alt="team">
 				 <div class="des">
 				 	P&#259;dureac Cristian
 				 </div>
 				<span class="text-muted">Team Member</span>
 			</div>
-			
 			<div class="col-lg-3 col-md-3 col-sm-12 item" style="width:800px; margin:0 auto;">
-				<img src="images/ramona.jpg" class="img-fluid" alt="team">
-				<div class="des">
-				 	Bodron Ramona-Elena
+				<img src="images/team-3.jpg" class="img-fluid" alt="team">
+				 <div class="des">
+				 	Ungureanu Elena-Georgiana
 				 </div>
-				<span class="text-muted">Team Leader</span>
+				<span class="text-muted">Team Member</span>
 			</div>
 		</div>
 	</div>
