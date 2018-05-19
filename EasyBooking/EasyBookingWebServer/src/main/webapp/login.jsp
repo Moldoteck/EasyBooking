@@ -6,18 +6,43 @@
 <html>
 <head>
 <link rel="stylesheet" type="text/css" href="css/style.css" rel="stylesheet">
-
 <link rel="stylesheet" type="text/css"
 	href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700"
 	rel="stylesheet">
+	<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="css/main.css">
 <script type="text/javascript"
 	src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.20.3/TweenMax.min.js"></script>
 <script type="text/javascript" src="js/externalscript.js"></script>
-
 <meta charset="UTF-8">
 </head>
 <body>
-	
+	<nav class="navbar navbar-expand-lg fixed-top ">
+
+	<a class="navbar-brand" href="index.jsp"><img src="images/home.png" width="40" height="40"></a>
+	  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+	    <span class="navbar-toggler-icon"></span>
+	  </button>
+
+	  <div class="collapse navbar-collapse " id="navbarSupportedContent">
+	    <ul class="navbar-nav mr-4">
+	      
+	      <li class="nav-item">
+	        <a class="nav-link" data-value="become_a_host" href="addHome.jsp">Become a host</a>
+	      </li>
+			<li class="nav-item">
+	        <a class="nav-link " data-value="login" href="login.jsp">Log in</a>
+	      </li>
+	      <li class="nav-item">
+	        <a class="nav-link " data-value="signup" href="register.jsp">Sign Up</a>
+	      </li>
+
+	    </ul>
+	    
+	  </div>
+
+</nav>
 	<form action="TestServlet" method="post" enctype="multipart/form-data">
 		<div class="svgContainer">
 			<div>
@@ -187,15 +212,13 @@
 		<div class="inputGroup inputGroup3">
 			<button id="login" formaction="TestServlet">Log in</button>
 		</div>
-		<p>
-			<em>You don't have an account?</em>
-		</p>
-		<div class="inputGroup inputGroup4">
-			<button id="signin" formaction="register.jsp">Sign in</button>
-		</div>
 
 	</form>
 	
 	<script type="text/javascript" src="js/script.js"></script>
+	<!-- add Javasscript file from js file -->
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+<script type="text/javascript" src='js/main.js'></script>
 </body>
 </html>
