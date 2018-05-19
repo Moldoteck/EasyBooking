@@ -3,9 +3,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<link rel="stylesheet" type="text/css" href="css/indexstyle.css">
 <title>Easy Booking</title>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<meta charset="UTF-8">
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<link rel="stylesheet" type="text/css" href="css/indexstyle.css">
+<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="css/main.css">
 </head>
 <%
 	String userId = null;
@@ -22,48 +26,185 @@
 		session.setAttribute("userId", username);
 	}
 	userId = (String) session.getAttribute("userId");
-	%>
+%>
 	
 <body>
-<header>
-<nav>
-<%	
-	if(userId!=null){
-%>
-	<div class="navbar" style="display:inline;">
-	<p><em>Hi, <%out.print(session.getAttribute("userId")); %></em></p>
-		<form action="index.jsp" method="get">
-			<button id="logout" class="log" onclick="<%session.invalidate();%>">Log Out</button>
-		</form>
-	</div>
-<%
-	}
-	else{
-%>
-	<div class="navbar" style="display:inline;">
-		<form action="login.jsp" method="get">
-			<button id="logIn" class="log">Log In</button>
-		</form>
-	</div>
-	<!-- 
-	<div class="navbar" style="display:inline;">
-		<form action="index.jsp" method="get">
-			<button id="signIn" class="log">Sign In</button>
-		</form>
-	</div> -->
-<%	} 
-%>
+
+<nav class="navbar navbar-expand-lg fixed-top ">
+
+	<a class="navbar-brand" href="#"><img src="images/home.png" width="40" height="40"></a>
+	  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+	    <span class="navbar-toggler-icon"></span>
+	  </button>
+
+	  <div class="collapse navbar-collapse " id="navbarSupportedContent">
+	    <ul class="navbar-nav mr-4">
+	      
+	      <li class="nav-item">
+	        <a class="nav-link" data-value="become_a_host" href="addHome.jsp">Become a host</a>
+	      </li>
+	      
+	      <%	
+			if(userId!=null){
+		  %>
+		  <li class="nav-item">
+			<div class="navbar" style="display:inline;">
+			<li><img src="images/user.png" alt="user img" width="50" height="50"></li>
+			<form action="index.jsp" method="get">
+			<a id="user_details" class="nav-link" href="userDetails.jsp"> <%out.print(session.getAttribute("userId")); %> Details</a>
+			<button class="nav-link" onclick="<%session.invalidate();%>">Log Out</button>
+			</form>
+			</div>
+		</li>
+		<% } else {%>
+			<li class="nav-item">
+	        <a class="nav-link " data-value="login" href="login.jsp">Log in</a>
+	      </li>
+	      <li class="nav-item">
+	        <a class="nav-link " data-value="signup" href="register.jsp">Sign Up</a>
+	      </li>
+	      <% } %>
+		</li>
+	    </ul>
+	    
+	  </div>
+
 </nav>
+
+<header class="header ">
+<br><br><br><br>
+ <div class="overlay"></div>
+   <div class="container"  style="text-align: center;">
+	<div class="row">
+        <div class="col-md-6">
+            <div id="custom-search-input"  style="text-align: center;">
+                <div class="input-group col-md-12">
+                    <input type="text" class="form-control input-lg" placeholder="Search" />
+                    <div class="input-group-btn">
+                        <button class="btn btn-info btn-lg" type="button">
+                            <i class="glyphicon glyphicon-search"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+	</div>
+</div>
 </header>
-<br><br><br>
-<section id="main">
-	<br><br><br><br><br><br><br><br>
-	<form action="" method="post">
-	<input type="text" placeholder="Search for a country or a city" style="float:center; width:40%; padding:10px; box-sizing:border-box; border:2px solid #0f4159;"/>
-	<input type="submit" id="buton" value="Search" style="width:10%; padding:10px; font-weight:bold; background:#0f4159; color:white;"/>
-	</form>
-	<br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-	<br><br><br><br><br>
-</section>
+
+<!-- portfolio -->
+<div class="portfolio" id="portfolio">
+     <h1 class="text-center">Homes around the world</h1>
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-4 col-md-4 col-sm-12">
+				<img src="images/portfolio/port13.png" class="img-fluid">
+			</div>
+			<div class="col-lg-4 col-md-4 col-sm-12">
+				<img src="images/portfolio/port1.png" class="img-fluid">
+			</div>
+			<div class="col-lg-4 col-md-4 col-sm-12">
+				<img src="images/portfolio/port6.png" class="img-fluid">
+			</div>
+
+			<div class="col-lg-4 col-md-4 col-sm-12">
+				<img src="images/portfolio/port3.png" class="img-fluid">
+			</div>
+			<div class="col-lg-4 col-md-4 col-sm-12">
+				<img src="images/portfolio/port11.png" class="img-fluid">
+			</div>
+			<div class="col-lg-4 col-md-4 col-sm-12">
+				<img src="images/portfolio/electric.png" class="img-fluid">
+			</div>
+
+			<div class="col-lg-4 col-md-4 col-sm-12">
+				<img src="images/portfolio/Classic.jpg" class="img-fluid">
+			</div>
+			<div class="col-lg-4 col-md-4 col-sm-12">
+				<img src="images/portfolio/port1.png" class="img-fluid">
+			</div>
+			<div class="col-lg-4 col-md-4 col-sm-12">
+				<img src="images/portfolio/port8.png" class="img-fluid">
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+<!-- Team section -->
+<div class="team" id="team">
+	<div class="container">
+	   <h1 class="text-center">Our Team</h1>
+		<div class="row">
+			<div class="col-lg-3 col-md-3 col-sm-12 item">
+				<img src="images/team-2.jpg" class="img-fluid" alt="team">
+				<div class="des">
+				 	Bodron Ramona-Elena
+				 </div>
+				<span class="text-muted">Team Leader</span>
+			</div>
+			<div class="col-lg-3 col-md-3 col-sm-12 item">
+				<img src="images/team-3.jpg" class="img-fluid" alt="team">
+				<div class="des">
+				 	 B&#259;rbieru Magda
+				 </div>
+				<span class="text-muted">Team Member</span>
+			</div>
+			<div class="col-lg-3 col-md-3 col-sm-12 item">
+				<img src="images/team-2.jpg" class="img-fluid" alt="team">
+				<div class="des">
+				 	Bogli&#537; Carmen 
+				 </div>
+				<span class="text-muted">Team Member</span>
+			</div>
+			<div class="col-lg-3 col-md-3 col-sm-12 item">
+				<img src="images/team-3.jpg" class="img-fluid" alt="team">
+				 <div class="des">
+				 	P&#259;dureac Cristian
+				 </div>
+				<span class="text-muted">Team Member</span>
+			</div>
+			<div class="col-lg-3 col-md-3 col-sm-12 item" style="width:800px; margin:0 auto;">
+				<img src="images/team-3.jpg" class="img-fluid" alt="team">
+				 <div class="des">
+				 	Ungureanu Elena-Georgiana
+				 </div>
+				<span class="text-muted">Team Member</span>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- Contact form -->
+<div class="contact-form" id="contact">
+	<div class="container">
+		<form>
+			<div class="row">
+				<div class="col-lg-4 col-md-4 col-sm-12">
+				  <h1>Get in Touch</h1>	
+				</div>
+				<div class="col-lg-8 col-md-8 col-sm-12 right">
+				   <div class="form-group">
+				   	 <input type="text" class="form-control form-control-lg" placeholder="Your Name" name="">
+				   </div>
+				   <div class="form-group">
+				   	 <input type="email" class="form-control form-control-lg" placeholder="YourEmail@email.com" name="email">
+				   </div>
+				   <div class="form-group">
+				   	 <textarea class="form-control form-control-lg">
+				   	 	
+				   	 </textarea>
+				   </div>
+				   <input type="submit" class="btn btn-secondary btn-block" value="Send" name="">
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
+<!-- add Javasscript file from js file -->
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+<script type="text/javascript" src='js/main.js'></script>
 </body>
 </html>
