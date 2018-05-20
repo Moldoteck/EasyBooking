@@ -10,6 +10,32 @@
 <link rel="stylesheet" type="text/css" href="css/indexstyle.css">
 <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
 <link rel="stylesheet" type="text/css" href="css/main.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/esm/popper-utils.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/esm/popper-utils.js.map"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/esm/popper-utils.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/esm/popper-utils.min.js.map"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/esm/popper.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/esm/popper.js.map"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/esm/popper.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/esm/popper.min.js.map"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/popper-utils.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/popper-utils.js.map"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/popper-utils.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/popper-utils.min.js.map"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/popper.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/popper.js.map"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/popper.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/popper.min.js.map"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper-utils.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper-utils.js.map"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper-utils.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper-utils.min.js.map"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.js.map"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js.map"></script>
+
+
 </head>
 <%
 	String userId = null;
@@ -34,14 +60,46 @@
 
 	<a class="navbar-brand" href="#"><img src="images/home.png" width="40" height="40"></a>
 	  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-	    <span class="navbar-toggler-icon"></span>
+	    <span class="navbar-toggler-icon">
+	    </span>
+	    <div class="collapse navbar-collapse " id="navbarSupportedContent">
+	    <ul class="navbar-nav mr-4">
+	      
+	      <li class="nav-item">
+	        <a class="nav-link" data-value="become_a_host" href="home.jsp">Become a host</a>
+	      </li>
+	      
+	      <%	
+			if(userId!=null){
+		  %>
+		  <li class="nav-item">
+			<div class="navbar" style="display:inline;">
+			<li><img src="images/user.png" alt="user img" width="50" height="50"></li>
+			<form action="index.jsp" method="get">
+			<a id="user_details" class="nav-link" href="userDetails.jsp"> <%out.print(session.getAttribute("userId")); %> Details</a>
+			<button class="nav-link" onclick="<%session.invalidate();%>">Log Out</button>
+			</form>
+			</div>
+		</li>
+		<% } else {%>
+			<li class="nav-item">
+	        <a class="nav-link " data-value="login" href="login.jsp">Log in</a>
+	      </li>
+	      <li class="nav-item">
+	        <a class="nav-link " data-value="signup" href="register.jsp">Sign Up</a>
+	      </li>
+	      <% } %>
+		</li>
+	    </ul>
+	    
+	  </div>
 	  </button>
 
 	  <div class="collapse navbar-collapse " id="navbarSupportedContent">
 	    <ul class="navbar-nav mr-4">
 	      
 	      <li class="nav-item">
-	        <a class="nav-link" data-value="become_a_host" href="addHome.jsp">Become a host</a>
+	        <a class="nav-link" data-value="become_a_host" href="home.jsp">Become a host</a>
 	      </li>
 	      
 	      <%	
@@ -72,12 +130,14 @@
 </nav>
 
 <header class="header ">
-<br><br><br><br>
+<br><br><br><br>            <br><br><br><br>
+
  <div class="overlay"></div>
    <div class="container"  style="text-align: center;">
 	<div class="row">
         <div class="col-md-6">
             <div id="custom-search-input"  style="text-align: center;">
+
                 <div class="input-group col-md-12">
                     <input type="text" class="form-control input-lg" placeholder="Search" />
                     <div class="input-group-btn">
@@ -100,32 +160,6 @@
 			<div class="col-lg-4 col-md-4 col-sm-12">
 				<img src="images/portfolio/port13.png" class="img-fluid">
 			</div>
-			<div class="col-lg-4 col-md-4 col-sm-12">
-				<img src="images/portfolio/port1.png" class="img-fluid">
-			</div>
-			<div class="col-lg-4 col-md-4 col-sm-12">
-				<img src="images/portfolio/port6.png" class="img-fluid">
-			</div>
-
-			<div class="col-lg-4 col-md-4 col-sm-12">
-				<img src="images/portfolio/port3.png" class="img-fluid">
-			</div>
-			<div class="col-lg-4 col-md-4 col-sm-12">
-				<img src="images/portfolio/port11.png" class="img-fluid">
-			</div>
-			<div class="col-lg-4 col-md-4 col-sm-12">
-				<img src="images/portfolio/electric.png" class="img-fluid">
-			</div>
-
-			<div class="col-lg-4 col-md-4 col-sm-12">
-				<img src="images/portfolio/Classic.jpg" class="img-fluid">
-			</div>
-			<div class="col-lg-4 col-md-4 col-sm-12">
-				<img src="images/portfolio/port1.png" class="img-fluid">
-			</div>
-			<div class="col-lg-4 col-md-4 col-sm-12">
-				<img src="images/portfolio/port8.png" class="img-fluid">
-			</div>
 		</div>
 	</div>
 </div>
@@ -137,40 +171,41 @@
 	<div class="container">
 	   <h1 class="text-center">Our Team</h1>
 		<div class="row">
-			<div class="col-lg-3 col-md-3 col-sm-12 item">
-				<img src="images/team-2.jpg" class="img-fluid" alt="team">
-				<div class="des">
-				 	Bodron Ramona-Elena
+			<div class="col-lg-3 col-md-3 col-sm-12 item" >
+				<img src="images/gina.jpg" class="img-fluid" alt="team">
+				 <div class="des">
+				 	Ungureanu Elena-Georgiana
 				 </div>
-				<span class="text-muted">Team Leader</span>
+				<span class="text-muted">Team Member</span>
 			</div>
 			<div class="col-lg-3 col-md-3 col-sm-12 item">
-				<img src="images/team-3.jpg" class="img-fluid" alt="team">
+				<img src="images/magda.jpg" class="img-fluid" alt="team">
 				<div class="des">
 				 	 B&#259;rbieru Magda
 				 </div>
 				<span class="text-muted">Team Member</span>
 			</div>
 			<div class="col-lg-3 col-md-3 col-sm-12 item">
-				<img src="images/team-2.jpg" class="img-fluid" alt="team">
+				<img src="images/carmencita.jpg" class="img-fluid" alt="team">
 				<div class="des">
 				 	Bogli&#537; Carmen 
 				 </div>
 				<span class="text-muted">Team Member</span>
 			</div>
 			<div class="col-lg-3 col-md-3 col-sm-12 item">
-				<img src="images/team-3.jpg" class="img-fluid" alt="team">
+				<img src="images/cristi.jpg" class="img-fluid" alt="team">
 				 <div class="des">
 				 	P&#259;dureac Cristian
 				 </div>
 				<span class="text-muted">Team Member</span>
 			</div>
+			
 			<div class="col-lg-3 col-md-3 col-sm-12 item" style="width:800px; margin:0 auto;">
-				<img src="images/team-3.jpg" class="img-fluid" alt="team">
-				 <div class="des">
-				 	Ungureanu Elena-Georgiana
+				<img src="images/ramona.jpg" class="img-fluid" alt="team">
+				<div class="des">
+				 	Bodron Ramona-Elena
 				 </div>
-				<span class="text-muted">Team Member</span>
+				<span class="text-muted">Team Leader</span>
 			</div>
 		</div>
 	</div>
