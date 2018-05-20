@@ -41,7 +41,7 @@
 </nav>
  <br><br><br>
 <div>
-	<form action="ServletSignUp.java" method=post enctype="multipart/form-data">
+	<form action="ServletSignUp" method=post enctype="multipart/form-data">
 		<div class="inputGroup inputGroup1">
 			<label for="files" class="btn"><img src="images/userR.png"></label>
 			<input type="text" id="files" name="photo" placeholder="Image Link">

@@ -49,7 +49,7 @@
   border-radius: .5em;
   font-family: 'Source Sans Pro', sans-serif;">
 
-	<h1 class="heading">Hi, <%session.getAttribute("userId");%></h1>
+	<h1 class="heading">Hi, <%out.print(session.getAttribute("userId")+request.getParameter("uname")+request.getParameter("username"));%></h1>
 	
 	<div class="form-group">
     	<label for="image" style="color:#217093;"><img src="images/userR.png"></label>
