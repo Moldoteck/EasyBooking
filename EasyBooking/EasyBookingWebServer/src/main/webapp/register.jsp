@@ -44,7 +44,7 @@
 	<form action="ServletSignUp.java" method=post enctype="multipart/form-data">
 		<div class="inputGroup inputGroup1">
 			<label for="files" class="btn"><img src="images/userR.png"></label>
-			<input type="file" id="files" name="photo" accept="image/*">
+			<input type="text" id="files" name="photo" placeholder="Image Link">
 		</div>
 		<div class="inputGroup inputGroup1">
 			<input type="text" id="first_name"
