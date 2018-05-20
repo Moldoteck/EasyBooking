@@ -7,7 +7,7 @@ public interface UserDAO {
 
     List<User> getUsers();
 
-    User getUser(String username);
+    int getUser(String username);
     
     boolean findUser(String username, String password);
 

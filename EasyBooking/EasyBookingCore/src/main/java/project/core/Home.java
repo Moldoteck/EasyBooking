@@ -12,6 +12,8 @@ public class Home {
 	private String path_img;
 	private String id_user;
 	
+	public Home() {
+	}
 	public Home(String name, String description, String price, String stars, String nr_review, String path_img, String id_user)
 	{
 		super();

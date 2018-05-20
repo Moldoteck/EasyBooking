@@ -97,9 +97,11 @@ public class ListHomeDAO implements HomeDAO{
 			disconnectDB();
 		return homes;
 	}
+	
+	
 
 	@Override
-	public Home getHome(String name) {
+	public List<Home> getHome(String name) {
 		// TODO Auto-generated method stub
 		boolean dissconect_flag = false;
 		try {
@@ -115,7 +117,7 @@ public class ListHomeDAO implements HomeDAO{
 		List<Home> homes = Collections.synchronizedList(new ArrayList<>());
 		try{
 			statmt = conn.createStatement();
-			resSet = statmt.executeQuery("SELECT * FROM home");
+			resSet = statmt.executeQuery("SELECT * FROM home where lower(name) like lower('%"+name+"%')");
 			while(resSet.next())
 			{
 				String  nameh = resSet.getString("name");
@@ -129,7 +131,7 @@ public class ListHomeDAO implements HomeDAO{
 			}	
 			if(dissconect_flag == true)
 				disconnectDB();
-			return homes.stream().filter(o -> Objects.equals(o.getName(), name)).findFirst().orElse(null);
+			return homes;
 		}
 		catch(SQLException exc)
 		{
@@ -140,52 +142,52 @@ public class ListHomeDAO implements HomeDAO{
 	}
 
 	@Override
-	public boolean findHome(String name) {
-		// TODO Auto-generated method stub
-		boolean dissconect_flag=false;
+	public Home findHomeById(String id_owner) {
+		boolean dissconect_flag = false;
 		try {
 			if(conn == null || conn.isClosed()) {
+				System.out.println("connecting");
 				connectDB();
 				dissconect_flag = true;
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-			return false;
+			return null;
 		}
-		List<Home> homes  = Collections.synchronizedList(new ArrayList<>());
+		List<Home> homes = Collections.synchronizedList(new ArrayList<>());
 		try{
 			statmt = conn.createStatement();
-			resSet = statmt.executeQuery("SELECT * FROM home");
+
+			resSet = statmt.executeQuery("SELECT * FROM home where id_user="+id_owner);
+
+			System.out.println("SecondCheck");
 			while(resSet.next())
 			{
 				String  nameh = resSet.getString("name");
-				homes.add(new Home(nameh));
+				String  descriptionh = resSet.getString("description");
+				String priceh = resSet.getString("price");
+				String starsh = resSet.getString("stars");
+				String nr_reviewh = resSet.getString("nr_review");
+				String path_imgh = resSet.getString("path_img");
+				String id_userh = resSet.getString("id_user");
+				homes.add(new Home(nameh,descriptionh,priceh,starsh,nr_reviewh,path_imgh,id_userh));
 			}	
-			for(Home home : homes)
-			{
-				if(home.getName().equals(name))
-				{
-					if(dissconect_flag==true)
-						disconnectDB();
-					return true;
-				}
-			}
 			if(dissconect_flag == true)
 				disconnectDB();
-			return false;
+			return homes.size()==1?homes.get(0):null;
 		}
 		catch(SQLException exc)
 		{
-			System.out.println("Exception"+exc);
+			System.out.println(exc);
 			if(dissconect_flag == true)
 				disconnectDB();
-			return false;
-		}	
+			return null;
+		}
 	}
 
 	@Override
 	public boolean addHome(Home home) {
-		// TODO Auto-generated method stub
+		Home hm = findHomeById(home.getId_user());
 		boolean dissconect_flag=false;
 		try {
 			if(conn == null || conn.isClosed()) {
@@ -196,13 +198,29 @@ public class ListHomeDAO implements HomeDAO{
 			e1.printStackTrace();
 			return false;
 		}
-		if (getHome(home.getName()) != null) {
-			return false;
+		List<Home> check = getHome(home.getName());
+		if (check != null) {
+			if(check.size()!=0) {
+				System.out.println("Wrong name");
+				return false;
+			}
 		}
 		try {
+			
 			statmt = conn.createStatement();
-			statmt.execute("INSERT INTO 'home' ('name', 'description', 'price', 'stars', 'nr_review', 'path_img', 'id_user') VALUES ('"+ home.getName()+"', '" +
-			home.getDescription() + home.getPrice() + home.getStars() + home.getNr_review() + home.getPath_img() + home.getId_user() +"'); ");
+
+			if(hm==null)
+			{
+				statmt.execute("INSERT INTO 'home' ('name', 'description', 'price', 'stars', 'nr_review', 'path_img', 'id_user') VALUES ('"+ home.getName()+"', '" +
+						home.getDescription() + home.getPrice() + home.getStars() + home.getNr_review() + home.getPath_img() + home.getId_user() +"'); ");
+				
+			}
+			else
+			{
+				statmt.execute("UPDATE home set name ='"+home.getName()+"', description='"+home.getDescription()+
+						"', price="+home.getPrice()+", path_img='"+home.getPath_img()+"' where id_user="+home.getId_user() +"; ");
+				
+			}
 			System.out.println(dissconect_flag);
 			if(dissconect_flag == true)
 				disconnectDB();

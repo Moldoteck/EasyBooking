@@ -93,7 +93,7 @@ public class ListUserDAO implements UserDAO {
 	}
 
 	@Override
-	public User getUser(String username){
+	public int getUser(String username){
 		boolean dissconect_flag=false;
 		try {
 			if(conn==null||conn.isClosed()) {
@@ -103,9 +103,10 @@ public class ListUserDAO implements UserDAO {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-			return null;
+			return -1;
 		}
 		List<User> users  = Collections.synchronizedList(new ArrayList<>());
+		List<Integer> usersId = Collections.synchronizedList(new ArrayList<>());
 		try{
 			statmt=conn.createStatement();
 			resSet = statmt.executeQuery("SELECT * FROM users");
@@ -113,17 +114,26 @@ public class ListUserDAO implements UserDAO {
 			{
 				String  uname = resSet.getString("username");
 				String  upassword = resSet.getString("password");
+				usersId.add(resSet.getInt("ID"));
 				users.add(new User(uname,upassword));
 			}	
 			if(dissconect_flag==true)
 				disconnectDB();
-			return users.stream().filter(o -> Objects.equals(o.getUsername(), username)).findFirst().orElse(null);
+			int i=0;
+			for (User element : users) {
+			    if(element.getUsername().equals(username))
+			    {
+			    	return usersId.get(i);
+			    }
+			    ++i;
+			}
+			return -1;
 		}
 		catch(SQLException exc)
 		{
 			if(dissconect_flag==true)
 				disconnectDB();
-			return null;
+			return -1;
 		}
 	}
 	
@@ -183,7 +193,7 @@ public class ListUserDAO implements UserDAO {
 			e1.printStackTrace();
 			return false;
 		}
-		if (getUser(user.getUsername()) != null) {
+		if (findUser(user.getUsername(),user.getPassword()) != false) {
 			return false;
 		}
 		try {

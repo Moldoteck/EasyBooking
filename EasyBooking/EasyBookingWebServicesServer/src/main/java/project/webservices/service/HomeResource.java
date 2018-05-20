@@ -40,14 +40,15 @@ public class HomeResource {
 	 @GET
 	    @Path("get_home_name/{name}")
 	    @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-	    public Home getHome(@PathParam("name") String name) throws SQLException {
+	    public List<Home> getHome(@PathParam("name") String name) throws SQLException {
 	        return ListHomeDAO.instance().getHome(name);
 	    }
 	 
 	 @GET
-	    @Path("fing_home_name/{name}")
-	    public boolean findHome(@PathParam("name") String name) throws SQLException {
-	        return ListHomeDAO.instance().findHome(name);
+	    @Path("fing_home_by_id/{id_owner}")
+	    @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+	    public Home findHome(@PathParam("id_owner") String id_owner) throws SQLException {
+	        return ListHomeDAO.instance().findHomeById(id_owner);
 	    }
 	 
 	 @POST

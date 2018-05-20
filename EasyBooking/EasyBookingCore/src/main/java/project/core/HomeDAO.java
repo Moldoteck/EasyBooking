@@ -6,9 +6,9 @@ public interface HomeDAO {
 	
 	List<Home> getHomes();
 
-    Home getHome(String name);
+	List<Home> getHome(String name);
     
-    boolean findHome(String name);
+    Home findHomeById(String id_owner);
 
     boolean addHome(Home home);
 
