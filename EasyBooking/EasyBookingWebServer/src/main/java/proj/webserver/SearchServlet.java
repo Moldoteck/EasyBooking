@@ -83,10 +83,15 @@ public class SearchServlet extends HttpServlet {
 		for (int i = 0; i < arr.length(); i++)
 		{
 			sb.append("<tr><td>");
-			sb.append("<img src=\""+arr.getJSONObject(i).getString("path_img")+"\" style=\"width:200px;height:200px;\">" );
-			sb.append("</td>");
+			myTable="onclick=\"sessionStorage.setItem(\"clickedObject\",\""+arr.getJSONObject(i).getString("id_user")+"\");window.location.replace(\"HomeDetailsServlet\");\"";
+			
+			sb.append("<img src=\""+arr.getJSONObject(i).getString("path_img")+"\"  style=\"width:200px;height:200px;\"    onclick=\"sessionStorage.setItem(\"clickedObject\",\""+arr.getJSONObject(i).getString("id_user")+"\"); window.location.replace(\\\"HomeDetailsServlet\\\");\"" );
+			sb.append("");
+			
+			System.out.println(myTable);
+			sb.append("></td>");
 			sb.append("<td>");
-			sb.append("<h2 font-family=\"Script MT Bold\">"+arr.getJSONObject(i).getString("name")+"<h2><br/>");
+			sb.append("<h2 font-family=\"Merienda\">"+arr.getJSONObject(i).getString("name")+"<h2><br/>");
 			sb.append(arr.getJSONObject(i).getString("description"));
 			sb.append("</td></tr>");
 		}

@@ -26,7 +26,7 @@
 	    <ul class="navbar-nav mr-4">
 	      
 	      <li class="nav-item">
-	        <a class="nav-link" data-value="become_a_host" href="home.jsp">Become a host</a>
+	        <a class="nav-link" data-value="become_a_host" href="addHome.jsp">Become a host</a>
 	      </li>
 	      
 	      <%	
