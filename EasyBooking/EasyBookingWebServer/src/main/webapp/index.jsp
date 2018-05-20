@@ -46,11 +46,6 @@
 		session.setAttribute("userId", userId);
 	}
 
-	// Verifică dacă a fost făcută o cerere prin GET sau POST de schimbare a numelui utilizatorului
-	String username = request.getParameter("uname");
-	if (username != null) {
-		session.setAttribute("userId", username);
-	}
 	userId = (String) session.getAttribute("userId");
 %>
 	
@@ -74,13 +69,15 @@
 	      
 	      <%	
 			if(userId!=null){
+				session.setAttribute("direction", "userDetails.jsp");
+				request.setAttribute("direction", "userDetails.jsp");
 		  %>
 		  <li class="nav-item">
 			<div class="navbar" style="display:inline;">
 			<li><img src="images/user.png" alt="user img" width="50" height="50"></li>
 			<form action="index.jsp" method="get">
 			<a id="user_details" class="nav-link" href="userDetails.jsp"> <%out.print(session.getAttribute("userId")); %> Details</a>
-			<button class="nav-link" onclick="<%session.invalidate();%>">Log Out</button>
+			<button class="nav-link" onclick="LogOutServlet">Log Out</button>
 			</form>
 			</div>
 		</li>
