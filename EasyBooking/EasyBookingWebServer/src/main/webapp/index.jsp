@@ -69,8 +69,6 @@
 	      
 	      <%	
 			if(userId!=null){
-				session.setAttribute("direction", "userDetails.jsp");
-				request.setAttribute("direction", "userDetails.jsp");
 		  %>
 		  <li class="nav-item">
 			<div class="navbar" style="display:inline;">
