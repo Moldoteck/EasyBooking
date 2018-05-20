@@ -10,6 +10,32 @@
 <link rel="stylesheet" type="text/css" href="css/indexstyle.css">
 <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
 <link rel="stylesheet" type="text/css" href="css/main.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/esm/popper-utils.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/esm/popper-utils.js.map"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/esm/popper-utils.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/esm/popper-utils.min.js.map"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/esm/popper.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/esm/popper.js.map"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/esm/popper.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/esm/popper.min.js.map"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/popper-utils.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/popper-utils.js.map"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/popper-utils.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/popper-utils.min.js.map"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/popper.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/popper.js.map"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/popper.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/popper.min.js.map"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper-utils.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper-utils.js.map"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper-utils.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper-utils.min.js.map"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.js.map"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js.map"></script>
+
+
 </head>
 <%
 	String userId = null;
@@ -34,7 +60,39 @@
 
 	<a class="navbar-brand" href="#"><img src="images/home.png" width="40" height="40"></a>
 	  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-	    <span class="navbar-toggler-icon"></span>
+	    <span class="navbar-toggler-icon">
+	    </span>
+	    <div class="collapse navbar-collapse " id="navbarSupportedContent">
+	    <ul class="navbar-nav mr-4">
+	      
+	      <li class="nav-item">
+	        <a class="nav-link" data-value="become_a_host" href="home.jsp">Become a host</a>
+	      </li>
+	      
+	      <%	
+			if(userId!=null){
+		  %>
+		  <li class="nav-item">
+			<div class="navbar" style="display:inline;">
+			<li><img src="images/user.png" alt="user img" width="50" height="50"></li>
+			<form action="index.jsp" method="get">
+			<a id="user_details" class="nav-link" href="userDetails.jsp"> <%out.print(session.getAttribute("userId")); %> Details</a>
+			<button class="nav-link" onclick="<%session.invalidate();%>">Log Out</button>
+			</form>
+			</div>
+		</li>
+		<% } else {%>
+			<li class="nav-item">
+	        <a class="nav-link " data-value="login" href="login.jsp">Log in</a>
+	      </li>
+	      <li class="nav-item">
+	        <a class="nav-link " data-value="signup" href="register.jsp">Sign Up</a>
+	      </li>
+	      <% } %>
+		</li>
+	    </ul>
+	    
+	  </div>
 	  </button>
 
 	  <div class="collapse navbar-collapse " id="navbarSupportedContent">
