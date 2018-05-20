@@ -54,9 +54,16 @@ public class UsersResource {
      * @throws SQLException 
      */
     @GET
+    @Path("/id/{name_id}")
+    @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+    public int getUserId(@PathParam("name_id") String name_id) throws SQLException {
+        return ListUserDAO.instance().getUserId(name_id);
+    }
+    
+    @GET
     @Path("{username}")
     @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-    public User getUser(@PathParam("username") String username) throws SQLException {
+    public int getUser(@PathParam("username") String username) throws SQLException {
         return ListUserDAO.instance().getUser(username);
     }
 
@@ -82,6 +89,7 @@ public class UsersResource {
             response =  Response.created(uriInfo.getRequestUriBuilder().build()).entity(user).build();
         } else {
             response = Response.seeOther(uriInfo.getRequestUriBuilder().build()).build();
+            response =Response.notModified().build();
         }
         log.info("[UserResource] postUsers: response status: {} {}", response.getStatus(), response.getStatusInfo());
         return response;
@@ -211,7 +219,7 @@ public class UsersResource {
      * @return
      * @throws SQLException 
      */
-    @PATCH
+   /* @PATCH
     @Path("{username}")
     @Consumes("application/x-www-form-urlencoded")
     public Response patchUsername(@PathParam("username") String username, MultivaluedMap<String, String> map) throws SQLException {
@@ -241,5 +249,5 @@ public class UsersResource {
             response = Response.status(Status.NOT_FOUND).build();
         }
         return response;
-    }
+    }*/
 }

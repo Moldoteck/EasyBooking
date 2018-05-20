@@ -177,7 +177,7 @@ public class TestServlet extends HttpServlet {
 		request.setAttribute("result", "This is the result of the servlet call");
 		String temp=responser.readEntity(String.class);
 
-System.out.println(request.getParameter("username")+request.getParameter("password")+temp);
+		System.out.println(request.getParameter("username")+request.getParameter("password")+temp);
 		if(temp.equals("true"))
 		{
 			session.setAttribute("userId", request.getParameter("username"));

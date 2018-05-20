@@ -22,98 +22,136 @@ public class ListUserDAO implements UserDAO {
 	}
 
 	public static Connection conn;
-	public static Statement statmt;
 	public static ResultSet resSet;
+	public static Statement statmt;
 
-	public void disconnectDB() throws SQLException {
-		conn.close();
-		statmt.close();
-		resSet.close();
+	public void disconnectDB() {
+		try {
+			conn.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		System.out.println("Totul e inchis");
 	}
 	
-	/*Pentru creare tabel, trebuie ceva de genul:
-	 * statmt = conn.createStatement();
-	 * statmt.execute("CREATE TABLE if not exists 'users' ('id' INTEGER PRIMARY KEY AUTOINCREMENT, 'name' text, 'phone' INT);");
-	 */
-	 
-	private ListUserDAO() {
-		conn = null;
+	public void connectDB()
+	{
 		try {
 			Class.forName("org.sqlite.JDBC");
 		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-
 			System.out.println("FUCK!!!");
 			e.printStackTrace();
 		}
 		try {
 			conn = DriverManager.getConnection("jdbc:sqlite:C:\\sqlite\\testdb.db");
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-
 			System.out.println("BIG Problem!!!");
 			e.printStackTrace();
 		}
 		System.out.println("Baza Conectata!");
 	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see ro.h23.bookmanager.core.UserDAO#getUsers()
-	 */
-	@Override
-	public List<User> getUsers() throws SQLException {
-
-		List<User> users  = Collections.synchronizedList(new ArrayList<>());
-
-		statmt=conn.createStatement();
-		resSet = statmt.executeQuery("SELECT * FROM USERS");
-
-		while(resSet.next())
-		{
-			String  uname = resSet.getString("username");
-			String  upassword = resSet.getString("password");
-			users.add(new User(uname,upassword));
-		}	
-		return users;
+	 
+	private ListUserDAO() {
+		conn = null;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see ro.h23.bookmanager.core.UserDAO#findUserById(java.lang.String)
-	 */
 	@Override
-	public User getUser(String username) throws SQLException{
+	public List<User> getUsers(){
+		boolean dissconect_flag=false;
+		try {
+			if(conn==null||conn.isClosed()) {
+				connectDB();
+				dissconect_flag=true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
 		List<User> users  = Collections.synchronizedList(new ArrayList<>());
-		statmt=conn.createStatement();
-		try{
-			resSet = statmt.executeQuery("SELECT * FROM users");
+
+		try {
+			statmt=conn.createStatement();
+			resSet = statmt.executeQuery("SELECT * FROM USERS");
+
 			while(resSet.next())
 			{
 				String  uname = resSet.getString("username");
 				String  upassword = resSet.getString("password");
 				users.add(new User(uname,upassword));
 			}	
-			return users.stream().filter(o -> Objects.equals(o.getUsername(), username)).findFirst().orElse(null);
+		} catch (SQLException e) {
+			e.printStackTrace();
+			if(dissconect_flag==true)
+				disconnectDB();
+		}
+
+		if(dissconect_flag==true)
+			disconnectDB();
+		return users;
+	}
+
+	@Override
+	public int getUser(String username){
+		boolean dissconect_flag=false;
+		try {
+			if(conn==null||conn.isClosed()) {
+				System.out.println("connecting");
+				connectDB();
+				dissconect_flag=true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return -1;
+		}
+		List<User> users  = Collections.synchronizedList(new ArrayList<>());
+		List<Integer> usersId = Collections.synchronizedList(new ArrayList<>());
+		try{
+			statmt=conn.createStatement();
+			resSet = statmt.executeQuery("SELECT * FROM users");
+			while(resSet.next())
+			{
+				String  uname = resSet.getString("username");
+				String  upassword = resSet.getString("password");
+				usersId.add(resSet.getInt("ID"));
+				users.add(new User(uname,upassword));
+			}	
+			if(dissconect_flag==true)
+				disconnectDB();
+			int i=0;
+			for (User element : users) {
+			    if(element.getUsername().equals(username))
+			    {
+			    	return usersId.get(i);
+			    }
+			    ++i;
+			}
+			return -1;
 		}
 		catch(SQLException exc)
 		{
-			return null;
+			if(dissconect_flag==true)
+				disconnectDB();
+			return -1;
 		}
-
-		
 	}
 	
 	@Override
-	public boolean findUser(String username, String password) throws SQLException{
+	public boolean findUser(String username, String password){
+		boolean dissconect_flag=false;
+		try {
+			if(conn==null||conn.isClosed()) {
+				connectDB();
+				dissconect_flag=true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
 		List<User> users  = Collections.synchronizedList(new ArrayList<>());
-		boolean value= false;
-		statmt=conn.createStatement();
 		try{
+			statmt=conn.createStatement();
 			resSet = statmt.executeQuery("SELECT * FROM users");
 			while(resSet.next())
 			{
@@ -124,116 +162,163 @@ public class ListUserDAO implements UserDAO {
 			for(User usr : users)
 			{
 				if(usr.getUsername().equals(username)&&usr.getPassword().equals(password))
+				{
+					if(dissconect_flag==true)
+						disconnectDB();
 					return true;
+				}
 			}
+			if(dissconect_flag==true)
+				disconnectDB();
 			return false;
-			//return users.contains(new User(username,password));
-			}
+		}
 		catch(SQLException exc)
 		{
 			System.out.println("Exception"+exc);
+			if(dissconect_flag==true)
+				disconnectDB();
+			return false;
+		}	
+	}
+
+	@Override
+	public boolean addUser(User user){
+		boolean dissconect_flag=false;
+		try {
+			if(conn==null||conn.isClosed()) {
+				connectDB();
+				dissconect_flag=true;
+			}
+		} catch (SQLException e1) {
+			e1.printStackTrace();
 			return false;
 		}
-
-		
-	}
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see ro.h23.bookmanager.core.UserDAO#findUserByISBN(java.lang.String)
-	 *//*
-    @Override
-    public User findUserByISBN(String isbn) {
-        return books.stream().filter(o -> o.getISBN().equals(isbn)).findFirst().orElse(null);
-    }*/
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see ro.h23.bookmanager.core.UserDAO#addUser(ro.h23.bookmanager.core.User)
-	 */
-	@Override
-	public boolean addUser(User user) throws SQLException {
-		statmt=conn.createStatement();
-		if (getUser(user.getUsername()) != null) {
+		if (findUser(user.getUsername(),user.getPassword()) != false) {
 			return false;
 		}
 		try {
+			statmt=conn.createStatement();
 			statmt.execute("INSERT INTO 'users' ('username', 'password') VALUES ('"+user.getUsername()+"', '"+user.getPassword()+"'); ");
+			System.out.println(dissconect_flag);
+			if(dissconect_flag==true)
+				disconnectDB();
 			return true;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			if(dissconect_flag==true)
+				disconnectDB();
 			return false;
 		}
-		//if (user.getUsername() != User.MISSING_ID) {
-		// if the book is already in the db
-		/* if (findUserById(book.getId()) != null) {
-                return false;
-            } else {
-                // next line avoids having books with the same id in the db
-                nextId = Math.max(book.getId() + 1, nextId);
-            }*/
-		/* } else {
-            book.setId(nextId++);
-        }*/
-		//books.add(book);
-		//return true;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see ro.h23.bookmanager.core.UserDAO#updateUser(ro.h23.bookmanager.core.User)
-	 */
 	@Override
-	public boolean updateUser(String username, User user) throws SQLException {
-		boolean found = false;
-		statmt=conn.createStatement();
-		resSet = statmt.executeQuery("SELECT * FROM USERS");
-
-		while(resSet.next())
-		{
-			String  uname = resSet.getString("username");
-			String  upass = resSet.getString("password");
-			if(Objects.equals(uname,username))
-			{
-				statmt.executeUpdate("UPDATE users SET username=\'"+user.getUsername()+"\' WHERE username=\'"+username+"\'");
-				if(!Objects.equals(upass, user.getPassword()))
-						statmt.executeUpdate("UPDATE users SET password=\'"+user.getPassword()+"\' WHERE username=\'"+user.getUsername()+"\'");
-				
-				found=true;
-				break;
+	public boolean updateUser(String username, User user){
+		boolean dissconect_flag=false;
+		try {
+			if(conn==null||conn.isClosed()) {
+				connectDB();
+				dissconect_flag=true;
 			}
-		}	
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+			return false;
+		}
+		boolean found = false;
+		try {
+			statmt=conn.createStatement();
+			resSet = statmt.executeQuery("SELECT * FROM USERS");
+
+			while(resSet.next())
+			{
+				String  uname = resSet.getString("username");
+				String  upass = resSet.getString("password");
+				if(Objects.equals(uname,username))
+				{
+					statmt.executeUpdate("UPDATE users SET username=\'"+user.getUsername()+"\' WHERE username=\'"+username+"\'");
+					if(!Objects.equals(upass, user.getPassword()))
+							statmt.executeUpdate("UPDATE users SET password=\'"+user.getPassword()+"\' WHERE username=\'"+user.getUsername()+"\'");
+					
+					found=true;
+					break;
+				}
+			}	
+		} catch (SQLException e) {
+			if(dissconect_flag==true)
+				disconnectDB();
+			e.printStackTrace();
+		}
+		
+		if(dissconect_flag==true)
+			disconnectDB();
 		return found;
 	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see ro.h23.bookmanager.core.UserDAO#deleteUser(ro.h23.bookmanager.core.User)
-	 */
-	@Override
-	public boolean deleteUser(String username) throws SQLException {
-		boolean found = false;
-		statmt=conn.createStatement();
-		resSet = statmt.executeQuery("SELECT * FROM users");
-
-		while(resSet.next())
-		{
-			String  uname = resSet.getString("username");
-			if(Objects.equals(uname,username))
-			{
-				statmt.executeQuery("DELETE FROM users WHERE username="+username);
-				found=true;
-				break;
-			}
-		}	
-		return found;
-	}
-
 	
+	@Override
+	public boolean deleteUser(String username){
+		boolean dissconect_flag=false;
+		try {
+			if(conn==null||conn.isClosed()) {
+				connectDB();
+				dissconect_flag=true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+		boolean found = false;
+		try {
+			statmt=conn.createStatement();
+			resSet = statmt.executeQuery("SELECT * FROM users");
 
+			while(resSet.next())
+			{
+				String  uname = resSet.getString("username");
+				if(Objects.equals(uname,username))
+				{
+					statmt.executeQuery("DELETE FROM users WHERE username="+username);
+					found=true;
+					break;
+				}
+			}	
+		} catch (SQLException e) {
+			if(dissconect_flag==true)
+				disconnectDB();
+			e.printStackTrace();
+		}
+		
+		if(dissconect_flag==true)
+			disconnectDB();
+		return found;
+	}
 
+	@Override
+	public int getUserId(String username){
+		boolean dissconect_flag=false;
+		int user_id=-1;
+		try {
+			if(conn==null||conn.isClosed()) {
+				connectDB();
+				dissconect_flag=true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return user_id;
+		}
+		try {
+			statmt=conn.createStatement();
+			resSet = statmt.executeQuery("SELECT id FROM users where username='"+username+"'");
+			if(resSet.next())
+			{
+				user_id=resSet.getInt("id");
+			}	
+		}
+		catch(Exception exc)
+		{
+			exc.printStackTrace();
+		}
+		if(dissconect_flag==true)
+			disconnectDB();
+		return user_id;	
+	}
 }
