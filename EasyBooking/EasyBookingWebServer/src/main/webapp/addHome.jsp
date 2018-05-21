@@ -8,9 +8,10 @@
 	href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700"
 	rel="stylesheet">
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<link rel="styleseet" type="text/css" href="css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
 <link rel="stylesheet" type="text/css" href="css/main.css">
 <title>Details</title>
+</head>
 </head>
 <body class="background_ram">
 <nav class="navbar navbar-expand-lg navbar-expand-xs navbar-expand-md navbar-expand-sm fixed-top ">
@@ -28,7 +29,7 @@
 				<%	
 				if(session.getAttribute("userId")!=null){
 		  %>
-				 <li class="nav-item">
+			 <li class="nav-item">
 			<div class="navbar" style="display:inline;">
 			<li><img style="margin-left:0px; padding-left:0px;" src="images/user.png" alt="user img" width="50" height="50"></li>			
 			<a id="user_details" class="nav-link" href="userDetails.jsp"> <%out.print(session.getAttribute("userId")); %></a>
@@ -49,7 +50,6 @@
 		</div>
 
 	</nav>
-
  <br><br><br>
 <div>
 <form action="TestRentalAndHome" method=post enctype="multipart/form-data" class="userform"
