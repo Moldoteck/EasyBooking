@@ -28,7 +28,7 @@ public class UserDetails {
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();
-        builder.append("UserDetails [first_name=").append(first_name).append(", last_name=").append(last_name).append(", email=").append(email).append(", phone_number=").append(phone_number).append(", last_name=").append(last_name).append(", photo_path=").append(path_img).append("]");
+        builder.append("UserDetails [first_name=").append(first_name).append(", last_name=").append(last_name).append(", email=").append(email).append(", phone_number=").append(phone_number).append(", path_img=").append(path_img).append("]");
         return builder.toString();
     }
 

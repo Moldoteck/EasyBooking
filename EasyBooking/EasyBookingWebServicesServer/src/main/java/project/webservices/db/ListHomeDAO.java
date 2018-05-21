@@ -16,15 +16,15 @@ import project.core.HomeDAO;
 public class ListHomeDAO implements HomeDAO{
 
 	private static HomeDAO instance = new ListHomeDAO();
-	
+
 	public static HomeDAO instance() {
 		return instance;
 	}
-	
+
 	public static Connection conn;
 	public static ResultSet resSet;
 	public static Statement statmt;
-	
+
 	public void disconnectDB() {
 		try {
 			conn.close();
@@ -32,10 +32,10 @@ public class ListHomeDAO implements HomeDAO{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		System.out.println("Totul e inchis");
 	}
-	
+
 	public void connectDB()
 	{
 		try {
@@ -52,11 +52,11 @@ public class ListHomeDAO implements HomeDAO{
 		}
 		System.out.println("Baza Conectataa!");
 	}
-	
+
 	private ListHomeDAO() {
 		conn = null;
 	}
-	
+
 	@Override
 	public List<Home> getHomes() {
 		// TODO Auto-generated method stub
@@ -97,8 +97,8 @@ public class ListHomeDAO implements HomeDAO{
 			disconnectDB();
 		return homes;
 	}
-	
-	
+
+
 	@Override
 	public int getHomeId(String name) {
 		// TODO Auto-generated method stub
@@ -132,8 +132,8 @@ public class ListHomeDAO implements HomeDAO{
 			return -1;
 		}
 	}
-	
-	
+
+
 	@Override
 	public List<Home> getHome(String name) {
 		// TODO Auto-generated method stub
@@ -232,28 +232,32 @@ public class ListHomeDAO implements HomeDAO{
 			e1.printStackTrace();
 			return false;
 		}
-		List<Home> check = getHome(home.getName());
-		if (check != null) {
-			if(check.size()!=0) {
-				System.out.println("Wrong name");
-				return false;
+		List<Home> check ;
+		if(hm==null)
+		{
+			check= getHome(home.getName());
+			if (check != null) {
+				if(check.size()!=0) {
+					System.out.println("Wrong name");
+					return false;
+				}
 			}
 		}
 		try {
-			
+
 			statmt = conn.createStatement();
 
 			if(hm==null)
 			{
 				statmt.execute("INSERT INTO 'home' ('name', 'description', 'price', 'stars', 'nr_review', 'path_img', 'id_user') VALUES ('"+ home.getName()+"', '" +
 						home.getDescription() + home.getPrice() + home.getStars() + home.getNr_review() + home.getPath_img() + home.getId_user() +"'); ");
-				
+
 			}
 			else
 			{
 				statmt.execute("UPDATE home set name ='"+home.getName()+"', description='"+home.getDescription()+
 						"', price="+home.getPrice()+", path_img='"+home.getPath_img()+"' where id_user="+home.getId_user() +"; ");
-				
+
 			}
 			System.out.println(dissconect_flag);
 			if(dissconect_flag == true)
@@ -333,7 +337,7 @@ public class ListHomeDAO implements HomeDAO{
 				disconnectDB();
 			e.printStackTrace();
 		}
-		
+
 		if(dissconect_flag == true)
 			disconnectDB();
 		return found;
@@ -372,7 +376,7 @@ public class ListHomeDAO implements HomeDAO{
 				disconnectDB();
 			e.printStackTrace();
 		}
-		
+
 		if(dissconect_flag == true)
 			disconnectDB();
 		return found;
