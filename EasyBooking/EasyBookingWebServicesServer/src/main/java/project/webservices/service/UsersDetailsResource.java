@@ -50,8 +50,10 @@ public class UsersDetailsResource {
         log.info("postUsersDetails: {}", user_details);
         Response response;
         if (ListUserDetailsDAO.instance().addUserDetails(user_details)) {
+        	System.out.println("utte");
             response =  Response.created(uriInfo.getRequestUriBuilder().build()).entity(user_details).build();
         } else {
+        	System.out.println("Badde");
             response = Response.seeOther(uriInfo.getRequestUriBuilder().build()).build();
         }
         log.info("[UserResource] postUsersDetails: response status: {} {}", response.getStatus(), response.getStatusInfo());

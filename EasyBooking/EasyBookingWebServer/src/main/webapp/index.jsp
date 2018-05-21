@@ -146,19 +146,6 @@
 	{
 		out.print(session.getAttribute("searchResult"));
 	}%>
-	<!-- portfolio -->
-	<div class="portfolio" id="portfolio">
-		<h1 class="text-center">Homes around the world</h1>
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-4 col-md-4 col-sm-12">
-					<img src="images/portfolio/port13.png" class="img-fluid">
-				</div>
-			</div>
-		</div>
-	</div>
-
-
 
 	<!-- Team section -->
 	<div class="team" id="team">

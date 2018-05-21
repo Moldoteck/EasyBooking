@@ -64,12 +64,8 @@ public class SearchServlet extends HttpServlet {
 		client.property(HttpUrlConnectorProvider.SET_METHOD_WORKAROUND, true);
 		WebTarget service = client.target(getBaseURI());
 		
-		//Response responser = responser = service.path("api").path("users").request().accept(MediaType.APPLICATION_JSON).get(Response.class);
 		Response responser=service.path("api").path("home").path("get_home_name").path(request.getParameter("search")).request().accept(MediaType.APPLICATION_JSON)
 				.get(Response.class);
-		//pw.append("Book collection").append(  responser.toString()+"<br/>").append(responser.readEntity(String.class)).append("<br/>");
-
-		request.setAttribute("result", "This is the result of the servlet call");
 		String lst=responser.readEntity(String.class);
 		JSONObject  obj = new JSONObject("{\"data\" : "+lst+"}");
 		JSONArray arr = obj.getJSONArray("data");

@@ -47,40 +47,105 @@
 		</div>
 
 	</nav>
-<div class="jumbotron">
-	<form action="TestRentalAndHome" method=post enctype="multipart/form-data">
-		<div class="inputGroup inputGroup1">
-			<input type="text" id="name"
-				class="first_name" maxlength="256" name="name" placeholder = "Name" required/>
-			<span class="indicator"></span>
-		</div>
-		<div class="inputGroup inputGroup1">
-			<input type="text" id="description"
-				class="description" maxlength="256" name="description" placeholder = "Description" required/>
-			<span class="indicator"></span>
-		</div>
-		<div class="inputGroup inputGroup1">
-			<input type="text"
-				id="price" class="price" name="price" placeholder = "Price" required/>
-		</div>
-		<div class="inputGroup inputGroup1">
-			<input type="text"
-				id="stars" class="password" name="stars" placeholder = "Stars" required/>
-		</div>
-		<div class="inputGroup inputGroup1">
-			<input type="text" id="nr_review"
-				class="nr_review" maxlength="256" name="nr_review" placeholder = "Nr_review" required/>
-			<span class="indicator"></span>
-		</div>
-		<div class="inputGroup inputGroup1">
-			<input type="text" id="path_img"
-				class="path_img" maxlength="256" name="path_img" placeholder = "Path image" required/>
-			<span class="indicator"></span>
-		</div>
-		<div>
-			<button id="signin">See it</button>
-		</div>
-	</form>
-</div>
+
+	<%
+		if (session.getAttribute("searchedHome") != null) {
+			%><br />
+	<br />
+	<br />
+	<br />
+	<br />
+	<br />
+	<br />
+	<%
+			out.print(session.getAttribute("searchedHome"));
+			%>
+		<style>
+		table { border-collapse: collapse; }
+</style>	
+			
+			
+
+	<div>
+		<form action="BookServlet" method=post enctype="multipart/form-data"
+			class="userform"
+			style="width: 70%; position: absolute; left: 15%; background-color: #FFF; margin: 0; padding: 2.25em; box-sizing: border-box; border: solid 1px #DDD; border-radius: .5em; font-family: 'Source Sans Pro', sans-serif;">
+
+			<h1 class="heading">Time to book</h1>
+
+			<div class="form-group">
+				<label for="check_in" style="color: #217093;">Check-In</label> <input
+					type="date" id="check_in" class="form-control" maxlength="256"
+					name="check_in" value="2018-05-22" required>
+			</div>
+			<div class="form-group">
+				<label for="check_out" style="color: #217093;">Check-Out</label> <input
+					type="date" id="check_out" class="form-control" maxlength="500"
+					name="check_out" value="2018-05-22" required>
+			</div>
+			<div class="form-group">
+				<label for="discount" style="color: #217093;">Discount</label> <input
+					type="text" id="discount" class="form-control" maxlength="500"
+					name="discount" readonly>
+			</div>
+			<div class="form-group">
+				<label for="final_price" style="color: #217093;">Final Price</label>
+				<input type="text" id="final_price" class="form-control"
+					maxlength="500" name="final_price" readonly>
+			</div>
+			<div>
+				<div class="inputGroup inputGroup3">
+					<button class="buton">Book</button>
+				</div>
+			</div>
+		</form>
+	</div>
+	<script type="text/javascript">
+  
+  function eventFire(el, etype){
+	  if (el.fireEvent) {
+	    el.fireEvent('on' + etype);
+	  } else {
+	    var evObj = document.createEvent('Events');
+	    evObj.initEvent(etype, true, false);
+	    el.dispatchEvent(evObj);
+	  }
+	}
+
+  var _num1 = document.getElementById('check_in');
+  var _num2 = document.getElementById('check_out');
+  var _disc  = document.getElementById('discount');
+  var _finalprice  = document.getElementById('final_price');
+  
+  _num1.onchange = function(){
+	  var difference=Math.floor((Date.parse(document.getElementById('check_out').value) -Date.parse(this.value))/(1000*60*60*24));
+	  if(difference>=5)
+		_disc.value = 10;
+	  else
+		_disc.value=0;
+    _finalprice.value=(parseFloat(<%out.print(session.getAttribute("priceHome"));%>)-(parseFloat(_disc.value)*parseFloat(<%out.print(session.getAttribute("priceHome"));%>)/100));
+    eventFire(_disc, "click");
+    console.log("first0");
+  };
+  _num2.onchange = function(){
+	  var difference=Math.floor((Date.parse(this.value) -Date.parse(document.getElementById('check_in').value))/(1000*60*60*24));
+	  if(difference>=5)
+		_disc.value = 10;
+	  else
+		_disc.value=0;
+	    _finalprice.value=(parseFloat(<%out.print(session.getAttribute("priceHome"));%>)-(parseFloat(_disc.value)*parseFloat(<%out.print(session.getAttribute("priceHome"));%>)/100));
+    eventFire(_disc, 'click');
+
+    console.log("second");
+  };  
+</script>
+	<%
+		}
+	%>
+
+	<script type="text/javascript" src="js/jquery.min.js"></script>
+	<script type="text/javascript" src="js/bootstrap.min.js"></script>
+	<script type="text/javascript" src='js/main.js'></script>
+
 </body>
 </html>

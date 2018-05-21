@@ -25,6 +25,8 @@ import javax.ws.rs.core.UriBuilder;
 
 import org.glassfish.jersey.client.ClientConfig;
 import org.glassfish.jersey.client.HttpUrlConnectorProvider;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import project.core.User;
 import project.core.UserDetails;
@@ -33,18 +35,19 @@ import project.core.UserDetails;
  * Servlet implementation class ServletUserDetails
  */
 @WebServlet("/ServletUserDetails")
+@MultipartConfig
 public class ServletUserDetails extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public ServletUserDetails() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
-    private static URI getBaseURI() {
+	/**
+	 * @see HttpServlet#HttpServlet()
+	 */
+	public ServletUserDetails() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	private static URI getBaseURI() {
 		//TODO change the port to whatever is the server running on
 		return UriBuilder.fromUri("http://localhost:8080/EasyBookingWebServicesServer/").build();
 	}
@@ -60,15 +63,33 @@ public class ServletUserDetails extends HttpServlet {
 		Client client = ClientBuilder.newClient(config);
 		client.property(HttpUrlConnectorProvider.SET_METHOD_WORKAROUND, true);
 		WebTarget service = client.target(getBaseURI());
-		
-//		 Response responser1 = service.path("api").path("users").path("id").path(user.getUsername()).request().accept(MediaType.APPLICATION_JSON)
-//				.get(Response.class);
-//		String my_id=responser1.readEntity(String.class);
-		
-		Response responser=service.path("api").path("UserDetails").path("getUserDetails").path("user_id").request().accept(MediaType.APPLICATION_JSON)
+
+		//		 Response responser1 = service.path("api").path("users").path("id").path(user.getUsername()).request().accept(MediaType.APPLICATION_JSON)
+		//				.get(Response.class);
+		//		String my_id=responser1.readEntity(String.class);
+
+		Response responser=service.path("api").path("users").path(session.getAttribute("userId").toString()).request().accept(MediaType.APPLICATION_JSON)
 				.get(Response.class);
-		String lst=responser.readEntity(String.class);
+		String result = responser.readEntity(String.class);;
+		if(result!="-1")
+		{
+			responser=service.path("api").path("users_details").path(result).request().accept(MediaType.APPLICATION_JSON)
+					.get(Response.class);
+			String foundDetails=responser.readEntity(String.class);
+			if(foundDetails!="")
+			{
+				JSONObject  obj = new JSONObject(foundDetails);
+
+				session.setAttribute("user_firstname", obj.getString("first_name"));
+				session.setAttribute("user_lastname", obj.getString("last_name"));
+				session.setAttribute("user_email", obj.getString("email"));
+				session.setAttribute("user_phone_number", obj.getString("phone_number"));
+				session.setAttribute("user_path_img", obj.getString("path_img"));
+			}
+			request.getRequestDispatcher("userDetails.jsp").forward(request, response);
 		}
+
+	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
