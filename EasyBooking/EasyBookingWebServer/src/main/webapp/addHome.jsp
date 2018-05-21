@@ -27,13 +27,12 @@
 
 		<div class="collapse navbar-collapse " id="navbarSupportedContent">
 			<ul class="navbar-nav mr-4">
-
+		   <%	
+			if(session.getAttribute("userId")!=null){
+		  %>
 				<li class="nav-item"><a class="nav-link"
 					data-value="become_a_host" href="addHome.jsp">Become a host</a></li>
 
-				<%	
-			if(session.getAttribute("userId")!=null){
-		  %>
 				<li class="nav-item">
 					<div class="navbar" style="display: inline;">
 						<li><img src="images/user.png" alt="user img" width="50"

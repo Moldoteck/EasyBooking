@@ -27,7 +27,7 @@
 
 	  <div class="collapse navbar-collapse " id="navbarSupportedContent">
 	    <ul class="navbar-nav mr-4">
-	      
+	      <% if(session.getAttribute("userId")!=null){ %>
 	      <li class="nav-item">
 	        <a class="nav-link" data-value="become_a_host" href="addHome.jsp">Become a host</a>
 	      </li>
@@ -35,6 +35,7 @@
 	        <a class="nav-link " data-value="login" href="login.jsp">Log in</a>
 	      </li>
 	      <li class="nav-item">
+	      <%} %>
 	        <a class="nav-link " data-value="signup" href="register.jsp">Sign Up</a>
 	      </li>
 

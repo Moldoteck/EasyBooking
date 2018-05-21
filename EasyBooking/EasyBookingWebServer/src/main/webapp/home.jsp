@@ -59,7 +59,7 @@
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js.map"></script>
 
-<title>Register</title>
+<title>Home</title>
 </head>
 <body>
 	<nav class="navbar navbar-expand-lg fixed-top ">
@@ -76,13 +76,11 @@
 
 		<div class="collapse navbar-collapse " id="navbarSupportedContent">
 			<ul class="navbar-nav mr-4">
-
-				<li class="nav-item"><a class="nav-link"
-					data-value="become_a_host" href="addHome.jsp">Become a host</a></li>
-
 				<%
 					if (session.getAttribute("userId") != null) {
 				%>
+				<li class="nav-item"><a class="nav-link"
+					data-value="become_a_host" href="addHome.jsp">Become a host</a></li>
 				<li class="nav-item">
 					<div class="navbar" style="display: inline;">
 						<li><img src="images/user.png" alt="user img" width="50"
@@ -126,7 +124,7 @@
 	<%
 			out.print(session.getAttribute("searchedHome"));
 			%>
-		<style>
+<style>
 		table { border-collapse: collapse; }
 </style>	
 			

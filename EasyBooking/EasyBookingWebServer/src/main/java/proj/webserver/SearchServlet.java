@@ -56,9 +56,11 @@ public class SearchServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
+
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
-
+		
+		if(session.getAttribute("userId")!=null) {
 		ClientConfig config = new ClientConfig();
 		Client client = ClientBuilder.newClient(config);
 		client.property(HttpUrlConnectorProvider.SET_METHOD_WORKAROUND, true);
@@ -92,7 +94,10 @@ public class SearchServlet extends HttpServlet {
 		session.setAttribute("searchResult", myTable);
 
 		request.getRequestDispatcher("index.jsp").forward(request, response);
-
+		}
+		else {
+			response.sendRedirect("home.jsp");
+		}
 	}
 
 }
