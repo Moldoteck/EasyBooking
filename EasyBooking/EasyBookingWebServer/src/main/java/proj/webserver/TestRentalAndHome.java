@@ -62,7 +62,6 @@ public class TestRentalAndHome extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
-		//-----ADAUGARE IN USER---
 		
 		ClientConfig config = new ClientConfig();
 		Client client = ClientBuilder.newClient(config);

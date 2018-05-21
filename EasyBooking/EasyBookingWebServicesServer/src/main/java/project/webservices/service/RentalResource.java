@@ -73,7 +73,7 @@ public class RentalResource {
  	   
    @PUT
     @Path("check_in/{check_in}")
-    public Response putUser(@PathParam("check_in") Date check_in, Rental newRental) throws SQLException {
+    public Response putRental(@PathParam("check_in") Date check_in, Rental newRental) throws SQLException {
         //Only the replace functionality is implemented
         Response response;
         if (ListRentalDAO.instance().updateRental(check_in, newRental)) {

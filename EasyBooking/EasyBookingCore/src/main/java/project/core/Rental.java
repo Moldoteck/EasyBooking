@@ -21,7 +21,6 @@ public class Rental {
 		this.id_home = id_home;
 		this.id_user = id_user;
 	}
-	
 	public Rental(Integer id_user)
 	{
 		this.id_user=id_user;
