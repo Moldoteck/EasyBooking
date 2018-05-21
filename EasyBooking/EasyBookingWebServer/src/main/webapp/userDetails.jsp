@@ -68,9 +68,25 @@
 	</nav>
 	<br>
 	<br>
-	<br>
-	
+	<br><br>
 	<div>
+		<form action="ServletUserDetails" method=get
+			enctype="multipart/form-data" class="userform"
+			style="width: 70%; position: absolute;  left: 15%; background-color: #FFF; margin: 0; padding: 2.25em; box-sizing: border-box; border: solid 1px #DDD; border-radius: .5em; font-family: 'Source Sans Pro', sans-serif;">
+
+			<div>
+				<div class="inputGroup inputGroup3">
+					<button class="buton">Reset</button>
+				</div>
+			</div>
+		</form>
+		</div>
+	<br><br><br>
+	<br>
+	<br>
+
+	<div>
+
 		<form action="ServletUserDetails" method=post
 			enctype="multipart/form-data" class="userform"
 			style="width: 70%; position: absolute; left: 15%; background-color: #FFF; margin: 0; padding: 2.25em; box-sizing: border-box; border: solid 1px #DDD; border-radius: .5em; font-family: 'Source Sans Pro', sans-serif;">
@@ -81,55 +97,64 @@
 				out.print(session.getAttribute("userId"));
 			%>
 			</h1>
-<div>
-		<form action="ServletUserDetails" method=get
-			enctype="multipart/form-data" class="userform"
-			style="width: 70%; position: absolute; left: 15%; background-color: #FFF; margin: 0; padding: 2.25em; box-sizing: border-box; border: solid 1px #DDD; border-radius: .5em; font-family: 'Source Sans Pro', sans-serif;">
 
-			<div>
-				<div class="inputGroup inputGroup3">
-					<button class="buton">Reset</button>
-				</div>
-			</div>
-		</form>
-	</div>
 			<div class="form-group">
 				<label for="image" style="color: #217093;"><img
-					src="images/userR.png"></label> 
-					<input type="text" id="image"
-					class="form-control" name="image" <%if(session.getAttribute("user_path_img")!=null) out.print("value='"+session.getAttribute("user_path_img")+"'"); %> placeholder="Change image">
+					src="<%if (session.getAttribute("user_path_img") != null)
+				out.print(session.getAttribute("user_path_img"));
+			else
+				out.print("images/userR.png");%>"></label>
+
+				<input type="text" id="image" class="form-control" name="image"
+					<%if (session.getAttribute("user_path_img") != null)
+				out.print("value='" + session.getAttribute("user_path_img") + "'");%>
+					placeholder="Change image">
 			</div>
+			
 			<div class="form-group">
-				<label for="first_name" style="color: #217093;">First Name</label> 
-				<input
+				<label for="first_name" style="color: #217093;">First Name</label> <input
 					type="text" id="first_name" class="form-control" maxlength="256"
-					name="first_name"  <%if(session.getAttribute("user_firstname")!=null) out.print("value='"+session.getAttribute("user_firstname")+"'"); %> placeholder="First Name" required>
+					name="first_name"
+					<%if (session.getAttribute("user_firstname") != null)
+				out.print("value='" + session.getAttribute("user_firstname") + "'");%>
+					placeholder="First Name" required>
 			</div>
 			<div class="form-group">
 				<label for="last_name" style="color: #217093;">Last Name</label> <input
 					type="text" id="last_name" class="form-control" maxlength="256"
-					name="last_name" <%if(session.getAttribute("user_lastname")!=null) out.print("value='"+session.getAttribute("user_lastname")+"'"); %>  placeholder="Last Name" required>
+					name="last_name"
+					<%if (session.getAttribute("user_lastname") != null)
+				out.print("value='" + session.getAttribute("user_lastname") + "'");%>
+					placeholder="Last Name" required>
 			</div>
 			<div class="form-group">
 				<label for="exampleInputEmail1" style="color: #217093;">Email
 					Address</label> <input type="text" class="form-control"
-					id="exampleInputEmail1" <%if(session.getAttribute("user_email")!=null) out.print("value='"+session.getAttribute("user_email")+"'"); %>  aria-describedby="emailHelp"
-					placeholder="Email">
+					id="exampleInputEmail1"
+					<%if (session.getAttribute("user_email") != null)
+				out.print("value='" + session.getAttribute("user_email") + "'");%>
+					aria-describedby="emailHelp" placeholder="Email">
 			</div>
 			<div class="form-group">
 				<label for="phone_number" style="color: #217093;">Phone
 					Number</label> <input type="text" class="form-control"
-					id="examplePhoneNumber" <%if(session.getAttribute("user_phone_number")!=null) out.print("value='"+session.getAttribute("user_phone_number")+"'"); %>  placeholder="Phone Number">
+					id="examplePhoneNumber"
+					<%if (session.getAttribute("user_phone_number") != null)
+				out.print("value='" + session.getAttribute("user_phone_number") + "'");%>
+					placeholder="Phone Number">
 			</div>
 			<div>
 				<div class="inputGroup inputGroup3">
 					<button class="buton">Modify</button>
 				</div>
 			</div>
+
 		</form>
+		
+	
 	</div>
 	
-	
+
 	<!-- add JavaScript file from js file -->
 	<script type="text/javascript" src="js/jquery.min.js"></script>
 	<script type="text/javascript" src="js/bootstrap.min.js"></script>
