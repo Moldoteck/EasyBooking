@@ -10,6 +10,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
+import project.core.Home;
 import project.core.User;
 import project.core.UserDAO;
 import project.core.UserDetails;
@@ -104,6 +105,7 @@ public class ListUserDetailsDAO implements UserDetailsDAO {
 	
 	@Override
 	public boolean addUserDetails(UserDetails user_details) {
+		UserDetails ud = getUserDetails(user_details.getUser_id());
 		boolean dissconect_flag=false;
 		try {
 			if(conn==null||conn.isClosed()) {
@@ -114,9 +116,19 @@ public class ListUserDetailsDAO implements UserDetailsDAO {
 			e1.printStackTrace();
 			return false;
 		}
+		
 		try {
 			statmt=conn.createStatement();
+			if(ud==null)
+			{
 			statmt.execute("INSERT INTO 'user_details' ('user_id','first_name', 'last_name', 'email', 'phone_number', 'path_img') VALUES ('"+user_details.getUser_id()+"','"+user_details.getFirst_name()+"','"+user_details.getLast_name()+"','"+user_details.getEmail()+"','"+user_details.getPhone_number()+"','"+user_details.getPath_img()+"'); ");
+			}
+			else
+			{
+				statmt.execute("UPDATE user_details set first_name='"+user_details.getFirst_name()+"', last_name='"+user_details.getLast_name()+
+						"', email='"+user_details.getEmail()+"', phone_number="+user_details.getPhone_number()+", path_img='"+
+						user_details.getPath_img()+"' where user_id="+user_details.getUser_id());
+			}
 			if(dissconect_flag==true)
 				disconnectDB();
 			return true;
