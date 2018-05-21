@@ -64,32 +64,64 @@ public class SearchServlet extends HttpServlet {
 		client.property(HttpUrlConnectorProvider.SET_METHOD_WORKAROUND, true);
 		WebTarget service = client.target(getBaseURI());
 		
-		Response responser=service.path("api").path("home").path("get_home_name").path(request.getParameter("search")).request().accept(MediaType.APPLICATION_JSON)
-				.get(Response.class);
-		String lst=responser.readEntity(String.class);
-		JSONObject  obj = new JSONObject("{\"data\" : "+lst+"}");
-		JSONArray arr = obj.getJSONArray("data");
-		String myTable="";
-		StringBuilder sb= new StringBuilder();
-		sb.append("<style>td {" + 
-				"    padding: 15px;" + 
-				"    text-align: left;" + 
-				"}</style>");
-		sb.append("<div style=\"overflow-x:auto;\">\r\n<table>");
-		for (int i = 0; i < arr.length(); i++)
+		if(request.getParameter("search").isEmpty())
 		{
-			sb.append("<tr><td>");
-			sb.append("<form action=\"HomeDetailsServlet\" method=\"post\" enctype=\"multipart/form-data\"><button type=\"submit\"><img src=\""+arr.getJSONObject(i).getString("path_img")+"\"  style=\"width:200px;height:200px;\"" );
-			sb.append("/></button><input type=\"hidden\" name=\"clickImage\" value=\""+arr.getJSONObject(i).getString("id_user")+"\"></form></td>");
-			sb.append("<td>");
-			sb.append("<h2 font-family=\"Merienda\">"+arr.getJSONObject(i).getString("name")+"<h2><br/>");
-			sb.append(arr.getJSONObject(i).getString("description"));
-			sb.append("</td></tr>");
+			Response responser=service.path("api").path("home").path("get_home").request().accept(MediaType.APPLICATION_JSON)
+					.get(Response.class);
+			String lst=responser.readEntity(String.class);
+			JSONObject  obj = new JSONObject("{\"data\" : "+lst+"}");
+			JSONArray arr = obj.getJSONArray("data");
+			String myTable="";
+			StringBuilder sb= new StringBuilder();
+			sb.append("<style>td {" + 
+					"    padding: 15px;" + 
+					"    text-align: left;" + 
+					"}</style>");
+			sb.append("<div style=\"overflow-x:auto;\">\r\n<table>");
+			for (int i = 0; i < arr.length(); i++)
+			{
+				sb.append("<tr><td>");
+				sb.append("<form action=\"HomeDetailsServlet\" method=\"post\" enctype=\"multipart/form-data\"><button type=\"submit\"><img src=\""+arr.getJSONObject(i).getString("path_img")+"\"  style=\"width:200px;height:200px;\"" );
+				sb.append("/></button><input type=\"hidden\" name=\"clickImage\" value=\""+arr.getJSONObject(i).getString("id_user")+"\"></form></td>");
+				sb.append("<td>");
+				sb.append("<h2 font-family=\"Merienda\">"+arr.getJSONObject(i).getString("name")+"<h2><br/>");
+				sb.append(arr.getJSONObject(i).getString("description"));
+				sb.append("</td></tr>");
+			}
+	
+			sb.append("</table></div>");
+			myTable=sb.toString();
+			session.setAttribute("searchResult", myTable);
 		}
-
-		sb.append("</table></div>");
-		myTable=sb.toString();
-		session.setAttribute("searchResult", myTable);
+		else
+		{	
+			Response responser=service.path("api").path("home").path("get_home_name").path(request.getParameter("search")).request().accept(MediaType.APPLICATION_JSON)
+					.get(Response.class);
+			String lst=responser.readEntity(String.class);
+			JSONObject  obj = new JSONObject("{\"data\" : "+lst+"}");
+			JSONArray arr = obj.getJSONArray("data");
+			String myTable="";
+			StringBuilder sb= new StringBuilder();
+			sb.append("<style>td {" + 
+					"    padding: 15px;" + 
+					"    text-align: left;" + 
+					"}</style>");
+			sb.append("<div style=\"overflow-x:auto;\">\r\n<table>");
+			for (int i = 0; i < arr.length(); i++)
+			{
+				sb.append("<tr><td>");
+				sb.append("<form action=\"HomeDetailsServlet\" method=\"post\" enctype=\"multipart/form-data\"><button type=\"submit\"><img src=\""+arr.getJSONObject(i).getString("path_img")+"\"  style=\"width:200px;height:200px;\"" );
+				sb.append("/></button><input type=\"hidden\" name=\"clickImage\" value=\""+arr.getJSONObject(i).getString("id_user")+"\"></form></td>");
+				sb.append("<td>");
+				sb.append("<h2 font-family=\"Merienda\">"+arr.getJSONObject(i).getString("name")+"<h2><br/>");
+				sb.append(arr.getJSONObject(i).getString("description"));
+				sb.append("</td></tr>");
+			}
+	
+			sb.append("</table></div>");
+			myTable=sb.toString();
+			session.setAttribute("searchResult", myTable);
+		}
 
 		request.getRequestDispatcher("index.jsp").forward(request, response);
 

@@ -31,6 +31,7 @@ public class HomeResource {
 	private static Logger log = LoggerFactory.getLogger(HomeResource.class);
 
 	@GET
+	@Path("get_home")
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	public List<Home> getUsers() throws SQLException {
 		log.info("getHomes");
