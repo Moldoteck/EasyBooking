@@ -5,6 +5,9 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
@@ -243,9 +246,20 @@ public class ListRentalDAO implements RentalDAO{
 			return false;
 		}
 		try {
+			System.out.println(rental.getCheck_out()+"**"+rental.getCheck_in());
 			statmt = conn.createStatement();
-			statmt.execute("INSERT INTO 'rental' ('check_in', 'check_out', 'discount', 'price', 'id_home', 'id_user') VALUES ('"+ rental.getCheck_in()+"', '" +
-					rental.getCheck_out() + rental.getDiscount() + rental.getPrice() + rental.getId_home() + rental.getId_user() +"'); ");
+			
+			DateFormat df = new SimpleDateFormat("MM.dd.yyyy");
+
+			// Get the date today using Calendar object.
+			Date d1 = rental.getCheck_in();  
+			Date d2 = rental.getCheck_out();     
+			
+			String data1 = df.format(d1);
+			String data2 = df.format(d2);			
+			
+			statmt.execute("INSERT INTO 'rental' ('check_in', 'check_out', 'discount', 'price', 'id_home', 'id_user') VALUES ('"+ data1+"', '" +
+					data2 +"',"+ rental.getDiscount() +","+ rental.getPrice() +", "+ rental.getId_home() +","+ rental.getId_user() +"); ");
 			System.out.println(dissconect_flag);
 			if(dissconect_flag == true)
 				disconnectDB();

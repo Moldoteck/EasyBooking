@@ -56,7 +56,6 @@ public class ServletUserDetails extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		User user=new User(request.getParameter("username"),request.getParameter("password"));
 		HttpSession session = request.getSession();
 
 		ClientConfig config = new ClientConfig();

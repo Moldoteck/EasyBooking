@@ -22,6 +22,10 @@ public class Rental {
 		this.id_user = id_user;
 	}
 	
+	public Rental()
+	{
+	}
+	
 	public Rental(Integer id_user)
 	{
 		this.id_user=id_user;

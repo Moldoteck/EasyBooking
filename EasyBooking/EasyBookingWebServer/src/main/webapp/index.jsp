@@ -61,7 +61,13 @@
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js.map"></script>
 
-
+<script>
+	function jump(h) {
+		var url = location.href; //Save down the URL without hash.
+		location.href = "#" + h; //Go to the target element.
+		history.replaceState(null, null, url); //Don't like hashes. Changing it back.
+	};
+</script>
 </head>
 <%
 	String userId = null;
@@ -75,38 +81,49 @@
 	userId = (String) session.getAttribute("userId");
 %>
 
-<body>
+<body onload='jump("results")'>
 
-	<nav class="navbar navbar-expand-lg navbar-expand-xs navbar-expand-md navbar-expand-sm fixed-top ">
+	<nav
+		class="navbar navbar-expand-lg navbar-expand-xs navbar-expand-md navbar-expand-sm fixed-top ">
 
-		<a class="navbar-brand" href="index.jsp"><img src="images/home.png"
-			width="40" height="40"></a>
-	
+		<a class="navbar-brand" href="index.jsp"><img
+			src="images/home.png" width="40" height="40"></a>
+
 
 		<div class="collapse navbar-collapse " id="navbarSupportedContent">
 			<ul class="navbar-nav mr-4">
 
-				<li class="nav-item"><a class="nav-link" 
-				data-value="become_a_host" href="addHome.jsp">Become a host</a></li>
+				<li class="nav-item"><a class="nav-link"
+					data-value="become_a_host" href="addHome.jsp">Become a host</a></li>
 
-				<%	
-			if(userId!=null){
-		  %>
-				 <li class="nav-item">
-			<div class="navbar" style="display:inline;">
-			<li><img style="margin-left:0px; padding-left:0px;" src="images/user.png" alt="user img" width="50" height="50"></li>			
-			<a id="user_details" class="nav-link" href="userDetails.jsp"> <%out.print(session.getAttribute("userId")); %></a>
-			<form action="LogOutServlet" method="get" enctype="multipart/form-data">
-				<button class=" btn nav-link btn-link">Log Out</button>
-			</form>
-			</div>
-		</li>
-				<% } else {%>
+				<%
+					if (userId != null) {
+				%>
+				<li class="nav-item">
+					<div class="navbar" style="display: inline;">
+						<li><img style="margin-left: 0px; padding-left: 0px;"
+							src="images/user.png" alt="user img" width="50" height="50"></li>
+						<a id="user_details" class="nav-link" href="userDetails.jsp">
+							<%
+								out.print(session.getAttribute("userId"));
+							%>
+						</a>
+						<form action="LogOutServlet" method="get"
+							enctype="multipart/form-data">
+							<button class=" btn nav-link btn-link">Log Out</button>
+						</form>
+					</div>
+				</li>
+				<%
+					} else {
+				%>
 				<li class="nav-item"><a class="nav-link " data-value="login"
 					href="login.jsp">Log in</a></li>
 				<li class="nav-item"><a class="nav-link " data-value="signup"
 					href="register.jsp">Sign Up</a></li>
-				<% } %>
+				<%
+					}
+				%>
 				</li>
 			</ul>
 
@@ -139,13 +156,18 @@
 					</div>
 				</div>
 			</div>
-			</form>
+		</form>
 	</header>
 
-	<%if(session.getAttribute("searchResult")!=null)
-	{
+	<%
+		if (session.getAttribute("searchResult") != null) {
+	%><a name="results"></a>
+	<br/><br/>
+	<%
 		out.print(session.getAttribute("searchResult"));
-	}%>
+
+		}
+	%>
 
 	<!-- Team section -->
 	<div class="team" id="team">
@@ -172,7 +194,7 @@
 					<div class="des">P&#259;dureac Cristian</div>
 					<span class="text-muted">Team Member</span>
 				</div>
-				
+
 				<div class="col-lg-3 col-md-3 col-sm-12 item"
 					style="width: 800px; margin: 0 auto;">
 					<img src="images/ramona.jpg" class="img-fluid" alt="team">
@@ -183,7 +205,7 @@
 		</div>
 	</div>
 
-	
+
 	<!-- add Javasscript file from js file -->
 	<script type="text/javascript" src="js/jquery.min.js"></script>
 	<script type="text/javascript" src="js/bootstrap.min.js"></script>
