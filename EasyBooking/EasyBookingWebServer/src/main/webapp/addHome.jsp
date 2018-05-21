@@ -15,29 +15,49 @@
 <body>
 <nav class="navbar navbar-expand-lg fixed-top ">
 
-	<a class="navbar-brand" href="index.jsp"><img src="images/home.png" width="40" height="40"></a>
-	  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-	    <span class="navbar-toggler-icon"></span>
-	  </button>
+		<a class="navbar-brand" href="#"><img src="images/home.png"
+			width="40" height="40"></a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse"
+			data-target="#navbarSupportedContent"
+			aria-controls="navbarSupportedContent" aria-expanded="false"
+			aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"> </span>
 
-	  <div class="collapse navbar-collapse " id="navbarSupportedContent">
-	    <ul class="navbar-nav mr-4">
-	      
-	      <li class="nav-item">
-	        <a class="nav-link" data-value="become_a_host" href="addHome.jsp">Become a host</a>
-	      </li>
-			<li class="nav-item">
-	        <a class="nav-link " data-value="login" href="login.jsp">Log in</a>
-	      </li>
-	      <li class="nav-item">
-	        <a class="nav-link " data-value="signup" href="register.jsp">Sign Up</a>
-	      </li>
+		</button>
 
-	    </ul>
-	    
-	  </div>
+		<div class="collapse navbar-collapse " id="navbarSupportedContent">
+			<ul class="navbar-nav mr-4">
 
-</nav>
+				<li class="nav-item"><a class="nav-link"
+					data-value="become_a_host" href="addHome.jsp">Become a host</a></li>
+
+				<%	
+			if(session.getAttribute("userId")!=null){
+		  %>
+				<li class="nav-item">
+					<div class="navbar" style="display: inline;">
+						<li><img src="images/user.png" alt="user img" width="50"
+							height="50"></li>
+						<form action="index.jsp" method="get">
+							<a id="user_details" class="nav-link" href="userDetails.jsp">
+								<%out.print(session.getAttribute("userId")); %> Details
+							</a>
+							<button class="nav-link" onclick="LogOutServlet">Log Out</button>
+						</form>
+					</div>
+				</li>
+				<% } else {%>
+				<li class="nav-item"><a class="nav-link " data-value="login"
+					href="login.jsp">Log in</a></li>
+				<li class="nav-item"><a class="nav-link " data-value="signup"
+					href="register.jsp">Sign Up</a></li>
+				<% } %>
+				</li>
+			</ul>
+
+		</div>
+
+	</nav>
  <br><br><br>
 <div>
 <form action="TestRentalAndHome" method=post enctype="multipart/form-data" class="userform"

@@ -43,6 +43,13 @@ public class HomeResource {
 	public List<Home> getHome(@PathParam("name") String name) throws SQLException {
 		return ListHomeDAO.instance().getHome(name);
 	}
+	
+	@GET
+	@Path("get_home_id/{name}")
+	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+	public int getHomeId(@PathParam("name") String name) throws SQLException {
+		return ListHomeDAO.instance().getHomeId(name);
+	}
 
 	@GET
 	@Path("fing_home_by_id/{id_owner}")
