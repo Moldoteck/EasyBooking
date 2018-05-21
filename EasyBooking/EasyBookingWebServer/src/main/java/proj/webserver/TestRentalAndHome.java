@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URI;
+import java.net.Authenticator.RequestorType;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -23,6 +24,8 @@ import javax.ws.rs.core.UriBuilder;
 
 import org.glassfish.jersey.client.ClientConfig;
 import org.glassfish.jersey.client.HttpUrlConnectorProvider;
+
+import com.sun.research.ws.wadl.Request;
 
 import project.core.Home;
 
@@ -81,7 +84,6 @@ public class TestRentalAndHome extends HttpServlet {
 		String temp=responser2.readEntity(String.class);
 		System.out.println(request.getParameter("name")+request.getParameter("description")+request.getParameter("price")+request.getParameter("stars")
 		+request.getParameter("nr_review")+request.getParameter("path_img")+temp);
-
 		System.out.println(request.getParameter("username")+request.getParameter("password")+temp);
 		session.setAttribute("userId", request.getParameter("username"));
 		request.getRequestDispatcher("index.jsp").forward(request, response);

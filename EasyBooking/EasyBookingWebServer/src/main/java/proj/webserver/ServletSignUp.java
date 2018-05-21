@@ -91,8 +91,7 @@ public class ServletSignUp extends HttpServlet {
 		doGet(request,response);
 		//----SETARE SESIUNE PT USERNAME SI REDIRECTARE
 		session.setAttribute("userId", request.getParameter("username"));
-		request.getRequestDispatcher("index.jsp").forward(request, response);
-		
+		request.getRequestDispatcher("index.jsp").forward(request, response);	
 	}
 	private static String getValue(Part part) throws IOException {
 	    BufferedReader reader = new BufferedReader(new InputStreamReader(part.getInputStream(), "UTF-8"));
