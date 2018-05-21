@@ -99,7 +99,41 @@ public class ListHomeDAO implements HomeDAO{
 	}
 	
 	
-
+	@Override
+	public int getHomeId(String name) {
+		// TODO Auto-generated method stub
+		boolean dissconect_flag = false;
+		try {
+			if(conn == null || conn.isClosed()) {
+				System.out.println("connecting");
+				connectDB();
+				dissconect_flag = true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return -1;
+		}
+		int selected_id=-1;
+		try{
+			statmt = conn.createStatement();
+			resSet = statmt.executeQuery("SELECT ID FROM home where name='"+name+"')");
+			while(resSet.next())
+			{
+				selected_id =  resSet.getInt("ID");
+			}	
+			if(dissconect_flag == true)
+				disconnectDB();
+			return selected_id;
+		}
+		catch(SQLException exc)
+		{
+			if(dissconect_flag == true)
+				disconnectDB();
+			return -1;
+		}
+	}
+	
+	
 	@Override
 	public List<Home> getHome(String name) {
 		// TODO Auto-generated method stub
