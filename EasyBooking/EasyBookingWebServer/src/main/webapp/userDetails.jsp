@@ -12,7 +12,7 @@
 <link rel="stylesheet" type="text/css" href="css/main.css">
 <title>Details</title>
 </head> 
-<body class="background_ram">
+<body class="background_ram"> 
 <nav class="navbar navbar-expand-lg navbar-expand-xs navbar-expand-md navbar-expand-sm fixed-top ">
 
 		<a class="navbar-brand" href="index.jsp"><img src="images/home.png"
