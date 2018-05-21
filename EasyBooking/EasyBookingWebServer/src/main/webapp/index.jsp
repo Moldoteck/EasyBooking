@@ -77,39 +77,30 @@
 
 <body>
 
-	<nav class="navbar navbar-expand-lg fixed-top ">
+	<nav class="navbar navbar-expand-lg navbar-expand-xs navbar-expand-md navbar-expand-sm fixed-top ">
 
 		<a class="navbar-brand" href="index.jsp"><img src="images/home.png"
 			width="40" height="40"></a>
-		<button class="navbar-toggler" type="button" data-toggle="collapse"
-			data-target="#navbarSupportedContent"
-			aria-controls="navbarSupportedContent" aria-expanded="false"
-			aria-label="Toggle navigation">
-			<span class="navbar-toggler-icon"> </span>
-
-		</button>
+	
 
 		<div class="collapse navbar-collapse " id="navbarSupportedContent">
 			<ul class="navbar-nav mr-4">
 
-				<li class="nav-item"><a class="nav-link"
-					data-value="become_a_host" href="addHome.jsp">Become a host</a></li>
+				<li class="nav-item"><a class="nav-link" 
+				data-value="become_a_host" href="addHome.jsp">Become a host</a></li>
 
 				<%	
 			if(userId!=null){
 		  %>
-				<li class="nav-item">
-					<div class="navbar" style="display: inline;">
-						<li><img src="images/user.png" alt="user img" width="50"
-							height="50"></li>
-						<form action="index.jsp" method="get">
-							<a id="user_details" class="nav-link" href="userDetails.jsp">
-								<%out.print(session.getAttribute("userId")); %> Details
-							</a>
-							<button class="nav-link" onclick="LogOutServlet">Log Out</button>
-						</form>
-					</div>
-				</li>
+				 <li class="nav-item">
+			<div class="navbar" style="display:inline;">
+			<li><img style="margin-left:0px; padding-left:0px;" src="images/user.png" alt="user img" width="50" height="50"></li>			
+			<a id="user_details" class="nav-link" href="userDetails.jsp"> <%out.print(session.getAttribute("userId")); %></a>
+			<form action="LogOutServlet" method="get" enctype="multipart/form-data">
+				<button class=" btn nav-link btn-link">Log Out</button>
+			</form>
+			</div>
+		</li>
 				<% } else {%>
 				<li class="nav-item"><a class="nav-link " data-value="login"
 					href="login.jsp">Log in</a></li>
@@ -205,35 +196,7 @@
 		</div>
 	</div>
 
-	<!-- Contact form -->
-	<div class="contact-form" id="contact">
-		<div class="container">
-			<form>
-				<div class="row">
-					<div class="col-lg-4 col-md-4 col-sm-12">
-						<h1>Get in Touch</h1>
-					</div>
-					<div class="col-lg-8 col-md-8 col-sm-12 right">
-						<div class="form-group">
-							<input type="text" class="form-control form-control-lg"
-								placeholder="Your Name" name="">
-						</div>
-						<div class="form-group">
-							<input type="email" class="form-control form-control-lg"
-								placeholder="YourEmail@email.com" name="email">
-						</div>
-						<div class="form-group">
-							<textarea class="form-control form-control-lg">
-				   	 	
-				   	 </textarea>
-						</div>
-						<input type="submit" class="btn btn-secondary btn-block"
-							value="Send" name="">
-					</div>
-				</div>
-			</form>
-		</div>
-	</div>
+	
 	<!-- add Javasscript file from js file -->
 	<script type="text/javascript" src="js/jquery.min.js"></script>
 	<script type="text/javascript" src="js/bootstrap.min.js"></script>

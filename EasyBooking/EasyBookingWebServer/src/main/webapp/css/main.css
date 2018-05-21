@@ -3,7 +3,8 @@ html { min-height: 100%; }
 body{
 	padding: 0;
 	margin: 0;
-	background:#f4f4f4;
+	
+	
 }
 html,h1,h2,h3,h4,h5,h6,a{
 	font-family: "Raleway";
@@ -262,4 +263,13 @@ input::placeholder{
 
 #custom-search-input .glyphicon-search{
     font-size: 23px;
+}
+
+.background_ram
+{
+	background-image:url('../images/nou.jpg');
+	background-position: fixed;
+	background-repeat: no-repeat;
+	 background-attachment: fixed;
+
 }
