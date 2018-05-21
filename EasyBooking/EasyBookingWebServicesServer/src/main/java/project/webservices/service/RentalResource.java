@@ -34,6 +34,15 @@ public class RentalResource {
         log.info("getRentals");
         return ListRentalDAO.instance().getRentals();
     }
+ 	
+ 	
+ 	@GET
+ 	@Path("getRentals_from_idUser/{id_user}")
+    @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+    public List<Rental> getRentals_from_idUser(@PathParam("id_user") Integer id_user) throws SQLException {
+        log.info("getRentals");
+        return ListRentalDAO.instance().getRentals_from_idUser(id_user);
+    }
  
 	 @GET
 	 @Path("get_rental_checkin/{check_in}")

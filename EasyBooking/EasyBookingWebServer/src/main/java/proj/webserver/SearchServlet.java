@@ -76,6 +76,7 @@ public class SearchServlet extends HttpServlet {
 				"    text-align: left;" + 
 				"}</style>");
 		sb.append("<div style=\"overflow-x:auto;\">\r\n<table>");
+		
 		for (int i = 0; i < arr.length(); i++)
 		{
 			sb.append("<tr><td>");

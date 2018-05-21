@@ -27,6 +27,7 @@ public class ListRentalDAO implements RentalDAO{
 	public static ResultSet resSet;
 	public static Statement statmt;
 	
+	
 	public void disconnectDB() {
 		try {
 			conn.close();
@@ -342,4 +343,43 @@ public class ListRentalDAO implements RentalDAO{
 		return found;
 	}
 	
+	public List<Rental> getRentals_from_idUser(Integer id_user) {
+		// TODO Auto-generated method stub
+		boolean dissconect_flag = false;
+		try {
+			if(conn == null || conn.isClosed()) {
+				connectDB();
+				dissconect_flag = true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+		List<Rental> rentals  = Collections.synchronizedList(new ArrayList<>());
+
+		try {
+			statmt = conn.createStatement();
+			resSet = statmt.executeQuery("SELECT * FROM rental where id_user='"+id_user+"'");
+
+			while(resSet.next())
+			{
+				Date check_inr = resSet.getDate("check_in");
+				Date check_outr = resSet.getDate("check_out");
+				Integer discounterr = resSet.getInt("discounter");
+				Double pricer = resSet.getDouble("price");
+				Integer id_homer = resSet.getInt("id_home");
+				Integer id_userr = resSet.getInt("id_user");
+				rentals.add(new Rental(check_inr, check_outr, discounterr, pricer, id_homer, id_userr));
+			}	
+		} catch (SQLException e) {
+			e.printStackTrace();
+			if(dissconect_flag == true)
+				disconnectDB();
+		}
+
+		if(dissconect_flag == true)
+			disconnectDB();
+		return rentals;
+	}
+
 }

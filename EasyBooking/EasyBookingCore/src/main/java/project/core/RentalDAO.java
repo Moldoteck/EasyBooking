@@ -6,6 +6,8 @@ import java.util.List;
 public interface RentalDAO {
 
 	List<Rental> getRentals();
+	
+	List<Rental> getRentals_from_idUser(Integer id_user);
 
     Rental getRental(Date check_in);
     
