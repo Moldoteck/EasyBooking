@@ -28,6 +28,7 @@ import org.glassfish.jersey.client.HttpUrlConnectorProvider;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import project.core.Home;
 import project.core.User;
 import project.core.UserDetails;
 
@@ -85,8 +86,8 @@ public class ServletUserDetails extends HttpServlet {
 				session.setAttribute("user_phone_number", obj.getString("phone_number"));
 				session.setAttribute("user_path_img", obj.getString("path_img"));
 			}
-			request.getRequestDispatcher("userDetails.jsp").forward(request, response);
 		}
+		request.getRequestDispatcher("userDetails.jsp").forward(request, response);
 
 	}
 
@@ -94,7 +95,21 @@ public class ServletUserDetails extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		HttpSession session = request.getSession();
+		ClientConfig config = new ClientConfig();
+		Client client = ClientBuilder.newClient(config);
+		client.property(HttpUrlConnectorProvider.SET_METHOD_WORKAROUND, true);
+		WebTarget service = client.target(getBaseURI());
+
+		Response responser=service.path("api").path("users").path(session.getAttribute("userId").toString()).request().accept(MediaType.APPLICATION_JSON)
+				.get(Response.class);
+		String result = responser.readEntity(String.class);;
+		if(result!="-1")
+		{
+			UserDetails userDet=new UserDetails(result,request.getParameter("first_name"),request.getParameter("last_name"),request.getParameter("exampleInputEmail1"),request.getParameter("examplePhoneNumber"),request.getParameter("image"));
+			Response responser1 = service.path("api").path("users_details").request(MediaType.APPLICATION_XML)		
+					.post(Entity.entity(userDet, MediaType.APPLICATION_XML), Response.class);
+		}
 		doGet(request, response);
 	}
 

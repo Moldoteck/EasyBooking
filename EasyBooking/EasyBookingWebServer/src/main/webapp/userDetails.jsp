@@ -114,7 +114,7 @@
 			<div class="form-group">
 				<label for="exampleInputEmail1" style="color: #217093;">Email
 					Address</label> <input type="text" class="form-control"
-					id="exampleInputEmail1"
+					id="exampleInputEmail1" name = "exampleInputEmail1"
 					<%if (session.getAttribute("user_email") != null)
 				out.print("value='" + session.getAttribute("user_email") + "'");%>
 					aria-describedby="emailHelp" placeholder="Email">
@@ -122,7 +122,7 @@
 			<div class="form-group">
 				<label for="phone_number" style="color: #217093;">Phone
 					Number</label> <input type="text" class="form-control"
-					id="examplePhoneNumber"
+					id="examplePhoneNumber" name = "examplePhoneNumber"
 					<%if (session.getAttribute("user_phone_number") != null)
 				out.print("value='" + session.getAttribute("user_phone_number") + "'");%>
 					placeholder="Phone Number">

@@ -85,8 +85,8 @@ public class TestRentalAndHome extends HttpServlet {
 		System.out.println(request.getParameter("name")+request.getParameter("description")+request.getParameter("price")+request.getParameter("stars")
 		+request.getParameter("nr_review")+request.getParameter("path_img")+temp);
 		System.out.println(request.getParameter("username")+request.getParameter("password")+temp);
-		session.setAttribute("userId", request.getParameter("username"));
-		request.getRequestDispatcher("index.jsp").forward(request, response);
+		
+request.getRequestDispatcher("index.jsp").forward(request, response);
 		
 	}
 	private static String getValue(Part part) throws IOException {

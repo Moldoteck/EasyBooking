@@ -50,9 +50,26 @@
 		</div>
 
 	</nav>
- <br><br><br>
+ <br>
+	<br>
+	<br><br>
+	<div>
+		<form action="PostHomeServlet" method=get
+			enctype="multipart/form-data" class="userform"
+			style="width: 70%; position: absolute;  left: 15%; background-color: #FFF; margin: 0; padding: 2.25em; box-sizing: border-box; border: solid 1px #DDD; border-radius: .5em; font-family: 'Source Sans Pro', sans-serif;">
+
+			<div>
+				<div class="inputGroup inputGroup3">
+					<button class="buton">Reset</button>
+				</div>
+			</div>
+		</form>
+		</div>
+	<br><br><br>
+	<br>
+	<br>
 <div>
-<form action="TestRentalAndHome" method=post enctype="multipart/form-data" class="userform"
+<form action="PostHomeServlet" method=post enctype="multipart/form-data" class="userform"
 	style="width:70%; position:absolute; left:15%; background-color: #FFF;
   margin: 0;
   padding: 2.25em;
@@ -65,32 +82,26 @@
 	
 	<div class="form-group">
     	<label for="name" style="color:#217093;">Name</label>
-    	<input type="text" id="name"
+    	<input type="text" id="name" <%if (session.getAttribute("my_home_name") != null)
+				out.print("value='" + session.getAttribute("my_home_name") + "'");%>
 				class="form-control" maxlength="256" name="name" placeholder = "Name" required>
   	</div>
   	<div class="form-group">
     	<label for="description" style="color:#217093;">Description</label>
-    	<input type="text" id="description"
+    	<input type="text" id="description" <%if (session.getAttribute("my_home_description") != null)
+				out.print("value='" + session.getAttribute("my_home_description") + "'");%>
 				class="form-control" maxlength="500" name="description" placeholder = "Description" required>
   	</div>
   	  <div class="form-group">
     	<label for="price" style="color:#217093;">Price</label>
-    	<input type="text" id="price"
+    	<input type="text" id="price" <%if (session.getAttribute("my_home_price") != null)
+				out.print("value='" + session.getAttribute("my_home_price") + "'");%>
 				class="form-control" maxlength="500" name="price" placeholder = "Price" required>
-  	</div>
-    <div class="form-group">
-    	<label for="stars" style="color:#217093;">Stars</label>
-    	<input type="text" id="stars"
-				class="form-control" maxlength="500" name="stars" placeholder = "Stars" required>
-  	</div>
-  	<div class="form-group">
-    	<label for="nr_review" style="color:#217093;">Nr review</label>
-    	<input type="text" id="nr_review"
-				class="form-control" maxlength="500" name="nr_review" placeholder = "Nr review" required>
   	</div>
   	 <div class="form-group">
     	<label for="image_path" style="color:#217093;">Image path</label>
-    	<input type="text" id="image_path"
+    	<input type="text" id="image_path" <%if (session.getAttribute("my_home_path_img") != null)
+				out.print("value='" + session.getAttribute("my_home_path_img") + "'");%>
 				class="form-control" maxlength="500" name="image_path" placeholder = "Image path" required>
   	</div>
   	<div>

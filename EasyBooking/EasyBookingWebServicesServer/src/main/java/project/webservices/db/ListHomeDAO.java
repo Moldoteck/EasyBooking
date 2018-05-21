@@ -250,7 +250,7 @@ public class ListHomeDAO implements HomeDAO{
 			if(hm==null)
 			{
 				statmt.execute("INSERT INTO 'home' ('name', 'description', 'price', 'stars', 'nr_review', 'path_img', 'id_user') VALUES ('"+ home.getName()+"', '" +
-						home.getDescription() + home.getPrice() + home.getStars() + home.getNr_review() + home.getPath_img() + home.getId_user() +"'); ");
+						home.getDescription() +"',"+ home.getPrice() +","+ home.getStars() +","+ home.getNr_review() +",'"+ home.getPath_img() +"',"+ home.getId_user() +"'); ");
 
 			}
 			else
