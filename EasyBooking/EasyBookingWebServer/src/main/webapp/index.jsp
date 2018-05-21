@@ -79,7 +79,7 @@
 
 	<nav class="navbar navbar-expand-lg fixed-top ">
 
-		<a class="navbar-brand" href="#"><img src="images/home.png"
+		<a class="navbar-brand" href="index.jsp"><img src="images/home.png"
 			width="40" height="40"></a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse"
 			data-target="#navbarSupportedContent"

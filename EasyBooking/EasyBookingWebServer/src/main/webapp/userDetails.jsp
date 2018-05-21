@@ -15,7 +15,7 @@
 <body>
 <nav class="navbar navbar-expand-lg fixed-top ">
 
-	<a class="navbar-brand" href="#"><img src="images/home.png" width="40" height="40"></a>
+	<a class="navbar-brand" href="index.jsp"><img src="images/home.png" width="40" height="40"></a>
 	  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 	    <span class="navbar-toggler-icon">
 	    </span>
@@ -57,7 +57,7 @@
 </nav>
  <br><br><br>
 <div>
-<form action="ServletSignUp.java" method=post enctype="multipart/form-data" class="userform"
+<form action="ServletUserDetails" method=put enctype="multipart/form-data" class="userform"
 	style="width:70%; position:absolute; left:15%; background-color: #FFF;
   margin: 0;
   padding: 2.25em;
@@ -92,6 +92,7 @@
     	<label for="phone_number" style="color:#217093;">Phone Number</label>
     	<input type="text" class="form-control" id="exampleInputEmail1" placeholder="Phone Number">
   	</div>
+  	<button type="submit">Modifica</button>
 </form>
 </div>
 <!-- add JavaScript file from js file -->
