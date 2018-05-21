@@ -8,7 +8,7 @@
 	href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700"
 	rel="stylesheet">
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+<link rel="styleseet" type="text/css" href="css/bootstrap.min.css">
 <link rel="stylesheet" type="text/css" href="css/main.css">
 <title>Details</title>
 </head>

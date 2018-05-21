@@ -28,7 +28,7 @@
 				<%	
 				if(session.getAttribute("userId")!=null){
 		  %>
-				 <li class="nav-item">
+			 <li class="nav-item">
 			<div class="navbar" style="display:inline;">
 			<li><img style="margin-left:0px; padding-left:0px;" src="images/user.png" alt="user img" width="50" height="50"></li>			
 			<a id="user_details" class="nav-link" href="userDetails.jsp"> <%out.print(session.getAttribute("userId")); %></a>

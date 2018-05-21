@@ -185,7 +185,7 @@
 					<div class="des">P&#259;dureac Cristian</div>
 					<span class="text-muted">Team Member</span>
 				</div>
-
+				
 				<div class="col-lg-3 col-md-3 col-sm-12 item"
 					style="width: 800px; margin: 0 auto;">
 					<img src="images/ramona.jpg" class="img-fluid" alt="team">

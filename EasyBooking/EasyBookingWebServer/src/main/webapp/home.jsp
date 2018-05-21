@@ -15,7 +15,7 @@
 
 		<a class="navbar-brand" href="index.jsp"><img src="images/home.png"
 			width="40" height="40"></a>
-	
+
 
 		<div class="collapse navbar-collapse " id="navbarSupportedContent">
 			<ul class="navbar-nav mr-4">
