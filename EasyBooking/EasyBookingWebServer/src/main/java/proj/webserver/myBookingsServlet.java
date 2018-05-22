@@ -76,17 +76,25 @@ public class myBookingsServlet extends HttpServlet {
 							"    text-align: left;" + 
 							"}</style>");
 					sb.append("<div style=\"overflow-x:auto;\">\r\n<table>");
-
 					for (int i = 0; i < arr.length(); i++)
 					{
+
+						int myid=arr.getJSONObject(i).getInt("id_home");
+						Response responser2=service.path("api").path("home").path("fing_home_by_id").path(""+myid).request().accept(MediaType.APPLICATION_JSON)
+								.get(Response.class);
+						String lst2=responser2.readEntity(String.class);
+						
+						JSONObject  obj2 = new JSONObject(lst2);
+						String image=obj2.getString("path_img");
+						
+						
 						sb.append("<tr><td>");
 
-						//sb.append("<a src='"+arr.getJSONObject(i).getString("path_img")+"' style=\\\"width:200px;height:200px; />");
-						sb.append("Check-in: "+arr.getJSONObject(i).getString("check_in"));
-						sb.append("</td><td>Check-out: "+arr.getJSONObject(i).getString("check_out"));
-						sb.append("</td><td>Discount: "+arr.getJSONObject(i).getInt("discount"));
-						sb.append("</td><td>Price: "+arr.getJSONObject(i).getDouble("price"));
-						sb.append("</td><td>Delete: ");
+						sb.append("<img src='"+image+"' style=\\\"width:200px;height:200px;padding:10px; />");
+						sb.append("<b>Check-in: </b>"+arr.getJSONObject(i).getString("check_in"));
+						sb.append("</td><td><b>Check-out: </b>"+arr.getJSONObject(i).getString("check_out"));
+						sb.append("</td><td><b>Discount: </b>"+arr.getJSONObject(i).getInt("discount"));
+						sb.append("</td><td><b>Price: </b>"+arr.getJSONObject(i).getDouble("price"));
 						sb.append("</td></tr>");
 					}
 					sb.append("</table></div>");
