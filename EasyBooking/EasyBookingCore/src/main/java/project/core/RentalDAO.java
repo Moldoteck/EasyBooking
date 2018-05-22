@@ -17,5 +17,5 @@ public interface RentalDAO {
 
     boolean updateRental(Date check_in, Rental rental);
     
-    boolean deleteRental(Date check_in, Date check_out);
+    boolean deleteRental(String id_home, String id_user);
 }

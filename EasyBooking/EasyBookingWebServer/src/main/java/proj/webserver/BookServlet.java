@@ -77,9 +77,9 @@ public class BookServlet extends HttpServlet {
 		WebTarget service = client.target(getBaseURI());
 
 
-		if(request.getParameter("search").isEmpty())
+		if(session.getAttribute("userId")==null)
 		{
-			request.getRequestDispatcher("home.jsp").forward(request, response);
+			request.getRequestDispatcher("login.jsp").forward(request, response);
 		}
 		else
 		{

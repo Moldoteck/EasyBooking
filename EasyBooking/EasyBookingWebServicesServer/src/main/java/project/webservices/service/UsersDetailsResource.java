@@ -71,4 +71,20 @@ public class UsersDetailsResource {
           log.info("[UserResource] patchUsersDetails: response status: {} {}", response.getStatus(), response.getStatusInfo());
           return response;
     }
+    
+    @PUT 
+    @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+    
+    public Response putUser(@Context UriInfo uriInfo, UserDetails user_details) throws SQLException {
+        //Only the replace functionality is implemented
+    	 log.info("putUsersDetails: {}", user_details);
+         Response response;
+         if (ListUserDetailsDAO.instance().addUserDetails(user_details)) {
+             response =  Response.created(uriInfo.getRequestUriBuilder().build()).entity(user_details).build();
+         } else {
+             response = Response.seeOther(uriInfo.getRequestUriBuilder().build()).build();
+         }
+         log.info("[UserResource] putUsersDetails: response status: {} {}", response.getStatus(), response.getStatusInfo());
+         return response;
+    }
 }

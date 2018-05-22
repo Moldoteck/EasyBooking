@@ -314,7 +314,7 @@ public class ListRentalDAO implements RentalDAO{
 
 	//thinking that check_in and check_out are unique
 	@Override
-	public boolean deleteRental(Date check_in, Date check_out) {
+	public boolean deleteRental(String id_home, String id_user) {
 		// TODO Auto-generated method stub
 		boolean dissconect_flag=false;
 		try {
@@ -329,28 +329,19 @@ public class ListRentalDAO implements RentalDAO{
 		boolean found = false;
 		try {
 			statmt=conn.createStatement();
-			resSet = statmt.executeQuery("SELECT * FROM rental");
-
-			while(resSet.next())
-			{
-				Date check_inr = resSet.getDate("check_in");
-				Date check_outr = resSet.getDate("check_out");
-				if(Objects.equals(check_inr,check_in) && Objects.equals(check_outr,check_out))
-				{
-					statmt.executeQuery("DELETE FROM rental WHERE check_in=" + check_in + "AND check_out=" + check_out);
-					found=true;
-					break;
-				}
-			}	
+			resSet =statmt.executeQuery("DELETE FROM rental WHERE id_home=" + id_home + "AND id_user=" + id_user);
+			
 		} catch (SQLException e) {
 			if(dissconect_flag==true)
 				disconnectDB();
+			
 			e.printStackTrace();
+			return false;
 		}
 		
 		if(dissconect_flag==true)
 			disconnectDB();
-		return found;
+		return true;
 	}
 	
 }

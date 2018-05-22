@@ -108,7 +108,7 @@ public class ServletUserDetails extends HttpServlet {
 		{
 			UserDetails userDet=new UserDetails(result,request.getParameter("first_name"),request.getParameter("last_name"),request.getParameter("exampleInputEmail1"),request.getParameter("examplePhoneNumber"),request.getParameter("image"));
 			Response responser1 = service.path("api").path("users_details").request(MediaType.APPLICATION_XML)		
-					.post(Entity.entity(userDet, MediaType.APPLICATION_XML), Response.class);
+					.put (Entity.entity(userDet, MediaType.APPLICATION_XML), Response.class);
 		}
 		doGet(request, response);
 	}

@@ -95,12 +95,16 @@ public class myBookingsServlet extends HttpServlet {
 						sb.append("</td><td><b>Check-out: </b>"+arr.getJSONObject(i).getString("check_out"));
 						sb.append("</td><td><b>Discount: </b>"+arr.getJSONObject(i).getInt("discount"));
 						sb.append("</td><td><b>Price: </b>"+arr.getJSONObject(i).getDouble("price"));
+						sb.append("</td><td>");
+						sb.append("<form action=\"BookDeleteServlet\" method=\"post\" enctype=\"multipart/form-data\"><button type=\"submit\">Delete" );
+						sb.append("</button><input type=\"hidden\" name=\"deleteHome\" value=\""+arr.getJSONObject(i).getInt("id_home")+"\"></form></td>");
 						sb.append("</td></tr>");
 					}
 					sb.append("</table></div>");
 					myTable=sb.toString();
 					System.out.println(myTable);
 					session.setAttribute("bookingResult", myTable);
+					
 				}
 			}
 			request.getRequestDispatcher("myBookings.jsp").forward(request, response);
