@@ -13,38 +13,51 @@
 <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
 <link rel="stylesheet" type="text/css" href="css/main.css">
 <title>Details</title>
-</head> 
-<body class="background_ram"> 
-<nav class="navbar navbar-expand-lg navbar-expand-xs navbar-expand-md navbar-expand-sm fixed-top ">
+</head>
+<body class="background_ram">
+	<nav
+		class="navbar navbar-expand-lg navbar-expand-xs navbar-expand-md navbar-expand-sm fixed-top ">
 
-		<a class="navbar-brand" href="index.jsp"><img src="images/home.png"
-			width="40" height="40"></a>
-	
+		<a class="navbar-brand" href="index.jsp"><img
+			src="images/home.png" width="40" height="40"></a>
+
 
 		<div class="collapse navbar-collapse " id="navbarSupportedContent">
 			<ul class="navbar-nav mr-4">
 
-				<li class="nav-item"><a class="nav-link" 
-				data-value="become_a_host" href="addHome.jsp">Become a host</a></li>
 
-				<%	
-				if(session.getAttribute("userId")!=null){
-		  %>
-			 <li class="nav-item">
-			<div class="navbar" style="display:inline;">
-			<li><img style="margin-left:0px; padding-left:0px;" src="images/user.png" alt="user img" width="50" height="50"></li>			
-			<a id="user_details" class="nav-link" href="userDetails.jsp"> <%out.print(session.getAttribute("userId")); %></a>
-			<form action="LogOutServlet" method="get" enctype="multipart/form-data">
-				<button class=" btn nav-link btn-link">Log Out</button>
-			</form>
-			</div>
-		</li>
-				<% } else {%>
+				<%
+					if (session.getAttribute("userId") != null) {
+				%>
+
+				<li class="nav-item">
+					<div class="navbar" style="display: inline;">
+
+						<li><img style="margin-left: 0px; padding-left: 0px;"
+							src="images/user.png" alt="user img" width="50" height="50"></li>
+						<a id="user_details" class="nav-link" href="userDetails.jsp">
+							<%
+								out.print(session.getAttribute("userId"));
+							%>
+						</a>
+						<a class="nav-link" data-value="become_a_host" href="addHome.jsp">Become
+							a host</a>
+						<form action="LogOutServlet" method="get"
+							enctype="multipart/form-data">
+							<button class=" btn nav-link btn-link">Log Out</button>
+						</form>
+					</div>
+				</li>
+				<%
+					} else {
+				%>
 				<li class="nav-item"><a class="nav-link " data-value="login"
 					href="login.jsp">Log in</a></li>
 				<li class="nav-item"><a class="nav-link " data-value="signup"
 					href="register.jsp">Sign Up</a></li>
-				<% } %>
+				<%
+					}
+				%>
 				</li>
 			</ul>
 
@@ -53,11 +66,12 @@
 	</nav>
 	<br>
 	<br>
-	<br><br>
+	<br>
+	<br>
 	<div>
 		<form action="ServletUserDetails" method=get
 			enctype="multipart/form-data" class="userform"
-			style="width: 70%; position: absolute;  left: 15%; background-color: #FFF; margin: 0; padding: 2.25em; box-sizing: border-box; border: solid 1px #DDD; border-radius: .5em; font-family: 'Source Sans Pro', sans-serif;">
+			style="width: 70%; position: absolute; left: 15%; background-color: #FFF; margin: 0; padding: 2.25em; box-sizing: border-box; border: solid 1px #DDD; border-radius: .5em; font-family: 'Source Sans Pro', sans-serif;">
 
 			<div>
 				<div class="inputGroup inputGroup3">
@@ -65,8 +79,10 @@
 				</div>
 			</div>
 		</form>
-		</div>
-	<br><br><br>
+	</div>
+	<br>
+	<br>
+	<br>
 	<br>
 	<br>
 
@@ -94,7 +110,7 @@
 				out.print("value='" + session.getAttribute("user_path_img") + "'");%>
 					placeholder="Change image">
 			</div>
-			
+
 			<div class="form-group">
 				<label for="first_name" style="color: #217093;">First Name</label> <input
 					type="text" id="first_name" class="form-control" maxlength="256"
@@ -114,7 +130,7 @@
 			<div class="form-group">
 				<label for="exampleInputEmail1" style="color: #217093;">Email
 					Address</label> <input type="text" class="form-control"
-					id="exampleInputEmail1" name = "exampleInputEmail1"
+					id="exampleInputEmail1" name="exampleInputEmail1"
 					<%if (session.getAttribute("user_email") != null)
 				out.print("value='" + session.getAttribute("user_email") + "'");%>
 					aria-describedby="emailHelp" placeholder="Email">
@@ -122,7 +138,7 @@
 			<div class="form-group">
 				<label for="phone_number" style="color: #217093;">Phone
 					Number</label> <input type="text" class="form-control"
-					id="examplePhoneNumber" name = "examplePhoneNumber"
+					id="examplePhoneNumber" name="examplePhoneNumber"
 					<%if (session.getAttribute("user_phone_number") != null)
 				out.print("value='" + session.getAttribute("user_phone_number") + "'");%>
 					placeholder="Phone Number">
@@ -134,10 +150,10 @@
 			</div>
 
 		</form>
-		
-	
+
+
 	</div>
-	
+
 
 	<!-- add JavaScript file from js file -->
 	<script type="text/javascript" src="js/jquery.min.js"></script>

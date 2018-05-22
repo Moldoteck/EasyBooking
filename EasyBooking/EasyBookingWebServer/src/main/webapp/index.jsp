@@ -93,21 +93,25 @@
 		<div class="collapse navbar-collapse " id="navbarSupportedContent">
 			<ul class="navbar-nav mr-4">
 
-				<li class="nav-item"><a class="nav-link"
-					data-value="become_a_host" href="addHome.jsp">Become a host</a></li>
-
 				<%
 					if (userId != null) {
 				%>
 				<li class="nav-item">
 					<div class="navbar" style="display: inline;">
+
 						<li><img style="margin-left: 0px; padding-left: 0px;"
 							src="images/user.png" alt="user img" width="50" height="50"></li>
 						<a id="user_details" class="nav-link" href="userDetails.jsp">
 							<%
 								out.print(session.getAttribute("userId"));
 							%>
-						</a>
+						</a> 
+						<a class="nav-link" data-value="become_a_host" href="addHome.jsp">Become
+							a host</a>
+						<form action="myBookingsServlet" method="get"
+							enctype="multipart/form-data">
+							<button class=" btn nav-link btn-link">My Bookings</button>
+						</form>
 						<form action="LogOutServlet" method="get"
 							enctype="multipart/form-data">
 							<button class=" btn nav-link btn-link">Log Out</button>
@@ -162,7 +166,8 @@
 	<%
 		if (session.getAttribute("searchResult") != null) {
 	%><a name="results"></a>
-	<br/><br/>
+	<br />
+	<br />
 	<%
 		out.print(session.getAttribute("searchResult"));
 

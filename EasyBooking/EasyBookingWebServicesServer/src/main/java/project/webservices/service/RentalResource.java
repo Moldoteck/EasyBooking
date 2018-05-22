@@ -45,7 +45,7 @@ public class RentalResource {
  	 @GET
      @Path("get_rental_user/{id_user}")
      @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-     public boolean findIdUser( @PathParam("id_user") Integer id_user) throws SQLException {
+     public List<Rental> findIdUser( @PathParam("id_user") Integer id_user) throws SQLException {
          return ListRentalDAO.instance().findIdUser(id_user);
      }
  	 

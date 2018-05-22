@@ -50,13 +50,25 @@ public class UsersDetailsResource {
         log.info("postUsersDetails: {}", user_details);
         Response response;
         if (ListUserDetailsDAO.instance().addUserDetails(user_details)) {
-        	System.out.println("utte");
             response =  Response.created(uriInfo.getRequestUriBuilder().build()).entity(user_details).build();
         } else {
-        	System.out.println("Badde");
             response = Response.seeOther(uriInfo.getRequestUriBuilder().build()).build();
         }
         log.info("[UserResource] postUsersDetails: response status: {} {}", response.getStatus(), response.getStatusInfo());
         return response;
+    }
+    
+    @PATCH
+    @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+    public Response patchUsersDetails(@Context UriInfo uriInfo, UserDetails user_details) throws IllegalArgumentException, UriBuilderException, SQLException {
+    	  log.info("patchUsersDetails: {}", user_details);
+          Response response;
+          if (ListUserDetailsDAO.instance().addUserDetails(user_details)) {
+              response =  Response.created(uriInfo.getRequestUriBuilder().build()).entity(user_details).build();
+          } else {
+              response = Response.seeOther(uriInfo.getRequestUriBuilder().build()).build();
+          }
+          log.info("[UserResource] patchUsersDetails: response status: {} {}", response.getStatus(), response.getStatusInfo());
+          return response;
     }
 }

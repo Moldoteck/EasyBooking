@@ -62,37 +62,46 @@
 <title>Register</title>
 </head>
 <body>
-	
-	<nav class="navbar navbar-expand-lg navbar-expand-xs navbar-expand-md navbar-expand-sm fixed-top ">
 
-		<a class="navbar-brand" href="index.jsp"><img src="images/home.png"
-			width="40" height="40"></a>
-	
+	<nav
+		class="navbar navbar-expand-lg navbar-expand-xs navbar-expand-md navbar-expand-sm fixed-top ">
+
+		<a class="navbar-brand" href="index.jsp"><img
+			src="images/home.png" width="40" height="40"></a>
+
 
 		<div class="collapse navbar-collapse " id="navbarSupportedContent">
 			<ul class="navbar-nav mr-4">
+				<%
+					if (session.getAttribute("userId") != null) {
+				%>
+				<li class="nav-item">
+					<div class="navbar" style="display: inline;">
+						<li><img style="margin-left: 0px; padding-left: 0px;"
+							src="images/user.png" alt="user img" width="50" height="50"></li>
 
-				<li class="nav-item"><a class="nav-link" 
-				data-value="become_a_host" href="addHome.jsp">Become a host</a></li>
-
-				<%	
-			if(session.getAttribute("userId")!=null){
-		  %>
-				 <li class="nav-item">
-			<div class="navbar" style="display:inline;">
-			<li><img style="margin-left:0px; padding-left:0px;" src="images/user.png" alt="user img" width="50" height="50"></li>			
-			<a id="user_details" class="nav-link" href="userDetails.jsp"> <%out.print(session.getAttribute("userId")); %></a>
-			<form action="LogOutServlet" method="get" enctype="multipart/form-data">
-				<button class=" btn nav-link btn-link">Log Out</button>
-			</form>
-			</div>
-		</li>
-				<% } else {%>
+						<a id="user_details" class="nav-link" href="userDetails.jsp">
+							<%
+								out.print(session.getAttribute("userId"));
+							%>
+						</a> <a class="nav-link" data-value="become_a_host" href="addHome.jsp">Become
+							a host</a>
+						<form action="LogOutServlet" method="get"
+							enctype="multipart/form-data">
+							<button class=" btn nav-link btn-link">Log Out</button>
+						</form>
+					</div>
+				</li>
+				<%
+					} else {
+				%>
 				<li class="nav-item"><a class="nav-link " data-value="login"
 					href="login.jsp">Log in</a></li>
 				<li class="nav-item"><a class="nav-link " data-value="signup"
 					href="register.jsp">Sign Up</a></li>
-				<% } %>
+				<%
+					}
+				%>
 				</li>
 			</ul>
 
@@ -102,7 +111,7 @@
 
 	<%
 		if (session.getAttribute("searchedHome") != null) {
-			%><br />
+	%><br />
 	<br />
 	<br />
 	<br />
@@ -110,13 +119,15 @@
 	<br />
 	<br />
 	<%
-			out.print(session.getAttribute("searchedHome"));
-			%>
-		<style>
-		table { border-collapse: collapse; }
-</style>	
-			
-			
+		out.print(session.getAttribute("searchedHome"));
+	%>
+	<style>
+table {
+	border-collapse: collapse;
+}
+</style>
+
+
 
 	<div>
 		<form action="BookServlet" method=post enctype="multipart/form-data"
@@ -153,44 +164,58 @@
 		</form>
 	</div>
 	<script type="text/javascript">
-  
-  function eventFire(el, etype){
-	  if (el.fireEvent) {
-	    el.fireEvent('on' + etype);
-	  } else {
-	    var evObj = document.createEvent('Events');
-	    evObj.initEvent(etype, true, false);
-	    el.dispatchEvent(evObj);
-	  }
-	}
+		function eventFire(el, etype) {
+			if (el.fireEvent) {
+				el.fireEvent('on' + etype);
+			} else {
+				var evObj = document.createEvent('Events');
+				evObj.initEvent(etype, true, false);
+				el.dispatchEvent(evObj);
+			}
+		}
 
-  var _num1 = document.getElementById('check_in');
-  var _num2 = document.getElementById('check_out');
-  var _disc  = document.getElementById('discount');
-  var _finalprice  = document.getElementById('final_price');
-  
-  _num1.onchange = function(){
-	  var difference=Math.floor((Date.parse(document.getElementById('check_out').value) -Date.parse(this.value))/(1000*60*60*24));
-	  if(difference>=5)
-		_disc.value = 10;
-	  else
-		_disc.value=0;
-    _finalprice.value=(parseFloat(<%out.print(session.getAttribute("priceHome"));%>)-(parseFloat(_disc.value)*parseFloat(<%out.print(session.getAttribute("priceHome"));%>)/100));
-    eventFire(_disc, "click");
-    console.log("first0");
-  };
-  _num2.onchange = function(){
-	  var difference=Math.floor((Date.parse(this.value) -Date.parse(document.getElementById('check_in').value))/(1000*60*60*24));
-	  if(difference>=5)
-		_disc.value = 10;
-	  else
-		_disc.value=0;
-	    _finalprice.value=(parseFloat(<%out.print(session.getAttribute("priceHome"));%>)-(parseFloat(_disc.value)*parseFloat(<%out.print(session.getAttribute("priceHome"));%>)/100));
-    eventFire(_disc, 'click');
+		var _num1 = document.getElementById('check_in');
+		var _num2 = document.getElementById('check_out');
+		var _disc = document.getElementById('discount');
+		var _finalprice = document.getElementById('final_price');
 
-    console.log("second");
-  };  
-</script>
+		_num1.onchange = function() {
+			var difference = Math.floor((Date.parse(document
+					.getElementById('check_out').value) - Date
+					.parse(this.value))
+					/ (1000 * 60 * 60 * 24));
+			if (difference >= 5)
+				_disc.value = 10;
+			else
+				_disc.value = 0;
+			_finalprice.value = (parseFloat(
+	<%out.print(session.getAttribute("priceHome"));%>
+		) - (parseFloat(_disc.value)
+					* parseFloat(
+	<%out.print(session.getAttribute("priceHome"));%>
+		) / 100));
+			eventFire(_disc, "click");
+			console.log("first0");
+		};
+		_num2.onchange = function() {
+			var difference = Math.floor((Date.parse(this.value) - Date
+					.parse(document.getElementById('check_in').value))
+					/ (1000 * 60 * 60 * 24));
+			if (difference >= 5)
+				_disc.value = 10;
+			else
+				_disc.value = 0;
+			_finalprice.value = (parseFloat(
+	<%out.print(session.getAttribute("priceHome"));%>
+		) - (parseFloat(_disc.value)
+					* parseFloat(
+	<%out.print(session.getAttribute("priceHome"));%>
+		) / 100));
+			eventFire(_disc, 'click');
+
+			console.log("second");
+		};
+	</script>
 	<%
 		}
 	%>

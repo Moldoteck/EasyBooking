@@ -23,15 +23,14 @@
 		<div class="collapse navbar-collapse " id="navbarSupportedContent">
 			<ul class="navbar-nav mr-4">
 
-				<li class="nav-item"><a class="nav-link" 
-				data-value="become_a_host" href="addHome.jsp">Become a host</a></li>
-
 				<%	
 				if(session.getAttribute("userId")!=null){
 		  %>
 			 <li class="nav-item">
 			<div class="navbar" style="display:inline;">
 			<li><img style="margin-left:0px; padding-left:0px;" src="images/user.png" alt="user img" width="50" height="50"></li>			
+			<a class="nav-link" data-value="become_a_host" href="addHome.jsp">Become
+							a host</a>
 			<a id="user_details" class="nav-link" href="userDetails.jsp"> <%out.print(session.getAttribute("userId")); %></a>
 			<form action="LogOutServlet" method="get" enctype="multipart/form-data">
 				<button class=" btn nav-link btn-link">Log Out</button>

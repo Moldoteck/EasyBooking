@@ -142,7 +142,7 @@ public class ListRentalDAO implements RentalDAO{
 	}
 
 	@Override
-	public boolean findIdUser(Integer id_user) {
+	public List<Rental> findIdUser(Integer id_user) {
 		// TODO Auto-generated method stub
 		boolean dissconect_flag=false;
 		try {
@@ -152,36 +152,33 @@ public class ListRentalDAO implements RentalDAO{
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-			return false;
+			return null;
 		}
 		List<Rental> rentals  = Collections.synchronizedList(new ArrayList<>());
 		try{
 			statmt = conn.createStatement();
-			resSet = statmt.executeQuery("SELECT * FROM rental");
+			resSet = statmt.executeQuery("SELECT * FROM rental where id_user="+id_user);
 			while(resSet.next())
 			{
 				Integer id_userr = resSet.getInt("id_user");
-				rentals.add(new Rental( id_userr));
+				Integer id_home = resSet.getInt("id_home");
+				Date ci = resSet.getDate("check_in");
+				Date co = resSet.getDate("check_out");
+				Integer discount  = resSet.getInt("discount");
+				Double price = resSet.getDouble("price");
+				
+				rentals.add(new Rental(ci,co,discount, price,id_home,id_userr));
 			}	
-			for(Rental rental : rentals)
-			{
-				if(rental.getId_user().equals(id_user))
-				{
-					if(dissconect_flag==true)
-						disconnectDB();
-					return true;
-				}
-			}
 			if(dissconect_flag == true)
 				disconnectDB();
-			return false;
+			return rentals;
 		}
 		catch(SQLException exc)
 		{
 			System.out.println("Exception"+exc);
 			if(dissconect_flag == true)
 				disconnectDB();
-			return false;
+			return null;
 		}	
 	}
 	

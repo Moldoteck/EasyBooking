@@ -9,7 +9,7 @@ public interface RentalDAO {
 
     Rental getRental(Date check_in);
     
-    boolean findIdUser(Integer id_user);
+    List<Rental> findIdUser(Integer id_user);
     
     boolean findIdHome(Integer id_home);
 
