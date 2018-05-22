@@ -26,10 +26,6 @@
 
 		<div class="collapse navbar-collapse " id="navbarSupportedContent">
 			<ul class="navbar-nav mr-4">
-
-				<li class="nav-item"><a class="nav-link" 
-				data-value="become_a_host" href="addHome.jsp">Become a host</a>
-				</li>
 				
 			<li class="nav-item">
 	        <a class="nav-link " data-value="login" href="login.jsp">Log in</a>

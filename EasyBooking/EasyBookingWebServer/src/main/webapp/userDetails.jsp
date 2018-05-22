@@ -42,6 +42,10 @@
 						</a>
 						<a class="nav-link" data-value="become_a_host" href="addHome.jsp">Become
 							a host</a>
+						<form action="myBookingsServlet" method="get"
+							enctype="multipart/form-data">
+							<button class=" btn nav-link btn-link">My Bookings</button>
+						</form>
 						<form action="LogOutServlet" method="get"
 							enctype="multipart/form-data">
 							<button class=" btn nav-link btn-link">Log Out</button>
